@@ -1,6 +1,10 @@
 import { createContext, useContext, useState } from 'react';
 
+type GameMode = 'survivor';
+
 interface SessionContextValue {
+  mode: GameMode | null;
+  setMode: (mode: GameMode) => void;
   players: string[];
   setPlayers: (players: string[]) => void;
 }
@@ -8,10 +12,11 @@ interface SessionContextValue {
 const SessionContext = createContext<SessionContextValue | null>(null);
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
+  const [mode, setMode] = useState<GameMode | null>(null);
   const [players, setPlayers] = useState<string[]>([]);
 
   return (
-    <SessionContext.Provider value={{ players, setPlayers }}>
+    <SessionContext.Provider value={{ mode, setMode, players, setPlayers }}>
       {children}
     </SessionContext.Provider>
   );

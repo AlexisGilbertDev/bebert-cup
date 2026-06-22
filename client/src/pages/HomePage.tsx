@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
 
-const MIN_PLAYERS = 2;
+const MIN_PLAYERS = 3;
 const MAX_PLAYERS = 8;
 
 interface PlayerInput {
@@ -16,6 +16,7 @@ function createInput(): PlayerInput {
 
 export default function HomePage() {
   const [inputs, setInputs] = useState<PlayerInput[]>([
+    createInput(),
     createInput(),
     createInput(),
   ]);
@@ -45,12 +46,12 @@ export default function HomePage() {
   function handleStart() {
     if (!canStart) return;
     setPlayers(filled);
-    navigate('/challenges');
+    navigate('/survivor/play');
   }
 
   return (
     <main>
-      <h1>Bebert Cup</h1>
+      <h1>Bebert Cup — Survivor</h1>
       <h2>Joueurs</h2>
       {inputs.map((input, index) => (
         <div key={input.id}>
