@@ -38,6 +38,15 @@ const CHALLENGES: Challenge[] = [
     eliminationRule: 'winner-chooses',
     minPlayers: 3,
   },
+  {
+    id: 'tour-du-monde',
+    name: 'Tour du monde',
+    description:
+      'Chacun son tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
+    resultType: 'outcome',
+    eliminationRule: 'last-unqualified',
+    minPlayers: 2,
+  },
 ];
 
 export class InMemoryChallengeRepository implements ChallengeRepositoryPort {
