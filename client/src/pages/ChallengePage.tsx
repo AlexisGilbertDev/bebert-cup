@@ -32,6 +32,7 @@ export default function ChallengePage() {
   const [statuses, setStatuses] = useState<Record<string, PlayerStatus>>(() =>
     Object.fromEntries(players.map((player) => [player, 'playing'])),
   );
+  const [scores, setScores] = useState<Record<string, string>>({});
   const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(
     null,
   );
@@ -47,10 +48,14 @@ export default function ChallengePage() {
     if (players.length === 0) navigate('/');
   }, [players, navigate]);
 
+  function eliminate(player: string) {
+    setStatuses((prev) => ({ ...prev, [player]: 'eliminated' }));
+    setRoundOver(true);
+  }
+
   function qualify(player: string) {
     const next = { ...statuses, [player]: 'qualified' as PlayerStatus };
     const stillPlaying = activePlayers.filter((p) => next[p] === 'playing');
-
     if (stillPlaying.length === 1) {
       next[stillPlaying[0]] = 'eliminated';
       setStatuses(next);
@@ -60,17 +65,24 @@ export default function ChallengePage() {
     }
   }
 
+  function submitScores() {
+    const sorted = activePlayers
+      .filter((p) => scores[p] !== undefined)
+      .sort((a, b) => Number(scores[b]) - Number(scores[a]));
+    if (sorted.length === 0) return;
+    eliminate(sorted[0]);
+  }
+
   function nextRound() {
     const survivors = activePlayers.filter((p) => statuses[p] !== 'eliminated');
-
     if (survivors.length === 1) {
       navigate('/survivor/winner', { state: { winner: survivors[0] } });
       return;
     }
-
     const order = shuffle(survivors);
     setActivePlayers(order);
     setStatuses(Object.fromEntries(order.map((p) => [p, 'playing'])));
+    setScores({});
     setCurrentChallenge(pickChallenge(challenges, order.length));
     setRoundOver(false);
   }
@@ -80,36 +92,74 @@ export default function ChallengePage() {
   if (!currentChallenge) return <p>Pas assez de défis disponibles.</p>;
 
   const eliminated = activePlayers.find((p) => statuses[p] === 'eliminated');
+  const survivors = activePlayers.filter((p) => statuses[p] !== 'eliminated');
+  const allScoresEntered = activePlayers.every(
+    (p) => scores[p] !== undefined && scores[p] !== '',
+  );
 
   return (
     <main>
       <h1>{currentChallenge.name}</h1>
       <p>{currentChallenge.description}</p>
 
-      <h2>Ordre de passage</h2>
+      <h2>Joueurs</h2>
       <ol>
-        {activePlayers.map((player) => (
+        {activePlayers.map((player, index) => (
           <li key={player}>
-            <span>{player}</span>
+            <span>
+              {index + 1}. {player}
+            </span>
+
             {statuses[player] === 'qualified' && <span> ✓ Qualifié</span>}
             {statuses[player] === 'eliminated' && <span> ✗ Éliminé</span>}
+
             {statuses[player] === 'playing' && !roundOver && (
-              <button type="button" onClick={() => qualify(player)}>
-                Touché !
-              </button>
+              <>
+                {currentChallenge.eliminationRule === 'last-unqualified' && (
+                  <button type="button" onClick={() => qualify(player)}>
+                    Touché !
+                  </button>
+                )}
+
+                {currentChallenge.eliminationRule === 'fault' && (
+                  <button type="button" onClick={() => eliminate(player)}>
+                    A laissé tomber
+                  </button>
+                )}
+
+                {currentChallenge.eliminationRule === 'highest-score' && (
+                  <input
+                    type="number"
+                    min="0"
+                    placeholder="Distance (m)"
+                    value={scores[player] ?? ''}
+                    onChange={(event) =>
+                      setScores((prev) => ({
+                        ...prev,
+                        [player]: event.target.value,
+                      }))
+                    }
+                  />
+                )}
+              </>
             )}
           </li>
         ))}
       </ol>
 
+      {currentChallenge.eliminationRule === 'highest-score' &&
+        !roundOver &&
+        allScoresEntered && (
+          <button type="button" onClick={submitScores}>
+            Valider les distances
+          </button>
+        )}
+
       {roundOver && eliminated && (
         <div>
           <p>{eliminated} est éliminé !</p>
           <button type="button" onClick={nextRound}>
-            {activePlayers.filter((p) => statuses[p] !== 'eliminated')
-              .length === 1
-              ? 'Voir le vainqueur'
-              : 'Défi suivant'}
+            {survivors.length === 1 ? 'Voir le vainqueur' : 'Défi suivant'}
           </button>
         </div>
       )}

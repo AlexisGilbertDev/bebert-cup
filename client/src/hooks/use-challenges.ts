@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 
+export type EliminationRule = 'last-unqualified' | 'highest-score' | 'fault';
+
 export interface Challenge {
   id: string;
   name: string;
   description: string;
   resultType: 'outcome' | 'score';
+  eliminationRule: EliminationRule;
   minPlayers: number;
 }
 
