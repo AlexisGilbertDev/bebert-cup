@@ -1,0 +1,23 @@
+{
+  "name": "bebert-cup-server",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "test:unit": "vitest run --reporter=verbose src/**/*.test.ts",
+    "test:integration": "vitest run --reporter=verbose src/**/*.integration.test.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.4",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

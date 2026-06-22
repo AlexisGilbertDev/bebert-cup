@@ -1,0 +1,14 @@
+{
+  "name": "bebert-cup",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "test": "npm run test --prefix server",
+    "test:unit": "npm run test:unit --prefix server",
+    "test:integration": "npm run test:integration --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
