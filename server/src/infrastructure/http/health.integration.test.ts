@@ -4,7 +4,9 @@ import { buildApp } from './server.js';
 
 describe('GET /api/health', () => {
   it('returns 200 with status ok', async () => {
-    const application = buildApp();
+    const application = buildApp({
+      challengeRepository: { findAll: () => [] },
+    });
     const response = await request(application).get('/api/health');
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ status: 'ok' });
