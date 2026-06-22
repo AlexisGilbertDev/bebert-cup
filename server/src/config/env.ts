@@ -1,3 +1,3 @@
 export const env = {
-  PORT: parseInt(process.env['PORT'] ?? '3000', 10),
+  PORT: parseInt(process.env.PORT ?? '3000', 10),
 };

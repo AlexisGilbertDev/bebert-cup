@@ -1,5 +1,5 @@
-import { buildApp } from './infrastructure/http/server.js';
 import { env } from './config/env.js';
+import { buildApp } from './infrastructure/http/server.js';
 
 const application = buildApp();
 
