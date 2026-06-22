@@ -47,6 +47,15 @@ const CHALLENGES: Challenge[] = [
     eliminationRule: 'last-unqualified',
     minPlayers: 2,
   },
+  {
+    id: 'pick-your-poison',
+    name: 'Pick Your Poison',
+    description:
+      "Un joueur tiré au sort désigne un adversaire et lui impose le geste technique de son choix. Si le désigné réussit, le désignant est éliminé. S'il échoue, c'est le désigné.",
+    resultType: 'outcome',
+    eliminationRule: 'designator-challenge',
+    minPlayers: 2,
+  },
 ];
 
 export class InMemoryChallengeRepository implements ChallengeRepositoryPort {

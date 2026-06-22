@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DesignatorChallenge from '../components/DesignatorChallenge';
 import WinnerChoosesChallenge from '../components/WinnerChoosesChallenge';
 import { useSession } from '../context/session.context';
 import type { Challenge } from '../hooks/use-challenges';
@@ -86,6 +87,12 @@ export default function ChallengePage() {
       {!eliminated &&
         (rule === 'winner-chooses' ? (
           <WinnerChoosesChallenge
+            key={currentChallenge.id}
+            activePlayers={activePlayers}
+            onEliminate={eliminate}
+          />
+        ) : rule === 'designator-challenge' ? (
+          <DesignatorChallenge
             key={currentChallenge.id}
             activePlayers={activePlayers}
             onEliminate={eliminate}

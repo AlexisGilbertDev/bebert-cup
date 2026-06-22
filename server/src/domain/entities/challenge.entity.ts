@@ -3,7 +3,8 @@ export type EliminationRule =
   | 'last-unqualified'
   | 'highest-score'
   | 'fault'
-  | 'winner-chooses';
+  | 'winner-chooses'
+  | 'designator-challenge';
 
 export interface Challenge {
   id: string;
