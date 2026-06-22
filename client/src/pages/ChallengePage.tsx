@@ -136,9 +136,7 @@ export default function ChallengePage() {
         <div>
           <p>{eliminated} est éliminé !</p>
           <button type="button" onClick={nextRound}>
-            {activePlayers.filter((p) => p !== eliminated).length === 1
-              ? 'Voir le vainqueur'
-              : 'Défi suivant'}
+            Défi suivant
           </button>
         </div>
       )}
