@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-export type EliminationRule = 'last-unqualified' | 'highest-score' | 'fault';
+export type EliminationRule =
+  | 'last-unqualified'
+  | 'highest-score'
+  | 'fault'
+  | 'winner-chooses';
 
 export interface Challenge {
   id: string;

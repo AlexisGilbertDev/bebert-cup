@@ -6,7 +6,7 @@ const CHALLENGES: Challenge[] = [
     id: 'crossbar-challenge',
     name: 'Crossbar Challenge',
     description:
-      "Depuis la ligne de la surface, visez la barre transversale. Les joueurs tirent dans un ordre aléatoire — dès que vous touchez la barre, vous êtes qualifié ! On continue jusqu'à ce qu'il ne reste plus qu'un joueur sans succès... qui est éliminé.",
+      'Depuis la ligne de la surface, visez la barre transversale. Les joueurs tirent dans un ordre aléatoire. Le dernier à ne pas avoir touché la barre est éliminé.',
     resultType: 'outcome',
     eliminationRule: 'last-unqualified',
     minPlayers: 2,
@@ -15,7 +15,7 @@ const CHALLENGES: Challenge[] = [
     id: 'goal-line-precision',
     name: 'Goal Line Precision',
     description:
-      'Depuis la ligne médiane, envoyez votre ballon le plus près possible de la ligne de but ! Chaque joueur tire à son tour, puis annonce (honnêtement 😅) sa distance estimée en mètres. Le joueur dont le ballon est le plus loin de la ligne de but est éliminé.',
+      'Depuis la ligne médiane, envoyez votre ballon le plus près possible de la ligne de but. Chaque joueur annonce sa distance. Le plus éloigné est éliminé.',
     resultType: 'score',
     eliminationRule: 'highest-score',
     minPlayers: 2,
@@ -24,10 +24,19 @@ const CHALLENGES: Challenge[] = [
     id: 'brasileira',
     name: 'Brasileira',
     description:
-      "La brésilienne, c'est sacré ! Tous ensemble, gardez le ballon en l'air — 3 touches maximum par joueur à chaque passage. Celui qui laisse le ballon toucher le sol est directement éliminé. Pas de pitié pour les maladroits !",
+      "Tous ensemble, gardez le ballon en l'air avec 3 touches maximum par joueur. Celui qui laisse tomber est éliminé.",
     resultType: 'outcome',
     eliminationRule: 'fault',
     minPlayers: 2,
+  },
+  {
+    id: 'qualification',
+    name: 'Qualification',
+    description:
+      'Un joueur tiré au sort va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le dernier survivant choisit qui il veut éliminer.',
+    resultType: 'outcome',
+    eliminationRule: 'winner-chooses',
+    minPlayers: 3,
   },
 ];
 

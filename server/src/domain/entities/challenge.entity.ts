@@ -1,5 +1,9 @@
 export type ChallengeResultType = 'outcome' | 'score';
-export type EliminationRule = 'last-unqualified' | 'highest-score' | 'fault';
+export type EliminationRule =
+  | 'last-unqualified'
+  | 'highest-score'
+  | 'fault'
+  | 'winner-chooses';
 
 export interface Challenge {
   id: string;
