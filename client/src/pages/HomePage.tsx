@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
+import Caption from '../components/Caption';
+import ComicButton from '../components/ComicButton';
+import ComicPanel from '../components/ComicPanel';
+import ComicTitle from '../components/ComicTitle';
+import '../components/comic.css';
 
 const MIN_PLAYERS = 3;
 const MAX_PLAYERS = 8;
 
 const PLAYER_COLORS = [
-  '#ef4444', // rouge      H=0°
-  '#f59e0b', // ambre      H=45°
-  '#84cc16', // lime       H=90°
-  '#10b981', // émeraude   H=162°
-  '#06b6d4', // cyan       H=192°
-  '#3b82f6', // bleu       H=217°
-  '#8b5cf6', // violet     H=258°
-  '#ec4899', // rose       H=328°
+  '#ef4444',
+  '#f59e0b',
+  '#84cc16',
+  '#10b981',
+  '#06b6d4',
+  '#3b82f6',
+  '#8b5cf6',
+  '#ec4899',
 ];
 
 interface PlayerInput {
@@ -61,49 +66,77 @@ export default function HomePage() {
   }
 
   return (
-    <main>
-      <h1>Bebert Cup — Survivor</h1>
-      <h2>Joueurs</h2>
-      {inputs.map((input, index) => (
-        <div key={input.id}>
-          <span
-            style={{
-              display: 'inline-block',
-              width: 12,
-              height: 12,
-              borderRadius: '50%',
-              backgroundColor: PLAYER_COLORS[index],
-              marginRight: 8,
-              flexShrink: 0,
-            }}
-          />
-          <input
-            type="text"
-            placeholder={`Joueur ${index + 1}`}
-            value={input.value}
-            onChange={(event) => updateInput(input.id, event.target.value)}
-            maxLength={30}
-          />
-          {inputs.length > MIN_PLAYERS && (
-            <button type="button" onClick={() => removePlayer(input.id)}>
-              Supprimer
-            </button>
-          )}
-        </div>
-      ))}
-      {hasDuplicates && (
-        <p>Deux joueurs ne peuvent pas avoir le même pseudo.</p>
-      )}
-      <button
-        type="button"
-        onClick={addPlayer}
-        disabled={inputs.length >= MAX_PLAYERS}
-      >
-        Ajouter un joueur
-      </button>
-      <button type="button" onClick={handleStart} disabled={!canStart}>
-        Démarrer
-      </button>
-    </main>
+    <div className="comic-page">
+      <div className="comic-content">
+        <ComicTitle size="md" as="h1">BEBERT CUP</ComicTitle>
+        <Caption>Joueurs</Caption>
+
+        <ComicPanel style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {inputs.map((input, index) => (
+            <div key={input.id} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span
+                className="player-dot"
+                style={{ backgroundColor: PLAYER_COLORS[index] }}
+              />
+              <input
+                type="text"
+                placeholder={`Joueur ${index + 1}`}
+                value={input.value}
+                onChange={(event) => updateInput(input.id, event.target.value)}
+                maxLength={30}
+                style={{
+                  flex: 1,
+                  height: 44,
+                  border: '3px solid var(--ink)',
+                  borderRadius: 6,
+                  padding: '0 12px',
+                  font: '800 16px Nunito',
+                  background: 'var(--paper)',
+                  color: 'var(--ink)',
+                  outline: 'none',
+                }}
+              />
+              {inputs.length > MIN_PLAYERS && (
+                <button
+                  type="button"
+                  onClick={() => removePlayer(input.id)}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    border: '2px solid var(--ink)',
+                    borderRadius: 6,
+                    background: '#fff',
+                    cursor: 'pointer',
+                    font: '900 16px Nunito',
+                    color: 'var(--ink)',
+                    flexShrink: 0,
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          ))}
+        </ComicPanel>
+
+        {hasDuplicates && (
+          <p style={{ font: '700 14px Nunito', color: 'var(--red)', textAlign: 'center' }}>
+            Deux joueurs ne peuvent pas avoir le même pseudo.
+          </p>
+        )}
+
+        <ComicButton
+          variant="yellow"
+          onClick={addPlayer}
+          disabled={inputs.length >= MAX_PLAYERS}
+        >
+          + Ajouter un joueur
+        </ComicButton>
+
+        <ComicButton onClick={handleStart} disabled={!canStart}>
+          DÉMARRER !
+        </ComicButton>
+      </div>
+    </div>
   );
 }
