@@ -4,7 +4,10 @@ export type EliminationRule =
   | 'highest-score'
   | 'fault'
   | 'winner-chooses'
-  | 'designator-challenge';
+  | 'designator-challenge'
+  | 'crosser-challenge'
+  | 'chandelle'
+  | 'goalkeeper-challenge';
 
 export interface Challenge {
   id: string;

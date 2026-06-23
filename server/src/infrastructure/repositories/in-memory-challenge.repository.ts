@@ -48,12 +48,57 @@ const CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'le-miroir',
+    name: 'Le Miroir',
+    description:
+      "Un joueur tiré au sort effectue un geste technique et désigne un adversaire qui doit le reproduire. S'il rate, le désigné est éliminé. S'il réussit, c'est le désignant qui prend la porte.",
+    resultType: 'outcome',
+    eliminationRule: 'designator-challenge',
+    minPlayers: 2,
+  },
+  {
     id: 'pick-your-poison',
     name: 'Pick Your Poison',
     description:
       "Un joueur tiré au sort désigne un adversaire et lui impose le geste technique de son choix. Si le désigné réussit, le désignant est éliminé. S'il échoue, c'est le désigné.",
     resultType: 'outcome',
     eliminationRule: 'designator-challenge',
+    minPlayers: 2,
+  },
+  {
+    id: 'la-quiche',
+    name: 'La Quiche',
+    description:
+      "Tout le monde frappe en dehors de la surface. Les participants se mettent d'accord à l'unanimité pour désigner la quiche de l'équipe — celui qui a shooté comme un pied.",
+    resultType: 'outcome',
+    eliminationRule: 'last-unqualified',
+    minPlayers: 2,
+  },
+  {
+    id: 'chandelle',
+    name: 'La Chandelle',
+    description:
+      "Un joueur tiré au sort envoie une chandelle. Les autres se battent pour la contrôler proprement — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui la colle choisit qui il veut éliminer.",
+    resultType: 'outcome',
+    eliminationRule: 'chandelle',
+    minPlayers: 3,
+  },
+  {
+    id: 'face-au-gardien',
+    name: 'Face au Gardien',
+    description:
+      "Trois joueurs tirés au sort : un gardien, un tireur et un juge. Le juge choisit l'endroit du tir. Le tireur frappe, le gardien doit arrêter. Le tireur marque — le gardien est éliminé. Le tireur rate — c'est lui qui prend la porte.",
+    resultType: 'outcome',
+    eliminationRule: 'goalkeeper-challenge',
+    minPlayers: 3,
+  },
+  {
+    id: 'centre-fatal',
+    name: 'Centre Fatal',
+    description:
+      "Deux joueurs sont tirés au sort : un centreur et un finisseur. Le centreur envoie un centre, le finisseur doit le reprendre de la tête. S'il rate, le centreur est éliminé. S'il marque, c'est le finisseur.",
+    resultType: 'outcome',
+    eliminationRule: 'crosser-challenge',
     minPlayers: 2,
   },
 ];
