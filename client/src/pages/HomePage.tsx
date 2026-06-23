@@ -68,7 +68,19 @@ export default function HomePage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <ComicTitle size="md" as="h1">BEBERT CUP</ComicTitle>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button
+            type="button"
+            aria-label="Retour"
+            onClick={() => navigate('/')}
+            className="comic-btn-retour"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 5 L7 12 L14 19" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <ComicTitle size="md" as="h1">BEBERT CUP</ComicTitle>
+        </div>
         <Caption>Joueurs</Caption>
 
         <ComicPanel style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>

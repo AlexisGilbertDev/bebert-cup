@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
-import BebertCharacter from '../components/BebertCharacter';
 import Caption from '../components/Caption';
 import ComicButton from '../components/ComicButton';
 import PowBadge from '../components/PowBadge';
@@ -33,7 +32,13 @@ export default function ModeSelectionPage() {
         </div>
 
         {/* Character panel */}
-        <BebertCharacter />
+        <div className="comic-panel" style={{ overflow: 'hidden' }}>
+          <img
+            src="/assets/bebert-character.png"
+            alt="Bebert"
+            style={{ width: '100%', display: 'block' }}
+          />
+        </div>
 
         {/* Mode section */}
         <Caption>Choix du mode</Caption>
