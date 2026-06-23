@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
-import ComicTitle from '../components/ComicTitle';
+import PageHeader from '../components/PageHeader';
 import PowBadge from '../components/PowBadge';
 import '../components/comic.css';
 
@@ -18,19 +18,16 @@ export default function WinnerPage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-
-        <div style={{ position: 'relative', textAlign: 'center' }}>
-          <ComicTitle size="lg" as="h1">VICTOIRE&nbsp;!</ComicTitle>
-          <div style={{ position: 'absolute', top: -6, right: 6 }}>
-            <PowBadge>🏆</PowBadge>
-          </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <PageHeader>VICTOIRE&nbsp;!</PageHeader>
+          <PowBadge>🏆</PowBadge>
         </div>
 
         <ComicPanel style={{ padding: 24, textAlign: 'center' }}>
           <p style={{ font: '700 16px Nunito', color: 'var(--text-muted)', marginBottom: 8 }}>
             Nous avons un vainqueur.
           </p>
-          <p className="comic-title comic-title--sm" style={{ lineHeight: 1.2 }}>
+          <p className="comic-title comic-title--sm comic-title--nostroke" style={{ lineHeight: 1.2 }}>
             {winner}<br />remporte la<br />Bebert Cup !
           </p>
         </ComicPanel>
