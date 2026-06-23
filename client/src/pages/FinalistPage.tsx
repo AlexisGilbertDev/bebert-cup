@@ -19,7 +19,7 @@ export default function FinalistPage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <ComicTitle size="lg" as="h1" variant="long">GRANDE FINALE</ComicTitle>
+        <ComicTitle size="lg" as="h1">GRANDE FINALE</ComicTitle>
         <Caption>La Bebert Survivor Cup se joue maintenant.</Caption>
 
         <ComicPanel style={{ padding: 20, textAlign: 'center' }}>

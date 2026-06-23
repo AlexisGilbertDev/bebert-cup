@@ -93,7 +93,7 @@ export default function ChallengePage() {
         <Caption>Round en cours · {activePlayers.length} joueurs</Caption>
 
         <ComicPanel style={{ padding: 16 }}>
-          <ComicTitle size="sm" as="h1" variant="long">{currentChallenge.name}</ComicTitle>
+          <ComicTitle size="sm" as="h1">{currentChallenge.name}</ComicTitle>
           <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
             {currentChallenge.description}
           </p>
