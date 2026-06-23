@@ -1,3 +1,15 @@
+:root {
+  --ink: #15110d;
+  --ink-soft: #14110d;
+  --paper: #fdf3df;
+  --red: #e63946;
+  --yellow: #ffd23f;
+  --blue: #1d6fe0;
+  --jersey: #1f6fe0;
+  --jersey-shade: #1759b8;
+  --text-muted: #3f3a33;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -5,5 +17,8 @@
 }
 
 body {
-  font-family: system-ui, sans-serif;
+  font-family: 'Nunito', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100dvh;
 }
