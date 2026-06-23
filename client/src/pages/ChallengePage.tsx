@@ -46,6 +46,18 @@ export default function ChallengePage() {
     if (players.length === 0) navigate('/');
   }, [players, navigate]);
 
+  function changeChallenge() {
+    if (!currentChallenge) return;
+    const eligible = challenges.filter(
+      (c) =>
+        c.minPlayers <= activePlayers.length && c.id !== currentChallenge.id,
+    );
+    if (eligible.length === 0) return;
+    setCurrentChallenge(
+      eligible[Math.floor(Math.random() * eligible.length)],
+    );
+  }
+
   function nextRound() {
     const survivors = activePlayers.filter((p) => p !== eliminated);
     if (survivors.length === 1) {
@@ -72,15 +84,20 @@ export default function ChallengePage() {
       <p>{currentChallenge.description}</p>
 
       {!eliminated && (
-        <ul>
-          {activePlayers.map((player) => (
-            <li key={player}>
-              <button type="button" onClick={() => setEliminated(player)}>
-                {player}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul>
+            {activePlayers.map((player) => (
+              <li key={player}>
+                <button type="button" onClick={() => setEliminated(player)}>
+                  {player}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <button type="button" onClick={changeChallenge}>
+            Changer de défi
+          </button>
+        </>
       )}
 
       {eliminated && (
