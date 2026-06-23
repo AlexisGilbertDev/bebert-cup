@@ -1,23 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
-import type { Challenge } from '../hooks/use-challenges';
+import { pickChallenge, resolveRound, shuffle } from '../game';
 import { useChallenges } from '../hooks/use-challenges';
-
-function shuffle<T>(array: T[]): T[] {
-  return [...array].sort(() => Math.random() - 0.5);
-}
-
-function pickChallenge(
-  challenges: Challenge[],
-  playerCount: number,
-): Challenge | null {
-  const eligible = challenges.filter(
-    (challenge) => challenge.minPlayers <= playerCount,
-  );
-  if (eligible.length === 0) return null;
-  return eligible[Math.floor(Math.random() * eligible.length)];
-}
 
 export default function ChallengePage() {
   const { players } = useSession();
@@ -59,16 +44,17 @@ export default function ChallengePage() {
   }
 
   function nextRound() {
-    const survivors = activePlayers.filter((p) => p !== eliminated);
-    if (survivors.length === 1) {
-      navigate('/survivor/winner', { state: { winner: survivors[0] } });
+    if (!eliminated) return;
+    const result = resolveRound(activePlayers, eliminated);
+    if (result.type === 'winner') {
+      navigate('/survivor/winner', { state: { winner: result.winner } });
       return;
     }
-    if (survivors.length === 2) {
-      navigate('/survivor/finale', { state: { finalists: survivors } });
+    if (result.type === 'finale') {
+      navigate('/survivor/finale', { state: { finalists: result.finalists } });
       return;
     }
-    const order = shuffle(survivors);
+    const order = shuffle(result.survivors);
     setActivePlayers(order);
     setCurrentChallenge(pickChallenge(challenges, order.length));
     setEliminated(null);

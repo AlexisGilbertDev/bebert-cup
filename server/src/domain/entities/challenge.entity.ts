@@ -1,19 +1,6 @@
-export type ChallengeResultType = 'outcome' | 'score';
-export type EliminationRule =
-  | 'last-unqualified'
-  | 'highest-score'
-  | 'fault'
-  | 'winner-chooses'
-  | 'designator-challenge'
-  | 'crosser-challenge'
-  | 'chandelle'
-  | 'goalkeeper-challenge';
-
 export interface Challenge {
   id: string;
   name: string;
   description: string;
-  resultType: ChallengeResultType;
-  eliminationRule: EliminationRule;
   minPlayers: number;
 }

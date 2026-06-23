@@ -16,8 +16,6 @@ const fakeChallenges: Challenge[] = [
     id: 'crossbar-challenge',
     name: 'Crossbar Challenge',
     description: 'Hit the crossbar.',
-    resultType: 'outcome',
-    eliminationRule: 'last-unqualified',
     minPlayers: 2,
   },
 ];

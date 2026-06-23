@@ -7,8 +7,6 @@ const CHALLENGES: Challenge[] = [
     name: 'Crossbar Challenge',
     description:
       'Depuis la ligne de la surface, visez la barre transversale. Les joueurs tirent dans un ordre aléatoire. Le dernier à ne pas avoir touché la barre est éliminé.',
-    resultType: 'outcome',
-    eliminationRule: 'last-unqualified',
     minPlayers: 2,
   },
   {
@@ -16,8 +14,6 @@ const CHALLENGES: Challenge[] = [
     name: 'Goal Line Precision',
     description:
       'Depuis la ligne médiane, envoyez votre ballon le plus près possible de la ligne de but. Chaque joueur annonce sa distance. Le plus éloigné est éliminé.',
-    resultType: 'score',
-    eliminationRule: 'highest-score',
     minPlayers: 2,
   },
   {
@@ -25,8 +21,6 @@ const CHALLENGES: Challenge[] = [
     name: 'Brasileira',
     description:
       "Tous ensemble, gardez le ballon en l'air avec 3 touches maximum par joueur. Celui qui laisse tomber est éliminé.",
-    resultType: 'outcome',
-    eliminationRule: 'fault',
     minPlayers: 2,
   },
   {
@@ -34,8 +28,6 @@ const CHALLENGES: Challenge[] = [
     name: 'Qualification',
     description:
       'Un joueur tiré au sort va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le dernier survivant choisit qui il veut éliminer.',
-    resultType: 'outcome',
-    eliminationRule: 'winner-chooses',
     minPlayers: 3,
   },
   {
@@ -43,8 +35,6 @@ const CHALLENGES: Challenge[] = [
     name: 'Tour du monde',
     description:
       'Chacun son tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
-    resultType: 'outcome',
-    eliminationRule: 'last-unqualified',
     minPlayers: 2,
   },
   {
@@ -52,8 +42,6 @@ const CHALLENGES: Challenge[] = [
     name: 'Le Miroir',
     description:
       "Un joueur tiré au sort effectue un geste technique et désigne un adversaire qui doit le reproduire. S'il rate, le désigné est éliminé. S'il réussit, c'est le désignant qui prend la porte.",
-    resultType: 'outcome',
-    eliminationRule: 'designator-challenge',
     minPlayers: 2,
   },
   {
@@ -61,8 +49,6 @@ const CHALLENGES: Challenge[] = [
     name: 'Pick Your Poison',
     description:
       "Un joueur tiré au sort désigne un adversaire et lui impose le geste technique de son choix. Si le désigné réussit, le désignant est éliminé. S'il échoue, c'est le désigné.",
-    resultType: 'outcome',
-    eliminationRule: 'designator-challenge',
     minPlayers: 2,
   },
   {
@@ -70,8 +56,6 @@ const CHALLENGES: Challenge[] = [
     name: 'La Quiche',
     description:
       "Tout le monde frappe en dehors de la surface. Les participants se mettent d'accord à l'unanimité pour désigner la quiche de l'équipe — celui qui a shooté comme un pied.",
-    resultType: 'outcome',
-    eliminationRule: 'last-unqualified',
     minPlayers: 2,
   },
   {
@@ -79,8 +63,6 @@ const CHALLENGES: Challenge[] = [
     name: 'La Chandelle',
     description:
       "Un joueur tiré au sort envoie une chandelle. Les autres se battent pour la contrôler proprement — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui la colle choisit qui il veut éliminer.",
-    resultType: 'outcome',
-    eliminationRule: 'chandelle',
     minPlayers: 3,
   },
   {
@@ -88,17 +70,27 @@ const CHALLENGES: Challenge[] = [
     name: 'Face au Gardien',
     description:
       "Trois joueurs tirés au sort : un gardien, un tireur et un juge. Le juge choisit l'endroit du tir. Le tireur frappe, le gardien doit arrêter. Le tireur marque — le gardien est éliminé. Le tireur rate — c'est lui qui prend la porte.",
-    resultType: 'outcome',
-    eliminationRule: 'goalkeeper-challenge',
     minPlayers: 3,
+  },
+  {
+    id: 'petit-filet',
+    name: 'Petit Filet',
+    description:
+      "Chacun tire un pénalty sans gardien et doit mettre dans le petit filet. Ceux qui ratent se réaffrontent, et ainsi de suite — jusqu'à ce qu'il ne reste qu'un seul joueur incapable de faire le petit filet.",
+    minPlayers: 2,
+  },
+  {
+    id: 'jongle',
+    name: 'La Jongle',
+    description:
+      'Tout le monde jongle en même temps. Chacun annonce son nombre de touches. Celui qui en a fait le moins est éliminé.',
+    minPlayers: 2,
   },
   {
     id: 'centre-fatal',
     name: 'Centre Fatal',
     description:
       "Deux joueurs sont tirés au sort : un centreur et un finisseur. Le centreur envoie un centre, le finisseur doit le reprendre de la tête. S'il rate, le centreur est éliminé. S'il marque, c'est le finisseur.",
-    resultType: 'outcome',
-    eliminationRule: 'crosser-challenge',
     minPlayers: 2,
   },
 ];
