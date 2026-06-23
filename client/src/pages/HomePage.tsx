@@ -68,7 +68,30 @@ export default function HomePage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <ComicTitle size="md" as="h1">BEBERT CUP</ComicTitle>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            style={{
+              width: 40,
+              height: 40,
+              border: '3px solid var(--ink)',
+              borderRadius: 6,
+              background: '#fff',
+              boxShadow: '3px 3px 0 var(--ink)',
+              cursor: 'pointer',
+              font: '900 20px Nunito',
+              color: 'var(--ink)',
+              flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            ←
+          </button>
+          <ComicTitle size="md" as="h1">BEBERT CUP</ComicTitle>
+        </div>
         <Caption>Joueurs</Caption>
 
         <ComicPanel style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
