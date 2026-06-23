@@ -30,16 +30,7 @@ export default function WinnerPage() {
           <p style={{ font: '700 16px Nunito', color: 'var(--text-muted)', marginBottom: 8 }}>
             Nous avons un vainqueur.
           </p>
-          <p
-            style={{
-              fontFamily: 'Bangers, cursive',
-              fontSize: 32,
-              color: 'var(--red)',
-              WebkitTextStroke: '1px var(--ink)',
-              textShadow: '3px 3px 0 var(--ink)',
-              lineHeight: 1.1,
-            }}
-          >
+          <p className="titre-long titre-long--lg">
             {winner}<br />remporte la<br />Bebert Cup !
           </p>
         </ComicPanel>

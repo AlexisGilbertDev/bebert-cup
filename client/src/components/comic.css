@@ -36,19 +36,32 @@
   box-shadow: 5px 5px 0 var(--ink);
 }
 
-/* Title */
+/* Title — mots courts/punchy (Bangers) */
 .comic-title {
   font-family: 'Bangers', cursive;
   color: var(--red);
-  -webkit-text-stroke: 2px var(--ink);
-  text-shadow: 4px 4px 0 var(--ink);
+  text-shadow: 2px 2px 0 var(--ink);
   line-height: 0.9;
-  letter-spacing: 0.02em;
+  letter-spacing: 2px;
 }
 
 .comic-title--sm { font-size: 30px; }
 .comic-title--md { font-size: 42px; }
 .comic-title--lg { font-size: 54px; }
+
+/* Title — titres longs (Nunito 900) */
+.titre-long {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--red);
+  text-shadow: 2px 2px 0 var(--ink);
+  line-height: 1.1;
+}
+
+.titre-long--sm { font-size: 22px; }
+.titre-long--md { font-size: 28px; }
+.titre-long--lg { font-size: 36px; }
 
 /* Caption */
 .comic-caption {
