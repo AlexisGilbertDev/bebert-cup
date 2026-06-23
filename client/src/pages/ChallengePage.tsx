@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import DesignatorChallenge from '../components/DesignatorChallenge';
-import WinnerChoosesChallenge from '../components/WinnerChoosesChallenge';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
 import type { Challenge } from '../hooks/use-challenges';
 import { useChallenges } from '../hooks/use-challenges';
@@ -24,12 +22,15 @@ function pickChallenge(
 export default function ChallengePage() {
   const { players } = useSession();
   const navigate = useNavigate();
+  const location = useLocation();
   const { challenges, loading, error } = useChallenges();
 
+  const finalists = (location.state as { finalists?: string[] } | null)
+    ?.finalists;
+
   const [activePlayers, setActivePlayers] = useState<string[]>(() =>
-    shuffle(players),
+    shuffle(finalists ?? players),
   );
-  const [scores, setScores] = useState<Record<string, string>>({});
   const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(
     null,
   );
@@ -45,27 +46,18 @@ export default function ChallengePage() {
     if (players.length === 0) navigate('/');
   }, [players, navigate]);
 
-  function eliminate(player: string) {
-    setEliminated(player);
-  }
-
-  function submitScores() {
-    const sorted = activePlayers
-      .filter((p) => scores[p] !== undefined && scores[p] !== '')
-      .sort((a, b) => Number(scores[b]) - Number(scores[a]));
-    if (sorted.length === 0) return;
-    eliminate(sorted[0]);
-  }
-
   function nextRound() {
     const survivors = activePlayers.filter((p) => p !== eliminated);
     if (survivors.length === 1) {
       navigate('/survivor/winner', { state: { winner: survivors[0] } });
       return;
     }
+    if (survivors.length === 2) {
+      navigate('/survivor/finale', { state: { finalists: survivors } });
+      return;
+    }
     const order = shuffle(survivors);
     setActivePlayers(order);
-    setScores({});
     setCurrentChallenge(pickChallenge(challenges, order.length));
     setEliminated(null);
   }
@@ -74,70 +66,22 @@ export default function ChallengePage() {
   if (error) return <p>{error}</p>;
   if (!currentChallenge) return <p>Pas assez de défis disponibles.</p>;
 
-  const rule = currentChallenge.eliminationRule;
-  const allScoresEntered = activePlayers.every(
-    (p) => scores[p] !== undefined && scores[p] !== '',
-  );
-
   return (
     <main>
       <h1>{currentChallenge.name}</h1>
       <p>{currentChallenge.description}</p>
 
-      {!eliminated &&
-        (rule === 'winner-chooses' ? (
-          <WinnerChoosesChallenge
-            key={currentChallenge.id}
-            activePlayers={activePlayers}
-            onEliminate={eliminate}
-          />
-        ) : rule === 'designator-challenge' ? (
-          <DesignatorChallenge
-            key={currentChallenge.id}
-            activePlayers={activePlayers}
-            onEliminate={eliminate}
-          />
-        ) : (
-          <>
-            <h2>Ordre de passage</h2>
-            <ol>
-              {activePlayers.map((player, index) => (
-                <li key={player}>
-                  {index + 1}. {player}
-                  {rule === 'fault' && (
-                    <button type="button" onClick={() => eliminate(player)}>
-                      A laissé tomber
-                    </button>
-                  )}
-                  {rule === 'last-unqualified' && (
-                    <button type="button" onClick={() => eliminate(player)}>
-                      Éliminé
-                    </button>
-                  )}
-                  {rule === 'highest-score' && (
-                    <input
-                      type="number"
-                      min="0"
-                      placeholder="Distance (m)"
-                      value={scores[player] ?? ''}
-                      onChange={(event) =>
-                        setScores((prev) => ({
-                          ...prev,
-                          [player]: event.target.value,
-                        }))
-                      }
-                    />
-                  )}
-                </li>
-              ))}
-            </ol>
-            {rule === 'highest-score' && allScoresEntered && (
-              <button type="button" onClick={submitScores}>
-                Valider
+      {!eliminated && (
+        <ul>
+          {activePlayers.map((player) => (
+            <li key={player}>
+              <button type="button" onClick={() => setEliminated(player)}>
+                {player}
               </button>
-            )}
-          </>
-        ))}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {eliminated && (
         <div>

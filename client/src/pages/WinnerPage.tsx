@@ -12,8 +12,9 @@ export default function WinnerPage() {
 
   return (
     <main>
-      <h1>Bebert Cup — Survivor</h1>
-      <h2>🏆 {winner} remporte la Bebert Cup !</h2>
+      <h1>Bebert Survivor Cup</h1>
+      <p>Nous avons un vainqueur.</p>
+      <h2>{winner} remporte la Bebert Survivor Cup !</h2>
       <button type="button" onClick={() => navigate('/')}>
         Rejouer
       </button>
