@@ -5,6 +5,7 @@ import Caption from '../components/Caption';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import ComicTitle from '../components/ComicTitle';
+import PageHeader from '../components/PageHeader';
 import { pickChallenge, resolveRound, shuffle } from '../game';
 import { useChallenges, type Challenge } from '../hooks/use-challenges';
 import '../components/comic.css';
@@ -90,10 +91,10 @@ export default function ChallengePage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <Caption>Round en cours · {activePlayers.length} joueurs</Caption>
+        <PageHeader>DÉFI · {activePlayers.length} joueurs</PageHeader>
 
         <ComicPanel style={{ padding: 16 }}>
-          <ComicTitle size="sm" as="h1">{currentChallenge.name}</ComicTitle>
+          <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
           <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
             {currentChallenge.description}
           </p>
@@ -101,7 +102,7 @@ export default function ChallengePage() {
 
         {!eliminated && (
           <>
-            <Caption>Qui est éliminé ?</Caption>
+            <Caption>Qui est éliminé&nbsp;?</Caption>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {activePlayers.map((player) => (
                 <button

@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
-import Caption from '../components/Caption';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
-import ComicTitle from '../components/ComicTitle';
+import PageHeader from '../components/PageHeader';
 import '../components/comic.css';
 
 const MIN_PLAYERS = 3;
@@ -68,20 +67,7 @@ export default function HomePage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button
-            type="button"
-            aria-label="Retour"
-            onClick={() => navigate('/')}
-            className="comic-btn-retour"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M14 5 L7 12 L14 19" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <ComicTitle size="md" as="h1">BEBERT CUP</ComicTitle>
-        </div>
-        <Caption>Joueurs</Caption>
+        <PageHeader>JOUEURS</PageHeader>
 
         <ComicPanel style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
           {inputs.map((input, index) => (

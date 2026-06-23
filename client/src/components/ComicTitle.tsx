@@ -4,19 +4,22 @@ interface ComicTitleProps {
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
   as?: 'h1' | 'h2' | 'h3' | 'div';
-  variant?: 'short' | 'long';
+  noStroke?: boolean;
 }
 
 export default function ComicTitle({
   children,
   size = 'md',
   as: Tag = 'h1',
-  variant = 'short',
+  noStroke = false,
 }: ComicTitleProps) {
-  const className =
-    variant === 'long'
-      ? `titre-long titre-long--${size}`
-      : `comic-title comic-title--${size}`;
+  const className = [
+    'comic-title',
+    `comic-title--${size}`,
+    noStroke ? 'comic-title--nostroke' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return <Tag className={className}>{children}</Tag>;
 }

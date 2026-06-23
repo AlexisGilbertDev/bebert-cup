@@ -1,8 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import Caption from '../components/Caption';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
-import ComicTitle from '../components/ComicTitle';
+import PageHeader from '../components/PageHeader';
 import '../components/comic.css';
 
 export default function FinalistPage() {
@@ -19,16 +18,15 @@ export default function FinalistPage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <ComicTitle size="lg" as="h1">GRANDE FINALE</ComicTitle>
-        <Caption>La Bebert Survivor Cup se joue maintenant.</Caption>
+        <PageHeader>GRANDE FINALE</PageHeader>
 
         <ComicPanel style={{ padding: 20, textAlign: 'center' }}>
-          <p style={{ font: '800 18px Nunito', color: 'var(--text-muted)', marginBottom: 12 }}>
-            Le duel final
+          <p style={{ font: '700 14px Nunito', color: 'var(--text-muted)', marginBottom: 12 }}>
+            La Bebert Survivor Cup se joue maintenant.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
             <span style={{ font: '900 22px Nunito', color: 'var(--ink)' }}>{finalists[0]}</span>
-            <span style={{ font: '800 20px Bangers', color: 'var(--red)', fontSize: 24 }}>VS</span>
+            <span style={{ fontFamily: 'Bangers, cursive', color: 'var(--red)', fontSize: 28, letterSpacing: 2 }}>VS</span>
             <span style={{ font: '900 22px Nunito', color: 'var(--ink)' }}>{finalists[1]}</span>
           </div>
         </ComicPanel>
