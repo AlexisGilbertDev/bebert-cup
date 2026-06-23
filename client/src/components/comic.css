@@ -139,6 +139,27 @@
   transform: rotate(12deg);
 }
 
+/* Back button */
+.comic-btn-retour {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.comic-btn-retour:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
 /* Player color dot (comic style) */
 .player-dot {
   display: inline-block;

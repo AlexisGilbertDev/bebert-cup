@@ -71,24 +71,13 @@ export default function HomePage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button
             type="button"
+            aria-label="Retour"
             onClick={() => navigate('/')}
-            style={{
-              width: 40,
-              height: 40,
-              border: '3px solid var(--ink)',
-              borderRadius: 6,
-              background: '#fff',
-              boxShadow: '3px 3px 0 var(--ink)',
-              cursor: 'pointer',
-              font: '900 20px Nunito',
-              color: 'var(--ink)',
-              flexShrink: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            className="comic-btn-retour"
           >
-            ←
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 5 L7 12 L14 19" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
           <ComicTitle size="md" as="h1">BEBERT CUP</ComicTitle>
         </div>
