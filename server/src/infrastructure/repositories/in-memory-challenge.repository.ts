@@ -93,6 +93,13 @@ const CHALLENGES: Challenge[] = [
       "Deux joueurs sont tirés au sort : un centreur et un finisseur. Le centreur envoie un centre, le finisseur doit le reprendre de la tête. S'il rate, le centreur est éliminé. S'il marque, c'est le finisseur.",
     minPlayers: 2,
   },
+  {
+    id: 'belle-frappe',
+    name: 'La Belle Frappe',
+    description:
+      'Tout le monde tire en dehors de la surface. Celui qui met le plus beau but choisit qui il veut éliminer.',
+    minPlayers: 3,
+  },
 ];
 
 export class InMemoryChallengeRepository implements ChallengeRepositoryPort {
