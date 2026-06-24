@@ -14,6 +14,10 @@ export default function ModeSelectionPage() {
     navigate('/survivor/setup');
   }
 
+  function selectDuel() {
+    navigate('/duel/setup');
+  }
+
   return (
     <div className="comic-page">
       <div className="comic-content">
@@ -65,8 +69,24 @@ export default function ModeSelectionPage() {
           <ComicButton onClick={selectSurvivor}>JOUER&nbsp;!</ComicButton>
         </div>
 
-        {/* Placeholder future modes */}
-        <ComicButton variant="ghost">À suivre… d'autres modes 👀</ComicButton>
+        {/* Duel card */}
+        <div className="comic-panel" style={{ padding: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+            <h2 className="comic-title comic-title--sm">DUEL&nbsp;!</h2>
+            <div style={{
+              width: 40, height: 40, borderRadius: '50%',
+              background: 'var(--red)', border: '3px solid var(--ink)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0,
+            }}>
+              <span style={{ font: '900 18px Nunito', color: '#fff' }}>VS</span>
+            </div>
+          </div>
+          <p style={{ font: '700 14px Nunito', color: 'var(--text-muted)', marginBottom: 14 }}>
+            2–3 joueurs · 8 manches · Points sur 3. Le meilleur l'emporte.
+          </p>
+          <ComicButton onClick={selectDuel}>JOUER&nbsp;!</ComicButton>
+        </div>
 
       </div>
     </div>
