@@ -29,6 +29,7 @@ const CHALLENGES: Challenge[] = [
     description:
       'Un joueur tiré au sort va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le dernier survivant choisit qui il veut éliminer.',
     minPlayers: 3,
+    draw: [{ role: 'gardien' }],
   },
   {
     id: 'tour-du-monde',
@@ -43,6 +44,7 @@ const CHALLENGES: Challenge[] = [
     description:
       "Un joueur tiré au sort effectue un geste technique et désigne un adversaire qui doit le reproduire. S'il rate, le désigné est éliminé. S'il réussit, c'est le désignant qui prend la porte.",
     minPlayers: 2,
+    draw: [{ role: 'désignant' }],
   },
   {
     id: 'pick-your-poison',
@@ -50,6 +52,7 @@ const CHALLENGES: Challenge[] = [
     description:
       "Un joueur tiré au sort désigne un adversaire et lui impose le geste technique de son choix. Si le désigné réussit, le désignant est éliminé. S'il échoue, c'est le désigné.",
     minPlayers: 2,
+    draw: [{ role: 'désignant' }],
   },
   {
     id: 'la-quiche',
@@ -64,6 +67,7 @@ const CHALLENGES: Challenge[] = [
     description:
       "Un joueur tiré au sort envoie une chandelle. Les autres se battent pour la contrôler proprement — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui la colle choisit qui il veut éliminer.",
     minPlayers: 3,
+    draw: [{ role: 'envoyeur' }],
   },
   {
     id: 'face-au-gardien',
@@ -71,6 +75,7 @@ const CHALLENGES: Challenge[] = [
     description:
       "Trois joueurs tirés au sort : un gardien, un tireur et un juge. Le juge choisit l'endroit du tir. Le tireur frappe, le gardien doit arrêter. Le tireur marque — le gardien est éliminé. Le tireur rate — c'est lui qui prend la porte.",
     minPlayers: 3,
+    draw: [{ role: 'gardien' }, { role: 'tireur' }, { role: 'juge' }],
   },
   {
     id: 'petit-filet',
@@ -92,6 +97,7 @@ const CHALLENGES: Challenge[] = [
     description:
       "Deux joueurs sont tirés au sort : un centreur et un finisseur. Le centreur envoie un centre, le finisseur doit le reprendre de la tête. S'il rate, le centreur est éliminé. S'il marque, c'est le finisseur.",
     minPlayers: 2,
+    draw: [{ role: 'centreur' }, { role: 'finisseur' }],
   },
 ];
 
