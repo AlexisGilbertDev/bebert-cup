@@ -37,6 +37,13 @@ export default function ChallengePage() {
     setDrawnPlayers(challenge.draw.map((slot, index) => ({ player: shuffled[index], role: slot.role })));
   }
 
+  function interpolateDescription(description: string): string {
+    return drawnPlayers.reduce(
+      (text, { player, role }) => text.split(`{{${role}}}`).join(player),
+      description,
+    );
+  }
+
   useEffect(() => {
     if (!loading && challenges.length > 0) {
       const challenge = pickChallenge(challenges, activePlayers.length);
@@ -110,7 +117,7 @@ export default function ChallengePage() {
         <ComicPanel style={{ padding: 16 }}>
           <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
           <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
-            {currentChallenge.description}
+            {interpolateDescription(currentChallenge.description)}
           </p>
           {drawnPlayers.length > 0 && (
             <div style={{ marginTop: 12, padding: '10px 12px', background: 'var(--yellow)', borderRadius: 8, border: '2px solid var(--ink)' }}>

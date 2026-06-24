@@ -27,7 +27,7 @@ const CHALLENGES: Challenge[] = [
     id: 'qualification',
     name: 'Qualification',
     description:
-      'Un joueur tiré au sort va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le dernier survivant choisit qui il veut éliminer.',
+      '{{gardien}} va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le dernier survivant choisit qui il veut éliminer.',
     minPlayers: 3,
     draw: [{ role: 'gardien' }],
   },
@@ -42,7 +42,7 @@ const CHALLENGES: Challenge[] = [
     id: 'le-miroir',
     name: 'Le Miroir',
     description:
-      "Un joueur tiré au sort effectue un geste technique et désigne un adversaire qui doit le reproduire. S'il rate, le désigné est éliminé. S'il réussit, c'est le désignant qui prend la porte.",
+      "{{désignant}} effectue un geste technique et désigne un adversaire qui doit le reproduire. S'il rate, le désigné est éliminé. S'il réussit, c'est {{désignant}} qui prend la porte.",
     minPlayers: 2,
     draw: [{ role: 'désignant' }],
   },
@@ -50,7 +50,7 @@ const CHALLENGES: Challenge[] = [
     id: 'pick-your-poison',
     name: 'Pick Your Poison',
     description:
-      "Un joueur tiré au sort désigne un adversaire et lui impose le geste technique de son choix. Si le désigné réussit, le désignant est éliminé. S'il échoue, c'est le désigné.",
+      "{{désignant}} désigne un adversaire et lui impose le geste technique de son choix. Si le désigné réussit, {{désignant}} est éliminé. S'il échoue, c'est le désigné.",
     minPlayers: 2,
     draw: [{ role: 'désignant' }],
   },
@@ -65,7 +65,7 @@ const CHALLENGES: Challenge[] = [
     id: 'chandelle',
     name: 'La Chandelle',
     description:
-      "Un joueur tiré au sort envoie une chandelle. Les autres se battent pour la contrôler proprement — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui la colle choisit qui il veut éliminer.",
+      "{{envoyeur}} envoie une chandelle. Les autres se battent pour la contrôler proprement — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui la colle choisit qui il veut éliminer.",
     minPlayers: 3,
     draw: [{ role: 'envoyeur' }],
   },
@@ -73,7 +73,7 @@ const CHALLENGES: Challenge[] = [
     id: 'face-au-gardien',
     name: 'Face au Gardien',
     description:
-      "Trois joueurs tirés au sort : un gardien, un tireur et un juge. Le juge choisit l'endroit du tir. Le tireur frappe, le gardien doit arrêter. Le tireur marque — le gardien est éliminé. Le tireur rate — c'est lui qui prend la porte.",
+      "{{juge}} choisit l'endroit du tir. {{tireur}} frappe, {{gardien}} doit arrêter. {{tireur}} marque — {{gardien}} est éliminé. {{tireur}} rate — c'est lui qui prend la porte.",
     minPlayers: 3,
     draw: [{ role: 'gardien' }, { role: 'tireur' }, { role: 'juge' }],
   },
@@ -95,7 +95,7 @@ const CHALLENGES: Challenge[] = [
     id: 'centre-fatal',
     name: 'Centre Fatal',
     description:
-      "Deux joueurs sont tirés au sort : un centreur et un finisseur. Le centreur envoie un centre, le finisseur doit le reprendre de la tête. S'il rate, le centreur est éliminé. S'il marque, c'est le finisseur.",
+      "{{centreur}} envoie un centre, {{finisseur}} doit le reprendre de la tête. S'il rate, {{centreur}} est éliminé. S'il marque, c'est {{finisseur}}.",
     minPlayers: 2,
     draw: [{ role: 'centreur' }, { role: 'finisseur' }],
   },
