@@ -1,0 +1,259 @@
+/* Mode Selection Page — manga/shōnen 90s */
+
+.msb-content {
+  padding: 26px 20px;
+  gap: 20px;
+}
+
+/* --- Logo --- */
+.msb-logo-wrap {
+  position: relative;
+  text-align: center;
+}
+
+.msb-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 72px;
+  line-height: 0.82;
+  color: #E23B40;
+  -webkit-text-stroke: 3px #15110C;
+  paint-order: stroke fill;
+  text-shadow: 5px 5px 0 #15110C;
+  transform: skewX(-8deg);
+  display: inline-block;
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+/* Star-burst POW badge: filter drop-shadow respects clip-path */
+.msb-pow-wrap {
+  position: absolute;
+  top: -14px;
+  right: 0;
+  transform: rotate(10deg);
+  filter: drop-shadow(3px 3px 0 #15110C);
+  pointer-events: none;
+}
+
+.msb-pow {
+  width: 64px;
+  height: 64px;
+  background: #F6C544;
+  clip-path: polygon(
+    50% 5%,  61% 30%, 95% 20%, 73% 44%, 98% 52%,
+    73% 57%, 90% 80%, 63% 70%, 50% 96%, 37% 70%,
+    10% 80%, 27% 57%,  2% 52%, 27% 44%,  5% 20%, 39% 30%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #15110C;
+}
+
+/* --- Hero panel --- */
+.msb-hero {
+  position: relative;
+  border: 4px solid #15110C;
+  border-radius: 16px;
+  box-shadow: 7px 7px 0 #15110C;
+  transform: rotate(-0.6deg);
+  background: #15110C;
+}
+
+/* Fine inner ink line */
+.msb-hero::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.5px solid rgba(21, 17, 12, 0.15);
+  border-radius: 11px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.msb-hero-img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  vertical-align: bottom;
+}
+
+/* Club tab — skewed parallelogram ribbon */
+.msb-hero-tab {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  background: #15110C;
+  color: #F6C544;
+  font-family: 'Anton', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  padding: 5px 22px 5px 10px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transform: skewX(-8deg);
+  z-index: 2;
+  user-select: none;
+}
+
+/* --- Mode banner (pancarte inclinée) --- */
+.msb-banner-wrap {
+  position: relative;
+  transform: rotate(-2deg);
+}
+
+/* Red offset shadow layer */
+.msb-banner-shadow {
+  position: absolute;
+  inset: 0;
+  background: #E23B40;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transform: translate(5px, 5px);
+}
+
+.msb-banner {
+  position: relative;
+  z-index: 1;
+  background: #15110C;
+  color: #F6C544;
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  letter-spacing: 4px;
+  text-align: center;
+  padding: 11px 24px;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  user-select: none;
+}
+
+/* --- Mode cards --- */
+.msb-card {
+  background: #FFFDF7;
+  border: 4px solid #15110C;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 #15110C;
+  padding: 16px;
+}
+
+.msb-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.msb-card-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 36px;
+  -webkit-text-stroke: 2px #15110C;
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 #15110C;
+  transform: skewX(-8deg);
+  display: inline-block;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.msb-card-title--red { color: #E23B40; }
+.msb-card-title--blue { color: #1B49B5; }
+
+.msb-card-desc {
+  font-family: 'Schibsted Grotesk', 'Nunito', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #3f3a33;
+  margin-bottom: 14px;
+  line-height: 1.45;
+}
+
+/* Tactile play button — 58px, hard drop shadow, press effect */
+.msb-play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 58px;
+  border: 3px solid #15110C;
+  border-radius: 8px;
+  font-family: 'Anton', sans-serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 80ms, box-shadow 80ms;
+  -webkit-text-stroke: 0.5px #15110C;
+  paint-order: stroke fill;
+}
+
+.msb-play-btn--red {
+  background: #E23B40;
+  box-shadow: 0 5px 0 #15110C;
+}
+
+.msb-play-btn--blue {
+  background: #1B49B5;
+  box-shadow: 0 5px 0 #15110C;
+}
+
+.msb-play-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #15110C !important;
+}
+
+.msb-play-btn:focus-visible {
+  outline: 3px solid #F6C544;
+  outline-offset: 2px;
+}
+
+/* Target badge (SURVIVOR): 3 concentric blue/white circles */
+.msb-target {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #1B49B5;
+  border: 3px solid #15110C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msb-target-ring {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFFDF7;
+  border: 2.5px solid #15110C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msb-target-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1B49B5;
+  border: 2px solid #15110C;
+}
+
+/* VS badge (DUEL): red circle */
+.msb-vs-badge {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #E23B40;
+  border: 3px solid #15110C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Anton', sans-serif;
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: #fff;
+  -webkit-text-stroke: 1px #15110C;
+  paint-order: stroke fill;
+}

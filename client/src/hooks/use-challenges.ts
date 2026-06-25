@@ -5,6 +5,7 @@ export interface Challenge {
   name: string;
   description: string;
   minPlayers: number;
+  maxPlayers?: number;
 }
 
 export function useChallenges() {

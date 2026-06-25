@@ -5,5 +5,6 @@ export interface Challenge {
   name: string;
   description: string;
   minPlayers: number;
+  maxPlayers?: number;
   mode: ChallengeMode;
 }

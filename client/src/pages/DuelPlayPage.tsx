@@ -35,6 +35,7 @@ export default function DuelPlayPage() {
   );
   const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(null);
   const [phase, setPhase] = useState<Phase>('scoring');
+  const [orderedRanks, setOrderedRanks] = useState<string[]>([]);
 
   useEffect(() => {
     if (players.length === 0) navigate('/');
@@ -46,33 +47,60 @@ export default function DuelPlayPage() {
     }
   }, [loading, challenges, activePlayers.length]);
 
-  function setPointsForPlayer(player: string, points: number) {
-    setRoundPoints((previous) => ({ ...previous, [player]: points }));
+  function resetRoundInputState() {
+    setOrderedRanks([]);
   }
 
-  function confirmRound() {
+  function togglePlayerRank(player: string) {
+    const rankIndex = orderedRanks.indexOf(player);
+    if (rankIndex === -1) {
+      setOrderedRanks([...orderedRanks, player]);
+    } else {
+      // Remove this player and all ranked after them
+      setOrderedRanks(orderedRanks.slice(0, rankIndex));
+    }
+  }
+
+  function submitRanking() {
+    const pointsByRank = activePlayers.length === 2 ? [1, 0] : [2, 1, 0];
+    const points: Record<string, number> = {};
+    orderedRanks.forEach((player, index) => {
+      points[player] = pointsByRank[index] ?? 0;
+    });
     const newScores = { ...scores };
     for (const player of activePlayers) {
-      newScores[player] = (newScores[player] ?? 0) + (roundPoints[player] ?? 0);
+      newScores[player] = (newScores[player] ?? 0) + (points[player] ?? 0);
     }
+    setRoundPoints(points);
     setScores(newScores);
     setPhase('results');
+  }
+
+  function changeChallenge() {
+    const eligible = challenges.filter(
+      (c) =>
+        c.minPlayers <= activePlayers.length &&
+        (c.maxPlayers === undefined || c.maxPlayers >= activePlayers.length) &&
+        c.id !== currentChallenge?.id,
+    );
+    if (eligible.length === 0) return;
+    setCurrentChallenge(eligible[Math.floor(Math.random() * eligible.length)]);
+    resetRoundInputState();
   }
 
   function nextRound() {
     const isLastNormalRound = !isTieBreak && round === TOTAL_ROUNDS;
 
     if (isLastNormalRound) {
-      const newScores = scores;
-      const tied = findTied(newScores, players);
+      const tied = findTied(scores, players);
       if (tied.length === 1) {
-        navigate('/duel/winner', { state: { scores: newScores, players } });
+        navigate('/duel/winner', { state: { scores, players } });
         return;
       }
       setIsTieBreak(true);
       setActivePlayers(tied);
-      setRoundPoints(Object.fromEntries(tied.map((player) => [player, 0])));
       setCurrentChallenge(pickChallenge(challenges, tied.length));
+      resetRoundInputState();
       setPhase('scoring');
       return;
     }
@@ -84,15 +112,15 @@ export default function DuelPlayPage() {
         return;
       }
       setActivePlayers(tied);
-      setRoundPoints(Object.fromEntries(tied.map((player) => [player, 0])));
       setCurrentChallenge(pickChallenge(challenges, tied.length));
+      resetRoundInputState();
       setPhase('scoring');
       return;
     }
 
     setRound((previous) => previous + 1);
-    setRoundPoints(Object.fromEntries(activePlayers.map((player) => [player, 0])));
     setCurrentChallenge(pickChallenge(challenges, activePlayers.length));
+    resetRoundInputState();
     setPhase('scoring');
   }
 
@@ -119,6 +147,8 @@ export default function DuelPlayPage() {
   );
 
   const roundLabel = isTieBreak ? 'PROLONGATION' : `MANCHE ${round}/${TOTAL_ROUNDS}`;
+  const allRanked = orderedRanks.length === activePlayers.length;
+  const medals = ['🥇', '🥈', '🥉'];
 
   return (
     <div className="comic-page">
@@ -133,68 +163,119 @@ export default function DuelPlayPage() {
         </ComicPanel>
 
         {phase === 'scoring' && (
-          <>
-            <ComicPanel style={{ padding: 16 }}>
-              <p style={{ font: '800 13px Nunito', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
-                Points de la manche
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {activePlayers.map((player) => (
-                  <div key={player} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <span style={{ font: '800 15px Nunito', flex: 1 }}>{player}</span>
-                    <div style={{ display: 'flex', gap: 6 }}>
-                      {[0, 1, 2, 3].map((points) => (
-                        <button
-                          key={points}
-                          type="button"
-                          onClick={() => setPointsForPlayer(player, points)}
-                          style={{
-                            width: 40,
-                            height: 40,
-                            border: '2px solid var(--ink)',
-                            borderRadius: 6,
-                            font: '800 16px Nunito',
-                            cursor: 'pointer',
-                            background: roundPoints[player] === points ? 'var(--ink)' : '#fff',
-                            color: roundPoints[player] === points ? '#fff' : 'var(--ink)',
-                          }}
-                        >
-                          {points}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </ComicPanel>
+          <ComicButton variant="ghost" onClick={changeChallenge}>
+            ↻ Changer de défi
+          </ComicButton>
+        )}
 
-            <ComicButton onClick={confirmRound}>Valider →</ComicButton>
-          </>
+        {phase === 'scoring' && (
+          <ComicPanel style={{ padding: 16 }}>
+            <p style={{ font: '800 13px Nunito', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
+              Classez du gagnant au perdant
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {activePlayers.map((player) => {
+                const rank = orderedRanks.indexOf(player);
+                const isRanked = rank !== -1;
+                return (
+                  <button
+                    key={player}
+                    type="button"
+                    onClick={() => togglePlayerRank(player)}
+                    style={{
+                      height: 56,
+                      border: '3px solid var(--ink)',
+                      borderRadius: 8,
+                      font: '800 16px Nunito',
+                      cursor: 'pointer',
+                      background: isRanked ? 'var(--ink)' : 'var(--paper)',
+                      color: isRanked ? '#fff' : 'var(--ink)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '0 16px',
+                    }}
+                  >
+                    <span>{player}</span>
+                    {isRanked && <span>{medals[rank]}</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </ComicPanel>
+        )}
+
+        {phase === 'scoring' && (
+          <ComicButton onClick={submitRanking} disabled={!allRanked}>
+            Soumettre →
+          </ComicButton>
         )}
 
         {phase === 'results' && (
           <>
-            <ComicPanel style={{ padding: 16 }}>
-              <p style={{ font: '800 13px Nunito', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
-                Scores
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <ComicPanel style={{ padding: 0, overflow: 'hidden' }}>
+              {/* Bandeau titre */}
+              <div style={{
+                background: 'var(--ink)',
+                color: 'var(--yellow)',
+                fontFamily: 'Anton, sans-serif',
+                fontSize: 18,
+                letterSpacing: 4,
+                textAlign: 'center',
+                padding: '10px 16px',
+              }}>
+                CLASSEMENT
+              </div>
+
+              {/* Lignes joueurs */}
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {players
                   .slice()
                   .sort((playerA, playerB) => scores[playerB] - scores[playerA])
-                  .map((player) => (
-                    <div key={player} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span style={{ font: '800 15px Nunito' }}>{player}</span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        {activePlayers.includes(player) && roundPoints[player] > 0 && (
-                          <span style={{ font: '700 13px Nunito', color: 'var(--text-muted)' }}>
-                            +{roundPoints[player]}
+                  .map((player, index) => {
+                    const isLeader = index === 0;
+                    const gained = roundPoints[player] ?? 0;
+                    return (
+                      <div
+                        key={player}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          padding: '12px 16px',
+                          background: isLeader ? 'var(--yellow)' : index % 2 === 0 ? '#fff' : 'var(--paper)',
+                          borderTop: index === 0 ? 'none' : '2px solid var(--ink)',
+                        }}
+                      >
+                        <span style={{ font: '900 22px Nunito', width: 32, flexShrink: 0 }}>
+                          {medals[index]}
+                        </span>
+                        <span style={{ font: '800 16px Nunito', flex: 1 }}>{player}</span>
+                        {gained > 0 && (
+                          <span style={{
+                            font: '800 13px Nunito',
+                            color: 'var(--blue)',
+                            background: '#fff',
+                            border: '2px solid var(--ink)',
+                            borderRadius: 20,
+                            padding: '2px 8px',
+                            flexShrink: 0,
+                          }}>
+                            +{gained} pt{gained > 1 ? 's' : ''}
                           </span>
                         )}
-                        <span style={{ font: '900 18px Nunito' }}>{scores[player]} pts</span>
+                        <span style={{
+                          fontFamily: 'Anton, sans-serif',
+                          fontSize: 26,
+                          color: 'var(--ink)',
+                          flexShrink: 0,
+                          lineHeight: 1,
+                        }}>
+                          {scores[player]}
+                        </span>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
               </div>
             </ComicPanel>
 
