@@ -57,6 +57,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     name: 'Gardien Rotatif',
     description:
       'Chaque joueur de l\'équipe qui défend passe 30 secondes au but pendant que l\'adversaire tire à volonté. L\'équipe qui encaisse le moins de buts gagne la manche !',
+    duration: 30,
     minPlayers: 4,
     mode: 'team-play',
   },
