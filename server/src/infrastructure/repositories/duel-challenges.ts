@@ -69,7 +69,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-corner-reverse',
     name: 'Corner Rentrant Reverse',
     description:
-      'Depuis le point corner, envoyez un corner rentrant AVEC REVERSE. Le premier qui marque gagne !',
+      'Depuis le point de corner, envoyez un corner rentrant AVEC REVERSE. Le premier qui marque gagne !',
     minPlayers: 2,
     mode: 'duel',
   },

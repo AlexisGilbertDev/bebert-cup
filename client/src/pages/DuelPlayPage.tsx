@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
-import ComicTitle from '../components/ComicTitle';
 import PageHeader from '../components/PageHeader';
 import { useDuelChallenges } from '../hooks/use-duel-challenges';
 import type { Challenge } from '../hooks/use-challenges';
 import '../components/comic.css';
+import './duel-play.css';
 
 const TOTAL_ROUNDS = 8;
+
+const PLAYER_COLORS = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b'];
 
 type Phase = 'scoring' | 'results';
 
@@ -35,6 +37,14 @@ function computeNextChallenge(
   const challenge = candidates[Math.floor(Math.random() * candidates.length)];
   const newUsedIds = isExhausted ? new Set([challenge.id]) : new Set([...usedIds, challenge.id]);
   return { challenge, newUsedIds };
+}
+
+function medalFor(rank: number): string {
+  return (['🥇', '🥈', '🥉', '🏅'] as const)[rank] ?? '🏅';
+}
+
+function rankLabel(position: number): string {
+  return position === 1 ? '1er' : `${position}e`;
 }
 
 export default function DuelPlayPage() {
@@ -175,7 +185,6 @@ export default function DuelPlayPage() {
 
   const roundLabel = isTieBreak ? 'PROLONGATION' : `MANCHE ${round}/${TOTAL_ROUNDS}`;
   const allRanked = orderedRanks.length === activePlayers.length;
-  const medals = ['🥇', '🥈', '🥉'];
   const isLastNormalRound = !isTieBreak && round === TOTAL_ROUNDS;
   const hasTieAfterLastRound = isLastNormalRound && findTied(scores, players).length > 1;
   const nextButtonLabel = isTieBreak || round < TOTAL_ROUNDS || hasTieAfterLastRound
@@ -185,68 +194,100 @@ export default function DuelPlayPage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <PageHeader>{roundLabel}</PageHeader>
 
-        <ComicPanel style={{ padding: 16 }}>
-          <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
-          <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
-            {currentChallenge.description}
-          </p>
-        </ComicPanel>
-
+        {/* ── SCORING PHASE ──────────────────────────────── */}
         {phase === 'scoring' && (
-          <ComicButton variant="ghost" onClick={changeChallenge}>
-            ↻ Changer de défi
-          </ComicButton>
-        )}
-
-        {phase === 'scoring' && (
-          <ComicPanel style={{ padding: 16 }}>
-            <p style={{ font: '800 13px Nunito', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
-              Classez du gagnant au perdant
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {activePlayers.map((player) => {
-                const rank = orderedRanks.indexOf(player);
-                const isRanked = rank !== -1;
-                return (
-                  <button
-                    key={player}
-                    type="button"
-                    onClick={() => togglePlayerRank(player)}
-                    style={{
-                      height: 56,
-                      border: '3px solid var(--ink)',
-                      borderRadius: 8,
-                      font: '800 16px Nunito',
-                      cursor: 'pointer',
-                      background: isRanked ? 'var(--ink)' : 'var(--paper)',
-                      color: isRanked ? '#fff' : 'var(--ink)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '0 16px',
-                    }}
-                  >
-                    <span>{player}</span>
-                    {isRanked && <span>{medals[rank]}</span>}
-                  </button>
-                );
-              })}
+          <>
+            {/* Header: round title + progress bar */}
+            <div className="dp-header">
+              <h1 className="dp-round-title">{roundLabel}</h1>
+              {!isTieBreak && (
+                <div className="dp-progress" role="progressbar" aria-valuenow={round} aria-valuemax={TOTAL_ROUNDS}>
+                  {Array.from({ length: TOTAL_ROUNDS }, (_, i) => (
+                    <div key={i} className={`dp-progress-segment${i < round ? ' dp-progress-segment--filled' : ''}`} />
+                  ))}
+                </div>
+              )}
             </div>
-          </ComicPanel>
+
+            {/* Challenge card */}
+            <div className="dp-challenge-wrap">
+              <div className="dp-challenge-card">
+                <span className="dp-badge">DÉFI EN COURS</span>
+                <p className="dp-challenge-title">{currentChallenge.name}</p>
+                <p className="dp-challenge-desc">{currentChallenge.description}</p>
+              </div>
+              <button type="button" className="dp-change-btn" onClick={changeChallenge}>
+                ↻ Changer de défi
+              </button>
+            </div>
+
+            {/* Ranking section */}
+            <div className="dp-ranking-section">
+              <div className="dp-ranking-header">
+                <div>
+                  <p className="dp-ranking-title">CLASSEZ DU GAGNANT AU PERDANT</p>
+                  <p className="dp-ranking-hint">
+                    Touche les joueurs dans l'ordre — le 1er touché finit premier.
+                  </p>
+                </div>
+                <div className="dp-ranking-counter">
+                  <span className="dp-counter-fraction">{orderedRanks.length}/{activePlayers.length}</span>
+                  <span className="dp-counter-label">classés</span>
+                </div>
+              </div>
+
+              <div className="dp-players">
+                {activePlayers.map((player) => {
+                  const rank = orderedRanks.indexOf(player);
+                  const isRanked = rank !== -1;
+                  const avatarColor = PLAYER_COLORS[players.indexOf(player) % PLAYER_COLORS.length] ?? '#888';
+                  return (
+                    <button
+                      key={player}
+                      type="button"
+                      className={`dp-player-row${isRanked ? ' dp-player-row--ranked' : ' dp-player-row--unranked'}`}
+                      onClick={() => togglePlayerRank(player)}
+                    >
+                      <span className={`dp-medal${!isRanked ? ' dp-medal--empty' : ''}`}>
+                        {isRanked ? medalFor(rank) : null}
+                      </span>
+                      <span className="dp-avatar" style={{ background: avatarColor }}>
+                        {player.charAt(0).toUpperCase()}
+                      </span>
+                      <span className="dp-player-name">{player}</span>
+                      {isRanked && (
+                        <span className="dp-rank-label">{rankLabel(rank + 1)}</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {orderedRanks.length > 0 && (
+                <button type="button" className="dp-restart-btn" onClick={() => setOrderedRanks([])}>
+                  ↺ Recommencer le classement
+                </button>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className={`dp-submit-btn${allRanked ? ' dp-submit-btn--active' : ' dp-submit-btn--disabled'}`}
+              onClick={allRanked ? submitRanking : undefined}
+              disabled={!allRanked}
+            >
+              {allRanked ? 'SOUMETTRE →' : 'CLASSE TOUS LES JOUEURS'}
+            </button>
+          </>
         )}
 
-        {phase === 'scoring' && (
-          <ComicButton onClick={submitRanking} disabled={!allRanked}>
-            Soumettre →
-          </ComicButton>
-        )}
-
+        {/* ── RESULTS PHASE ──────────────────────────────── */}
         {phase === 'results' && (
           <>
+            <PageHeader>{roundLabel}</PageHeader>
+
             <ComicPanel style={{ padding: 0, overflow: 'hidden' }}>
-              {/* Bandeau titre */}
               <div style={{
                 background: 'var(--ink)',
                 color: 'var(--yellow)',
@@ -259,7 +300,6 @@ export default function DuelPlayPage() {
                 CLASSEMENT
               </div>
 
-              {/* Lignes joueurs */}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {players
                   .slice()
@@ -280,7 +320,7 @@ export default function DuelPlayPage() {
                         }}
                       >
                         <span style={{ font: '900 22px Nunito', width: 32, flexShrink: 0 }}>
-                          {medals[index]}
+                          {medalFor(index)}
                         </span>
                         <span style={{ font: '800 16px Nunito', flex: 1 }}>{player}</span>
                         {gained > 0 && (
@@ -316,6 +356,7 @@ export default function DuelPlayPage() {
             </ComicButton>
           </>
         )}
+
       </div>
     </div>
   );
