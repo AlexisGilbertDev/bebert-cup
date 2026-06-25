@@ -26,10 +26,29 @@ export default function ChallengePage() {
     null,
   );
   const [eliminated, setEliminated] = useState<string | null>(null);
+  const [drawnPlayers, setDrawnPlayers] = useState<Array<{ player: string; role: string }>>([]);
+
+  function drawPlayers(challenge: Challenge | null, pool: string[]) {
+    if (!challenge?.draw || challenge.draw.length === 0) {
+      setDrawnPlayers([]);
+      return;
+    }
+    const shuffled = shuffle([...pool]);
+    setDrawnPlayers(challenge.draw.map((slot, index) => ({ player: shuffled[index], role: slot.role })));
+  }
+
+  function interpolateDescription(description: string): string {
+    return drawnPlayers.reduce(
+      (text, { player, role }) => text.split(`{{${role}}}`).join(player),
+      description,
+    );
+  }
 
   useEffect(() => {
     if (!loading && challenges.length > 0) {
-      setCurrentChallenge(pickChallenge(challenges, activePlayers.length));
+      const challenge = pickChallenge(challenges, activePlayers.length);
+      setCurrentChallenge(challenge);
+      drawPlayers(challenge, activePlayers);
     }
   }, [loading, challenges, activePlayers.length]);
 
@@ -44,9 +63,9 @@ export default function ChallengePage() {
         c.minPlayers <= activePlayers.length && c.id !== currentChallenge.id,
     );
     if (eligible.length === 0) return;
-    setCurrentChallenge(
-      eligible[Math.floor(Math.random() * eligible.length)],
-    );
+    const next = eligible[Math.floor(Math.random() * eligible.length)];
+    setCurrentChallenge(next);
+    drawPlayers(next, activePlayers);
   }
 
   function nextRound() {
@@ -61,8 +80,10 @@ export default function ChallengePage() {
       return;
     }
     const order = shuffle(result.survivors);
+    const next = pickChallenge(challenges, order.length);
     setActivePlayers(order);
-    setCurrentChallenge(pickChallenge(challenges, order.length));
+    setCurrentChallenge(next);
+    drawPlayers(next, order);
     setEliminated(null);
   }
 
@@ -96,8 +117,20 @@ export default function ChallengePage() {
         <ComicPanel style={{ padding: 16 }}>
           <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
           <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
-            {currentChallenge.description}
+            {interpolateDescription(currentChallenge.description)}
           </p>
+          {drawnPlayers.length > 0 && (
+            <div style={{ marginTop: 12, padding: '10px 12px', background: 'var(--yellow)', borderRadius: 8, border: '2px solid var(--ink)' }}>
+              <p style={{ font: '800 12px Nunito', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 6 }}>
+                🎲 Tirage au sort
+              </p>
+              {drawnPlayers.map(({ player, role }) => (
+                <p key={role} style={{ font: '800 15px Nunito', margin: '2px 0' }}>
+                  {player} <span style={{ font: '700 13px Nunito', color: 'var(--text-muted)' }}>→ {role}</span>
+                </p>
+              ))}
+            </div>
+          )}
         </ComicPanel>
 
         {!eliminated && (

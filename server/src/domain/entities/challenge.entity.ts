@@ -1,5 +1,9 @@
 export type ChallengeMode = 'survivor' | 'duel';
 
+export interface ChallengeDrawSlot {
+  role: string;
+}
+
 export interface Challenge {
   id: string;
   name: string;
@@ -7,4 +11,5 @@ export interface Challenge {
   minPlayers: number;
   maxPlayers?: number;
   mode: ChallengeMode;
+  draw?: ChallengeDrawSlot[];
 }
