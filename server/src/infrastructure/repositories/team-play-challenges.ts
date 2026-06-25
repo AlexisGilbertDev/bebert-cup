@@ -22,7 +22,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-coups-francs',
     name: 'Coups Francs',
     description:
-      'Chaque joueur choisit son placement et tire un coup franc — sans mur. Les rôles (tireur, gardien) se répartissent équitablement entre les deux équipes. L\'équipe qui marque le plus gagne la manche !',
+      'À tour de rôle, une équipe tire ses coups francs pendant que l\'autre fournit un gardien — sans mur, placement libre. L\'équipe qui marque le plus gagne la manche !',
     minPlayers: 4,
     mode: 'team-play',
   },
