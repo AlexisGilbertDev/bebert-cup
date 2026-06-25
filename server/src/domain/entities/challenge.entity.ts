@@ -8,8 +8,10 @@ export interface Challenge {
   id: string;
   name: string;
   description: string;
+  details?: string;
   minPlayers: number;
   maxPlayers?: number;
   mode: ChallengeMode;
   draw?: ChallengeDrawSlot[];
+  teamDraw?: ChallengeDrawSlot[];
 }

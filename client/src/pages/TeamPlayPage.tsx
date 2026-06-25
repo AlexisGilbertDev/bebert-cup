@@ -14,6 +14,19 @@ const TEAM2_COLOR = '#3b82f6';
 type RoundOutcome = 'team1' | 'team2' | 'draw';
 type Phase = 'scoring' | 'results';
 
+function drawTeams(challenge: Challenge): Array<{ team: string; role: string }> {
+  if (!challenge.teamDraw || challenge.teamDraw.length === 0) return [];
+  const teams = Math.random() < 0.5 ? ['Équipe 1', 'Équipe 2'] : ['Équipe 2', 'Équipe 1'];
+  return challenge.teamDraw.map((slot, index) => ({ team: teams[index % 2], role: slot.role }));
+}
+
+function interpolateDescription(description: string, drawn: Array<{ team: string; role: string }>): string {
+  return drawn.reduce(
+    (text, { team, role }) => text.split(`{{${role}}}`).join(team),
+    description,
+  );
+}
+
 function computeNextChallenge(
   challenges: Challenge[],
   usedIds: ReadonlySet<string>,
@@ -42,6 +55,8 @@ export default function TeamPlayPage() {
   const [isTieBreak, setIsTieBreak] = useState(false);
   const [scores, setScores] = useState({ team1: 0, team2: 0 });
   const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(null);
+  const [drawnTeams, setDrawnTeams] = useState<Array<{ team: string; role: string }>>([]);
+  const [showDetails, setShowDetails] = useState(false);
   const [phase, setPhase] = useState<Phase>('scoring');
   const [roundOutcome, setRoundOutcome] = useState<RoundOutcome | null>(null);
   const [usedChallengeIds, setUsedChallengeIds] = useState<ReadonlySet<string>>(new Set());
@@ -50,13 +65,17 @@ export default function TeamPlayPage() {
     if (team1.length === 0 || team2.length === 0) navigate('/');
   }, [team1, team2, navigate]);
 
+  function applyChallenge(challenge: Challenge, newUsedIds: Set<string>) {
+    setCurrentChallenge(challenge);
+    setUsedChallengeIds(newUsedIds);
+    setDrawnTeams(drawTeams(challenge));
+    setShowDetails(false);
+  }
+
   useEffect(() => {
     if (!loading && challenges.length > 0 && currentChallenge === null) {
       const result = computeNextChallenge(challenges, new Set());
-      if (result) {
-        setCurrentChallenge(result.challenge);
-        setUsedChallengeIds(result.newUsedIds);
-      }
+      if (result) applyChallenge(result.challenge, result.newUsedIds);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, challenges, currentChallenge]);
@@ -64,8 +83,7 @@ export default function TeamPlayPage() {
   function changeChallenge() {
     const result = computeNextChallenge(challenges, usedChallengeIds, currentChallenge?.id);
     if (!result) return;
-    setCurrentChallenge(result.challenge);
-    setUsedChallengeIds(result.newUsedIds);
+    applyChallenge(result.challenge, result.newUsedIds);
   }
 
   function submitOutcome(outcome: RoundOutcome) {
@@ -88,7 +106,7 @@ export default function TeamPlayPage() {
       }
       setIsTieBreak(true);
       const tieResult = computeNextChallenge(challenges, usedChallengeIds);
-      if (tieResult) { setCurrentChallenge(tieResult.challenge); setUsedChallengeIds(tieResult.newUsedIds); }
+      if (tieResult) applyChallenge(tieResult.challenge, tieResult.newUsedIds);
       setRoundOutcome(null);
       setPhase('scoring');
       return;
@@ -101,7 +119,7 @@ export default function TeamPlayPage() {
 
     const nextResult = computeNextChallenge(challenges, usedChallengeIds);
     if (!isTieBreak) setRound((previous) => previous + 1);
-    if (nextResult) { setCurrentChallenge(nextResult.challenge); setUsedChallengeIds(nextResult.newUsedIds); }
+    if (nextResult) applyChallenge(nextResult.challenge, nextResult.newUsedIds);
     setRoundOutcome(null);
     setPhase('scoring');
   }
@@ -199,12 +217,54 @@ export default function TeamPlayPage() {
                 }}>
                   DÉFI EN COURS
                 </span>
-                <p style={{ fontFamily: 'Bangers, cursive', fontSize: 24, color: 'var(--ink)', letterSpacing: 0.5, lineHeight: 1 }}>
-                  {currentChallenge.name}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                  <p style={{ fontFamily: 'Bangers, cursive', fontSize: 24, color: 'var(--ink)', letterSpacing: 0.5, lineHeight: 1 }}>
+                    {currentChallenge.name}
+                  </p>
+                  {currentChallenge.details && (
+                    <button
+                      type="button"
+                      onClick={() => setShowDetails((previous) => !previous)}
+                      style={{
+                        width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                        background: showDetails ? 'var(--ink)' : '#e8e0d0',
+                        border: '2px solid var(--ink)', cursor: 'pointer',
+                        font: '900 13px Nunito', color: showDetails ? '#fff' : 'var(--ink)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      }}
+                    >
+                      ?
+                    </button>
+                  )}
+                </div>
                 <p style={{ font: '700 14px/1.4 Nunito', color: '#6b6154' }}>
-                  {currentChallenge.description}
+                  {interpolateDescription(currentChallenge.description, drawnTeams)}
                 </p>
+                {showDetails && currentChallenge.details && (
+                  <div style={{
+                    padding: '8px 10px', background: '#f0e8d4',
+                    borderRadius: 8, border: '2px solid var(--ink)',
+                  }}>
+                    <p style={{ font: '700 13px/1.45 Nunito', color: 'var(--ink)' }}>
+                      {currentChallenge.details}
+                    </p>
+                  </div>
+                )}
+                {drawnTeams.length > 0 && (
+                  <div style={{
+                    marginTop: 4, padding: '8px 10px', background: 'var(--yellow)',
+                    borderRadius: 8, border: '2px solid var(--ink)',
+                  }}>
+                    <p style={{ font: '800 11px Nunito', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>
+                      🎲 Tirage au sort
+                    </p>
+                    {drawnTeams.map(({ team, role }) => (
+                      <p key={role} style={{ font: '800 14px Nunito', margin: '1px 0' }}>
+                        {team} <span style={{ font: '700 12px Nunito', color: '#6b6154' }}>→ {role}</span>
+                      </p>
+                    ))}
+                  </div>
+                )}
               </div>
               <button type="button" onClick={changeChallenge} style={{
                 background: 'none', border: 'none', color: '#9a8f76',

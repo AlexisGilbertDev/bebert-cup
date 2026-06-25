@@ -8,9 +8,11 @@ export interface Challenge {
   id: string;
   name: string;
   description: string;
+  details?: string;
   minPlayers: number;
   maxPlayers?: number;
   draw?: ChallengeDrawSlot[];
+  teamDraw?: ChallengeDrawSlot[];
 }
 
 export function useChallenges() {

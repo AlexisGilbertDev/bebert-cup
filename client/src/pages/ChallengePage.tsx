@@ -27,14 +27,16 @@ export default function ChallengePage() {
   );
   const [eliminated, setEliminated] = useState<string | null>(null);
   const [drawnPlayers, setDrawnPlayers] = useState<Array<{ player: string; role: string }>>([]);
+  const [showDetails, setShowDetails] = useState(false);
 
   function drawPlayers(challenge: Challenge | null, pool: string[]) {
     if (!challenge?.draw || challenge.draw.length === 0) {
       setDrawnPlayers([]);
-      return;
+    } else {
+      const shuffled = shuffle([...pool]);
+      setDrawnPlayers(challenge.draw.map((slot, index) => ({ player: shuffled[index], role: slot.role })));
     }
-    const shuffled = shuffle([...pool]);
-    setDrawnPlayers(challenge.draw.map((slot, index) => ({ player: shuffled[index], role: slot.role })));
+    setShowDetails(false);
   }
 
   function interpolateDescription(description: string): string {
@@ -115,10 +117,34 @@ export default function ChallengePage() {
         <PageHeader>DÉFI · {activePlayers.length} joueurs</PageHeader>
 
         <ComicPanel style={{ padding: 16 }}>
-          <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
+            {currentChallenge.details && (
+              <button
+                type="button"
+                onClick={() => setShowDetails((previous) => !previous)}
+                style={{
+                  width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                  background: showDetails ? 'var(--ink)' : '#e8e0d0',
+                  border: '2px solid var(--ink)', cursor: 'pointer',
+                  font: '900 13px Nunito', color: showDetails ? '#fff' : 'var(--ink)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                ?
+              </button>
+            )}
+          </div>
           <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
             {interpolateDescription(currentChallenge.description)}
           </p>
+          {showDetails && currentChallenge.details && (
+            <div style={{ marginTop: 8, padding: '8px 10px', background: '#f0e8d4', borderRadius: 8, border: '2px solid var(--ink)' }}>
+              <p style={{ font: '700 13px/1.45 Nunito', color: 'var(--ink)' }}>
+                {currentChallenge.details}
+              </p>
+            </div>
+          )}
           {drawnPlayers.length > 0 && (
             <div style={{ marginTop: 12, padding: '10px 12px', background: 'var(--yellow)', borderRadius: 8, border: '2px solid var(--ink)' }}>
               <p style={{ font: '800 12px Nunito', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 6 }}>

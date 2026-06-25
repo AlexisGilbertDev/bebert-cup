@@ -36,6 +36,7 @@ export default function DuelPlayPage() {
   const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(null);
   const [phase, setPhase] = useState<Phase>('scoring');
   const [orderedRanks, setOrderedRanks] = useState<string[]>([]);
+  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
     if (players.length === 0) navigate('/');
@@ -49,6 +50,7 @@ export default function DuelPlayPage() {
 
   function resetRoundInputState() {
     setOrderedRanks([]);
+    setShowDetails(false);
   }
 
   function togglePlayerRank(player: string) {
@@ -156,10 +158,34 @@ export default function DuelPlayPage() {
         <PageHeader>{roundLabel}</PageHeader>
 
         <ComicPanel style={{ padding: 16 }}>
-          <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
+            {currentChallenge.details && (
+              <button
+                type="button"
+                onClick={() => setShowDetails((previous) => !previous)}
+                style={{
+                  width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                  background: showDetails ? 'var(--ink)' : '#e8e0d0',
+                  border: '2px solid var(--ink)', cursor: 'pointer',
+                  font: '900 13px Nunito', color: showDetails ? '#fff' : 'var(--ink)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                ?
+              </button>
+            )}
+          </div>
           <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
             {currentChallenge.description}
           </p>
+          {showDetails && currentChallenge.details && (
+            <div style={{ marginTop: 8, padding: '8px 10px', background: '#f0e8d4', borderRadius: 8, border: '2px solid var(--ink)' }}>
+              <p style={{ font: '700 13px/1.45 Nunito', color: 'var(--ink)' }}>
+                {currentChallenge.details}
+              </p>
+            </div>
+          )}
         </ComicPanel>
 
         {phase === 'scoring' && (
