@@ -1,17 +1,13 @@
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
-import type { Challenge, ChallengeMode } from '../../domain/entities/challenge.entity.js';
+import type { Challenge } from '../../domain/entities/challenge.entity.js';
 import type { ChallengeRepositoryPort } from '../../domain/ports/challenge-repository.port.js';
 import { buildApp } from './server.js';
 
 class FakeChallengeRepository implements ChallengeRepositoryPort {
-  constructor(private readonly challenges: Challenge[]) {}
-  findAll(): Challenge[] {
-    return this.challenges;
-  }
-  findByMode(mode: ChallengeMode): Challenge[] {
-    return this.challenges.filter((challenge) => challenge.mode === mode);
-  }
+  constructor(private readonly duelChallenges: Challenge[]) {}
+  findSurvivorChallenges() { return []; }
+  findDuelChallenges() { return this.duelChallenges; }
 }
 
 const fakeDuelChallenges: Challenge[] = [
