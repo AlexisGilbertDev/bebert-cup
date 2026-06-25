@@ -39,6 +39,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     name: 'Tour du monde',
     description:
       'Tirez dans l\'ordre affiché — chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
+    duration: 45,
     minPlayers: 2,
     mode: 'survivor',
   },

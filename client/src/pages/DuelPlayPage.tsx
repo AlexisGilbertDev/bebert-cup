@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
+import ChallengeTimer from '../components/ChallengeTimer';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import ComicTitle from '../components/ComicTitle';
@@ -160,6 +161,11 @@ export default function DuelPlayPage() {
           <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
             {currentChallenge.description}
           </p>
+          {currentChallenge.duration && (
+            <div style={{ marginTop: 12 }}>
+              <ChallengeTimer duration={currentChallenge.duration} />
+            </div>
+          )}
         </ComicPanel>
 
         {phase === 'scoring' && (

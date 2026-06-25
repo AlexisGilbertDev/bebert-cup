@@ -22,6 +22,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     name: 'Tour du Monde — 45 secondes',
     description:
       'Chacun son tour, réalisez le plus de tours du monde possible en 45 secondes chrono. Saisissez votre nombre — le classement détermine les points.',
+    duration: 45,
     minPlayers: 2,
     mode: 'duel',
   },
