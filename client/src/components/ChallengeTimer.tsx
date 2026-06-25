@@ -1,5 +1,44 @@
 import { useEffect, useRef, useState } from 'react';
 
+function playWhistle() {
+  const AudioCtx = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+  if (!AudioCtx) return;
+  const ctx = new AudioCtx();
+
+  const blasts = [
+    { start: 0,    duration: 0.14 },
+    { start: 0.22, duration: 0.14 },
+    { start: 0.44, duration: 0.55 },
+  ];
+
+  blasts.forEach(({ start, duration }) => {
+    const t = ctx.currentTime + start;
+
+    // Fundamental ~2900 Hz + 2nd harmonic for body
+    [2900, 5800].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq * 0.97, t);
+      osc.frequency.linearRampToValueAtTime(freq, t + duration * 0.25);
+
+      const volume = i === 0 ? 0.28 : 0.06;
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(volume, t + 0.012);
+      gain.gain.setValueAtTime(volume, t + duration - 0.035);
+      gain.gain.linearRampToValueAtTime(0, t + duration);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + duration + 0.01);
+    });
+  });
+
+  setTimeout(() => ctx.close(), 2500);
+}
+
 interface Props {
   duration: number;
 }
@@ -19,7 +58,11 @@ export default function ChallengeTimer({ duration }: Props) {
     if (timeLeft <= 0) { setRunning(false); return; }
     intervalRef.current = setInterval(() => {
       setTimeLeft((previous) => {
-        if (previous <= 1) { setRunning(false); return 0; }
+        if (previous <= 1) {
+          setRunning(false);
+          playWhistle();
+          return 0;
+        }
         return previous - 1;
       });
     }, 1000);
