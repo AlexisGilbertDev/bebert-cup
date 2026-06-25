@@ -16,8 +16,12 @@ interface PlayerInput {
   value: string;
 }
 
+function generateId(): string {
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
 function createInput(): PlayerInput {
-  return { id: crypto.randomUUID(), value: '' };
+  return { id: generateId(), value: '' };
 }
 
 export default function DuelSetupPage() {
