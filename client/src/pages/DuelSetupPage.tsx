@@ -6,19 +6,10 @@ import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
 import '../components/comic.css';
 
-const MIN_PLAYERS = 3;
-const MAX_PLAYERS = 8;
+const MIN_PLAYERS = 2;
+const MAX_PLAYERS = 4;
 
-const PLAYER_COLORS = [
-  '#ef4444',
-  '#f59e0b',
-  '#84cc16',
-  '#10b981',
-  '#06b6d4',
-  '#3b82f6',
-  '#8b5cf6',
-  '#ec4899',
-];
+const PLAYER_COLORS = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b'];
 
 interface PlayerInput {
   id: string;
@@ -33,19 +24,13 @@ function createInput(): PlayerInput {
   return { id: generateId(), value: '' };
 }
 
-export default function HomePage() {
-  const [inputs, setInputs] = useState<PlayerInput[]>([
-    createInput(),
-    createInput(),
-    createInput(),
-  ]);
-  const { setPlayers } = useSession();
+export default function DuelSetupPage() {
+  const [inputs, setInputs] = useState<PlayerInput[]>([createInput(), createInput()]);
+  const { setMode, setPlayers } = useSession();
   const navigate = useNavigate();
 
   function updateInput(id: string, value: string) {
-    setInputs(
-      inputs.map((input) => (input.id === id ? { ...input, value } : input)),
-    );
+    setInputs(inputs.map((input) => (input.id === id ? { ...input, value } : input)));
   }
 
   function addPlayer() {
@@ -64,8 +49,9 @@ export default function HomePage() {
 
   function handleStart() {
     if (!canStart) return;
+    setMode('duel');
     setPlayers(filled);
-    navigate('/survivor/play');
+    navigate('/duel/play');
   }
 
   return (
@@ -127,13 +113,11 @@ export default function HomePage() {
           </p>
         )}
 
-        <ComicButton
-          variant="yellow"
-          onClick={addPlayer}
-          disabled={inputs.length >= MAX_PLAYERS}
-        >
-          + Ajouter un joueur
-        </ComicButton>
+        {inputs.length < MAX_PLAYERS && (
+          <ComicButton variant="yellow" onClick={addPlayer}>
+            + Ajouter un joueur
+          </ComicButton>
+        )}
 
         <ComicButton onClick={handleStart} disabled={!canStart}>
           DÉMARRER !

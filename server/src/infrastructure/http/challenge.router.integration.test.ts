@@ -5,10 +5,9 @@ import type { ChallengeRepositoryPort } from '../../domain/ports/challenge-repos
 import { buildApp } from './server.js';
 
 class FakeChallengeRepository implements ChallengeRepositoryPort {
-  constructor(private readonly challenges: Challenge[]) {}
-  findAll(): Challenge[] {
-    return this.challenges;
-  }
+  constructor(private readonly survivorChallenges: Challenge[]) {}
+  findSurvivorChallenges() { return this.survivorChallenges; }
+  findDuelChallenges() { return []; }
 }
 
 const fakeChallenges: Challenge[] = [
@@ -17,11 +16,12 @@ const fakeChallenges: Challenge[] = [
     name: 'Crossbar Challenge',
     description: 'Hit the crossbar.',
     minPlayers: 2,
+    mode: 'survivor',
   },
 ];
 
 describe('GET /api/challenges', () => {
-  it('returns the list of challenges', async () => {
+  it('returns the list of survivor challenges', async () => {
     const application = buildApp({
       challengeRepository: new FakeChallengeRepository(fakeChallenges),
     });
@@ -30,7 +30,7 @@ describe('GET /api/challenges', () => {
     expect(response.body).toEqual(fakeChallenges);
   });
 
-  it('returns an empty array when there are no challenges', async () => {
+  it('returns an empty array when there are no survivor challenges', async () => {
     const application = buildApp({
       challengeRepository: new FakeChallengeRepository([]),
     });

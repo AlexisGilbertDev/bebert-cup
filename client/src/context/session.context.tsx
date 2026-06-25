@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
-type GameMode = 'survivor';
+type GameMode = 'survivor' | 'duel';
 
 interface SessionContextValue {
   mode: GameMode | null;

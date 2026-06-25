@@ -8,7 +8,9 @@ export function pickChallenge(
   challenges: Challenge[],
   playerCount: number,
 ): Challenge | null {
-  const eligible = challenges.filter((c) => c.minPlayers <= playerCount);
+  const eligible = challenges.filter(
+    (c) => c.minPlayers <= playerCount && (c.maxPlayers === undefined || c.maxPlayers >= playerCount),
+  );
   if (eligible.length === 0) return null;
   return eligible[Math.floor(Math.random() * eligible.length)];
 }

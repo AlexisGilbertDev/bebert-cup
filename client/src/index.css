@@ -1,13 +1,14 @@
 :root {
-  --ink: #15110d;
+  --ink: #15110C;
   --ink-soft: #14110d;
-  --paper: #fdf3df;
-  --red: #e63946;
-  --yellow: #ffd23f;
-  --blue: #1d6fe0;
-  --jersey: #1f6fe0;
-  --jersey-shade: #1759b8;
+  --paper: #F4E5C4;
+  --red: #E23B40;
+  --yellow: #F6C544;
+  --blue: #1B49B5;
+  --jersey: #1B49B5;
+  --jersey-shade: #1338A0;
   --text-muted: #3f3a33;
+  --white-card: #FFFDF7;
 }
 
 *, *::before, *::after {
