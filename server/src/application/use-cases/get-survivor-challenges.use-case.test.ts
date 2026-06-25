@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Challenge } from '../../domain/entities/challenge.entity.js';
 import type { ChallengeRepositoryPort } from '../../domain/ports/challenge-repository.port.js';
-import { GetChallengesUseCase } from './get-challenges.use-case.js';
+import { GetSurvivorChallengesUseCase } from './get-survivor-challenges.use-case.js';
 
 class FakeChallengeRepository implements ChallengeRepositoryPort {
   constructor(
@@ -12,7 +12,7 @@ class FakeChallengeRepository implements ChallengeRepositoryPort {
   findDuelChallenges() { return this.duelChallenges; }
 }
 
-describe('GetChallengesUseCase', () => {
+describe('GetSurvivorChallengesUseCase', () => {
   it('returns survivor challenges from the repository', () => {
     const challenges: Challenge[] = [
       {
@@ -23,12 +23,12 @@ describe('GetChallengesUseCase', () => {
         mode: 'survivor',
       },
     ];
-    const useCase = new GetChallengesUseCase(new FakeChallengeRepository(challenges));
+    const useCase = new GetSurvivorChallengesUseCase(new FakeChallengeRepository(challenges));
     expect(useCase.execute()).toEqual(challenges);
   });
 
   it('returns an empty array when there are no survivor challenges', () => {
-    const useCase = new GetChallengesUseCase(new FakeChallengeRepository([]));
+    const useCase = new GetSurvivorChallengesUseCase(new FakeChallengeRepository([]));
     expect(useCase.execute()).toEqual([]);
   });
 
@@ -47,7 +47,7 @@ describe('GetChallengesUseCase', () => {
       minPlayers: 2,
       mode: 'duel',
     };
-    const useCase = new GetChallengesUseCase(
+    const useCase = new GetSurvivorChallengesUseCase(
       new FakeChallengeRepository([survivorChallenge], [duelChallenge]),
     );
     expect(useCase.execute()).toEqual([survivorChallenge]);
