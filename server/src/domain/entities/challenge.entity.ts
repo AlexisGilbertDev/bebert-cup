@@ -1,4 +1,4 @@
-export type ChallengeMode = 'survivor' | 'duel';
+export type ChallengeMode = 'survivor' | 'duel' | 'team-play';
 
 export interface ChallengeDrawSlot {
   role: string;

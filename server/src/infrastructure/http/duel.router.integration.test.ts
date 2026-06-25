@@ -8,6 +8,7 @@ class FakeChallengeRepository implements ChallengeRepositoryPort {
   constructor(private readonly duelChallenges: Challenge[]) {}
   findSurvivorChallenges() { return []; }
   findDuelChallenges() { return this.duelChallenges; }
+  findTeamPlayChallenges() { return []; }
 }
 
 const fakeDuelChallenges: Challenge[] = [

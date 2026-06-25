@@ -2,6 +2,7 @@ import { Router } from 'express';
 import type { ChallengeRepositoryPort } from '../../domain/ports/challenge-repository.port.js';
 import { buildChallengeRouter } from './challenge.router.js';
 import { buildDuelRouter } from './duel.router.js';
+import { buildTeamPlayRouter } from './team-play.router.js';
 
 export interface AppDependencies {
   challengeRepository: ChallengeRepositoryPort;
@@ -16,6 +17,7 @@ export function buildRouter(dependencies: AppDependencies): Router {
 
   router.use('/challenges', buildChallengeRouter(dependencies));
   router.use('/duel', buildDuelRouter(dependencies));
+  router.use('/team-play', buildTeamPlayRouter(dependencies));
 
   return router;
 }

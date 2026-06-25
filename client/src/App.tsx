@@ -7,6 +7,9 @@ import DuelWinnerPage from './pages/DuelWinnerPage';
 import FinalistPage from './pages/FinalistPage';
 import HomePage from './pages/HomePage';
 import ModeSelectionPage from './pages/ModeSelectionPage';
+import TeamPlayPage from './pages/TeamPlayPage';
+import TeamSetupPage from './pages/TeamSetupPage';
+import TeamWinnerPage from './pages/TeamWinnerPage';
 import WinnerPage from './pages/WinnerPage';
 
 export default function App() {
@@ -22,6 +25,9 @@ export default function App() {
           <Route path="/duel/setup" element={<DuelSetupPage />} />
           <Route path="/duel/play" element={<DuelPlayPage />} />
           <Route path="/duel/winner" element={<DuelWinnerPage />} />
+          <Route path="/team-play/setup" element={<TeamSetupPage />} />
+          <Route path="/team-play/play" element={<TeamPlayPage />} />
+          <Route path="/team-play/winner" element={<TeamWinnerPage />} />
         </Routes>
       </SessionProvider>
     </BrowserRouter>
