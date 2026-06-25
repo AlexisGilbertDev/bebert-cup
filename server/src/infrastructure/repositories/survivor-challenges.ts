@@ -94,6 +94,14 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     mode: 'survivor',
   },
   {
+    id: 'jongle-distance',
+    name: 'Jongle & Marche',
+    description:
+      'Tout le monde jongle en avançant le plus loin possible. Celui qui parcourt la plus courte distance est éliminé !',
+    minPlayers: 2,
+    mode: 'survivor',
+  },
+  {
     id: 'centre-fatal',
     name: 'Centre Fatal',
     description:
