@@ -16,8 +16,8 @@ export default function ChallengePage() {
   const location = useLocation();
   const { challenges, loading, error } = useChallenges();
 
-  const finalists = (location.state as { finalists?: string[] } | null)
-    ?.finalists;
+  const locationState = location.state as { finalists?: string[]; eliminationOrder?: string[] } | null;
+  const finalists = locationState?.finalists;
 
   const [activePlayers, setActivePlayers] = useState<string[]>(() =>
     shuffle(finalists ?? players),
@@ -27,6 +27,7 @@ export default function ChallengePage() {
   );
   const [eliminated, setEliminated] = useState<string | null>(null);
   const [drawnPlayers, setDrawnPlayers] = useState<Array<{ player: string; role: string }>>([]);
+  const [eliminationOrder, setEliminationOrder] = useState<string[]>(locationState?.eliminationOrder ?? []);
 
   function drawPlayers(challenge: Challenge | null, pool: string[]) {
     if (!challenge?.draw || challenge.draw.length === 0) {
@@ -71,14 +72,16 @@ export default function ChallengePage() {
   function nextRound() {
     if (!eliminated) return;
     const result = resolveRound(activePlayers, eliminated);
+    const newEliminationOrder = [...eliminationOrder, eliminated];
     if (result.type === 'winner') {
-      navigate('/survivor/winner', { state: { winner: result.winner } });
+      navigate('/survivor/winner', { state: { winner: result.winner, eliminationOrder: newEliminationOrder } });
       return;
     }
     if (result.type === 'finale') {
-      navigate('/survivor/finale', { state: { finalists: result.finalists } });
+      navigate('/survivor/finale', { state: { finalists: result.finalists, eliminationOrder: newEliminationOrder } });
       return;
     }
+    setEliminationOrder(newEliminationOrder);
     const order = shuffle(result.survivors);
     const next = pickChallenge(challenges, order.length);
     setActivePlayers(order);

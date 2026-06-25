@@ -29,7 +29,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'qualification',
     name: 'Qualification',
     description:
-      '{{gardien}} va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le grand gagnat choisit qui il veut éliminer !',
+      '{{gardien}} va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le grand gagnant choisit qui il veut éliminer !',
     minPlayers: 3,
     mode: 'survivor',
     draw: [{ role: 'gardien' }],
@@ -38,7 +38,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'tour-du-monde',
     name: 'Tour du monde',
     description:
-      'Tirez dans l\'ordre affiché — chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
+      'Dans l\'ordre affiché — chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
     minPlayers: 2,
     mode: 'survivor',
   },

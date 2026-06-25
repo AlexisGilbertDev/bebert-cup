@@ -5,7 +5,6 @@ import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import ComicTitle from '../components/ComicTitle';
 import PageHeader from '../components/PageHeader';
-import { pickChallenge } from '../game';
 import { useDuelChallenges } from '../hooks/use-duel-challenges';
 import type { Challenge } from '../hooks/use-challenges';
 import '../components/comic.css';
@@ -17,6 +16,25 @@ type Phase = 'scoring' | 'results';
 function findTied(scores: Record<string, number>, players: string[]): string[] {
   const max = Math.max(...players.map((player) => scores[player]));
   return players.filter((player) => scores[player] === max);
+}
+
+function computeNextChallenge(
+  challenges: Challenge[],
+  playerCount: number,
+  usedIds: ReadonlySet<string>,
+  excludeId?: string,
+): { challenge: Challenge; newUsedIds: Set<string> } | null {
+  const eligible = challenges.filter(
+    (c) => c.minPlayers <= playerCount && (c.maxPlayers === undefined || c.maxPlayers >= playerCount),
+  );
+  const exclude = excludeId ? new Set([...usedIds, excludeId]) : usedIds;
+  const pool = eligible.filter((c) => !exclude.has(c.id));
+  const isExhausted = pool.length === 0;
+  const candidates = isExhausted ? eligible.filter((c) => c.id !== excludeId) : pool;
+  if (candidates.length === 0) return null;
+  const challenge = candidates[Math.floor(Math.random() * candidates.length)];
+  const newUsedIds = isExhausted ? new Set([challenge.id]) : new Set([...usedIds, challenge.id]);
+  return { challenge, newUsedIds };
 }
 
 export default function DuelPlayPage() {
@@ -36,16 +54,22 @@ export default function DuelPlayPage() {
   const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(null);
   const [phase, setPhase] = useState<Phase>('scoring');
   const [orderedRanks, setOrderedRanks] = useState<string[]>([]);
+  const [usedChallengeIds, setUsedChallengeIds] = useState<ReadonlySet<string>>(new Set());
 
   useEffect(() => {
     if (players.length === 0) navigate('/');
   }, [players, navigate]);
 
   useEffect(() => {
-    if (!loading && challenges.length > 0) {
-      setCurrentChallenge(pickChallenge(challenges, activePlayers.length));
+    if (!loading && challenges.length > 0 && currentChallenge === null) {
+      const result = computeNextChallenge(challenges, activePlayers.length, new Set());
+      if (result) {
+        setCurrentChallenge(result.challenge);
+        setUsedChallengeIds(result.newUsedIds);
+      }
     }
-  }, [loading, challenges, activePlayers.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, challenges, activePlayers.length, currentChallenge]);
 
   function resetRoundInputState() {
     setOrderedRanks([]);
@@ -54,9 +78,13 @@ export default function DuelPlayPage() {
   function togglePlayerRank(player: string) {
     const rankIndex = orderedRanks.indexOf(player);
     if (rankIndex === -1) {
-      setOrderedRanks([...orderedRanks, player]);
+      const newRanks = [...orderedRanks, player];
+      if (newRanks.length === activePlayers.length - 1) {
+        const last = activePlayers.find((p) => !newRanks.includes(p));
+        if (last) { setOrderedRanks([...newRanks, last]); return; }
+      }
+      setOrderedRanks(newRanks);
     } else {
-      // Remove this player and all ranked after them
       setOrderedRanks(orderedRanks.slice(0, rankIndex));
     }
   }
@@ -77,14 +105,10 @@ export default function DuelPlayPage() {
   }
 
   function changeChallenge() {
-    const eligible = challenges.filter(
-      (c) =>
-        c.minPlayers <= activePlayers.length &&
-        (c.maxPlayers === undefined || c.maxPlayers >= activePlayers.length) &&
-        c.id !== currentChallenge?.id,
-    );
-    if (eligible.length === 0) return;
-    setCurrentChallenge(eligible[Math.floor(Math.random() * eligible.length)]);
+    const result = computeNextChallenge(challenges, activePlayers.length, usedChallengeIds, currentChallenge?.id);
+    if (!result) return;
+    setCurrentChallenge(result.challenge);
+    setUsedChallengeIds(result.newUsedIds);
     resetRoundInputState();
   }
 
@@ -97,9 +121,10 @@ export default function DuelPlayPage() {
         navigate('/duel/winner', { state: { scores, players } });
         return;
       }
+      const tieResult = computeNextChallenge(challenges, tied.length, usedChallengeIds);
       setIsTieBreak(true);
       setActivePlayers(tied);
-      setCurrentChallenge(pickChallenge(challenges, tied.length));
+      if (tieResult) { setCurrentChallenge(tieResult.challenge); setUsedChallengeIds(tieResult.newUsedIds); }
       resetRoundInputState();
       setPhase('scoring');
       return;
@@ -111,15 +136,17 @@ export default function DuelPlayPage() {
         navigate('/duel/winner', { state: { scores, players } });
         return;
       }
+      const tieResult = computeNextChallenge(challenges, tied.length, usedChallengeIds);
       setActivePlayers(tied);
-      setCurrentChallenge(pickChallenge(challenges, tied.length));
+      if (tieResult) { setCurrentChallenge(tieResult.challenge); setUsedChallengeIds(tieResult.newUsedIds); }
       resetRoundInputState();
       setPhase('scoring');
       return;
     }
 
+    const nextResult = computeNextChallenge(challenges, activePlayers.length, usedChallengeIds);
     setRound((previous) => previous + 1);
-    setCurrentChallenge(pickChallenge(challenges, activePlayers.length));
+    if (nextResult) { setCurrentChallenge(nextResult.challenge); setUsedChallengeIds(nextResult.newUsedIds); }
     resetRoundInputState();
     setPhase('scoring');
   }
@@ -149,6 +176,11 @@ export default function DuelPlayPage() {
   const roundLabel = isTieBreak ? 'PROLONGATION' : `MANCHE ${round}/${TOTAL_ROUNDS}`;
   const allRanked = orderedRanks.length === activePlayers.length;
   const medals = ['🥇', '🥈', '🥉'];
+  const isLastNormalRound = !isTieBreak && round === TOTAL_ROUNDS;
+  const hasTieAfterLastRound = isLastNormalRound && findTied(scores, players).length > 1;
+  const nextButtonLabel = isTieBreak || round < TOTAL_ROUNDS || hasTieAfterLastRound
+    ? 'Manche suivante →'
+    : 'Voir les résultats →';
 
   return (
     <div className="comic-page">
@@ -280,7 +312,7 @@ export default function DuelPlayPage() {
             </ComicPanel>
 
             <ComicButton onClick={nextRound}>
-              {isTieBreak || round < TOTAL_ROUNDS ? 'Manche suivante →' : 'Voir les résultats →'}
+              {nextButtonLabel}
             </ComicButton>
           </>
         )}
