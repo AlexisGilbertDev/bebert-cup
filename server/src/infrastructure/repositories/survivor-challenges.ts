@@ -39,6 +39,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     name: 'Tour du monde',
     description:
       'Tirez dans l\'ordre affiché — chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
+    duration: 45,
     details:
       'Tour du monde : jongle, et au moment où le ballon est en l\'air, fais tourner ton pied autour du ballon (de l\'extérieur vers l\'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.',
     minPlayers: 2,

@@ -22,6 +22,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     name: 'Tour du Monde — 45 secondes',
     description:
       'Chacun son tour, réalisez le plus de tours du monde possible en 45 secondes chrono. Saisissez votre nombre — le classement détermine les points.',
+    duration: 45,
     details:
       'Tour du monde : jongle, et au moment où le ballon est en l\'air, fais tourner ton pied autour du ballon (de l\'extérieur vers l\'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.',
     minPlayers: 2,

@@ -8,6 +8,7 @@ export interface Challenge {
   id: string;
   name: string;
   description: string;
+  duration?: number;
   details?: string;
   minPlayers: number;
   maxPlayers?: number;

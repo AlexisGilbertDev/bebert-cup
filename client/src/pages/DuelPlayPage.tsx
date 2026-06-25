@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
+import ChallengeTimer from '../components/ChallengeTimer';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
@@ -216,6 +217,11 @@ export default function DuelPlayPage() {
                 <span className="dp-badge">DÉFI EN COURS</span>
                 <p className="dp-challenge-title">{currentChallenge.name}</p>
                 <p className="dp-challenge-desc">{currentChallenge.description}</p>
+                {currentChallenge.duration && (
+                  <div style={{ marginTop: 12 }}>
+                    <ChallengeTimer duration={currentChallenge.duration} />
+                  </div>
+                )}
               </div>
               <button type="button" className="dp-change-btn" onClick={changeChallenge}>
                 ↻ Changer de défi

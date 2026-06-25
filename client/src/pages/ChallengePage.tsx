@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
 import Caption from '../components/Caption';
+import ChallengeTimer from '../components/ChallengeTimer';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import ComicTitle from '../components/ComicTitle';
@@ -158,6 +159,11 @@ export default function ChallengePage() {
                   {player} <span style={{ font: '700 13px Nunito', color: 'var(--text-muted)' }}>→ {role}</span>
                 </p>
               ))}
+            </div>
+          )}
+          {currentChallenge.duration && (
+            <div style={{ marginTop: 12 }}>
+              <ChallengeTimer duration={currentChallenge.duration} />
             </div>
           )}
         </ComicPanel>
