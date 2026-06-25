@@ -1,16 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import type { Challenge, ChallengeMode } from '../../domain/entities/challenge.entity.js';
+import type { Challenge } from '../../domain/entities/challenge.entity.js';
 import type { ChallengeRepositoryPort } from '../../domain/ports/challenge-repository.port.js';
 import { GetChallengesUseCase } from './get-challenges.use-case.js';
 
 class FakeChallengeRepository implements ChallengeRepositoryPort {
-  constructor(private readonly challenges: Challenge[]) {}
-  findAll(): Challenge[] {
-    return this.challenges;
-  }
-  findByMode(mode: ChallengeMode): Challenge[] {
-    return this.challenges.filter((challenge) => challenge.mode === mode);
-  }
+  constructor(
+    private readonly survivorChallenges: Challenge[],
+    private readonly duelChallenges: Challenge[] = [],
+  ) {}
+  findSurvivorChallenges() { return this.survivorChallenges; }
+  findDuelChallenges() { return this.duelChallenges; }
 }
 
 describe('GetChallengesUseCase', () => {
@@ -24,9 +23,7 @@ describe('GetChallengesUseCase', () => {
         mode: 'survivor',
       },
     ];
-    const useCase = new GetChallengesUseCase(
-      new FakeChallengeRepository(challenges),
-    );
+    const useCase = new GetChallengesUseCase(new FakeChallengeRepository(challenges));
     expect(useCase.execute()).toEqual(challenges);
   });
 
@@ -36,23 +33,24 @@ describe('GetChallengesUseCase', () => {
   });
 
   it('does not return duel challenges', () => {
-    const challenges: Challenge[] = [
-      {
-        id: 'survivor-1',
-        name: 'Survivor',
-        description: 'A survivor challenge.',
-        minPlayers: 2,
-        mode: 'survivor',
-      },
-      {
-        id: 'duel-1',
-        name: 'Duel',
-        description: 'A duel challenge.',
-        minPlayers: 2,
-        mode: 'duel',
-      },
-    ];
-    const useCase = new GetChallengesUseCase(new FakeChallengeRepository(challenges));
-    expect(useCase.execute()).toEqual([challenges[0]]);
+    const survivorChallenge: Challenge = {
+      id: 'survivor-1',
+      name: 'Survivor',
+      description: 'A survivor challenge.',
+      minPlayers: 2,
+      mode: 'survivor',
+    };
+    const duelChallenge: Challenge = {
+      id: 'duel-1',
+      name: 'Duel',
+      description: 'A duel challenge.',
+      minPlayers: 2,
+      mode: 'duel',
+    };
+    const useCase = new GetChallengesUseCase(
+      new FakeChallengeRepository([survivorChallenge], [duelChallenge]),
+    );
+    expect(useCase.execute()).toEqual([survivorChallenge]);
+    expect(useCase.execute()).not.toContainEqual(duelChallenge);
   });
 });

@@ -5,6 +5,6 @@ export class GetChallengesUseCase {
   constructor(private readonly challengeRepository: ChallengeRepositoryPort) {}
 
   execute(): Challenge[] {
-    return this.challengeRepository.findByMode('survivor');
+    return this.challengeRepository.findSurvivorChallenges();
   }
 }

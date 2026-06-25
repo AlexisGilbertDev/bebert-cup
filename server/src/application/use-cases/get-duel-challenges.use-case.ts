@@ -5,6 +5,6 @@ export class GetDuelChallengesUseCase {
   constructor(private readonly challengeRepository: ChallengeRepositoryPort) {}
 
   execute(): Challenge[] {
-    return this.challengeRepository.findByMode('duel');
+    return this.challengeRepository.findDuelChallenges();
   }
 }
