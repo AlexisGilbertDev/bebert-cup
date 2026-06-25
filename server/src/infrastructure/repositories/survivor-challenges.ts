@@ -110,4 +110,12 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     mode: 'survivor',
     draw: [{ role: 'centreur' }, { role: 'finisseur' }],
   },
+  {
+    id: 'belle-frappe',
+    name: 'La Belle Frappe',
+    description:
+      'Tout le monde tire en dehors de la surface. Celui qui met le plus beau but choisit qui il veut éliminer !',
+    minPlayers: 3,
+    mode: 'survivor',
+  },
 ];
