@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Challenge, ChallengeMode } from '../../domain/entities/challenge.entity.js';
 import type { ChallengeRepositoryPort } from '../../domain/ports/challenge-repository.port.js';
-import { GetChallengesUseCase } from './get-challenges.use-case.js';
+import { GetDuelChallengesUseCase } from './get-duel-challenges.use-case.js';
 
 class FakeChallengeRepository implements ChallengeRepositoryPort {
   constructor(private readonly challenges: Challenge[]) {}
@@ -13,29 +13,29 @@ class FakeChallengeRepository implements ChallengeRepositoryPort {
   }
 }
 
-describe('GetChallengesUseCase', () => {
-  it('returns survivor challenges from the repository', () => {
+describe('GetDuelChallengesUseCase', () => {
+  it('returns duel challenges from the repository', () => {
     const challenges: Challenge[] = [
       {
-        id: 'crossbar-challenge',
-        name: 'Crossbar Challenge',
-        description: 'Hit the crossbar.',
+        id: 'duel-1',
+        name: 'Duel Challenge',
+        description: 'A duel challenge.',
         minPlayers: 2,
-        mode: 'survivor',
+        mode: 'duel',
       },
     ];
-    const useCase = new GetChallengesUseCase(
+    const useCase = new GetDuelChallengesUseCase(
       new FakeChallengeRepository(challenges),
     );
     expect(useCase.execute()).toEqual(challenges);
   });
 
-  it('returns an empty array when there are no survivor challenges', () => {
-    const useCase = new GetChallengesUseCase(new FakeChallengeRepository([]));
+  it('returns an empty array when there are no duel challenges', () => {
+    const useCase = new GetDuelChallengesUseCase(new FakeChallengeRepository([]));
     expect(useCase.execute()).toEqual([]);
   });
 
-  it('does not return duel challenges', () => {
+  it('does not return survivor challenges', () => {
     const challenges: Challenge[] = [
       {
         id: 'survivor-1',
@@ -52,7 +52,7 @@ describe('GetChallengesUseCase', () => {
         mode: 'duel',
       },
     ];
-    const useCase = new GetChallengesUseCase(new FakeChallengeRepository(challenges));
-    expect(useCase.execute()).toEqual([challenges[0]]);
+    const useCase = new GetDuelChallengesUseCase(new FakeChallengeRepository(challenges));
+    expect(useCase.execute()).toEqual([challenges[1]]);
   });
 });
