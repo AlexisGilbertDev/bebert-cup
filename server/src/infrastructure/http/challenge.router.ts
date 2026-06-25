@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { GetChallengesUseCase } from '../../application/use-cases/get-challenges.use-case.js';
+import { GetSurvivorChallengesUseCase } from '../../application/use-cases/get-survivor-challenges.use-case.js';
 import type { ChallengeRepositoryPort } from '../../domain/ports/challenge-repository.port.js';
 
 export function buildChallengeRouter(dependencies: {
@@ -8,7 +8,7 @@ export function buildChallengeRouter(dependencies: {
   const router = Router();
 
   router.get('/', (_request, response) => {
-    const useCase = new GetChallengesUseCase(dependencies.challengeRepository);
+    const useCase = new GetSurvivorChallengesUseCase(dependencies.challengeRepository);
     response.json(useCase.execute());
   });
 
