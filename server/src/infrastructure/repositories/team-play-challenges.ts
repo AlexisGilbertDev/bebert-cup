@@ -5,7 +5,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-penaltys',
     name: 'Séance de Penaltys',
     description:
-      'Chaque équipe tire 5 penaltys dans l\'ordre qu\'elle veut. L\'équipe qui en marque le plus gagne la manche !',
+      'Chaque équipe tire 5 penaltys et s\'organise comme elle veut — qui tire, qui va au but. L\'équipe qui en marque le plus gagne la manche !',
     minPlayers: 4,
     mode: 'team-play',
   },
