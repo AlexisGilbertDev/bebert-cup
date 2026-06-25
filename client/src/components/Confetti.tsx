@@ -50,6 +50,16 @@ export default function Confetti() {
       };
     }
 
+    function drawParticle(p: Particle) {
+      if (p.isRect) {
+        ctx.fillRect(-p.size / 2, -p.size * 0.4, p.size, p.size * 0.8);
+        return;
+      }
+      ctx.beginPath();
+      ctx.arc(0, 0, p.size / 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
     function tick() {
       const now = Date.now();
       ctx.clearRect(0, 0, W, H);
@@ -73,13 +83,7 @@ export default function Confetti() {
         ctx.fillStyle = p.color;
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
-        if (p.isRect) {
-          ctx.fillRect(-p.size / 2, -p.size * 0.4, p.size, p.size * 0.8);
-        } else {
-          ctx.beginPath();
-          ctx.arc(0, 0, p.size / 2.5, 0, Math.PI * 2);
-          ctx.fill();
-        }
+        drawParticle(p);
         ctx.restore();
       }
 

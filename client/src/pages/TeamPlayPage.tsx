@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ChallengeStopwatch from '../components/ChallengeStopwatch';
+import ChallengeTimer from '../components/ChallengeTimer';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
@@ -240,6 +242,8 @@ export default function TeamPlayPage() {
                 <p style={{ font: '700 14px/1.4 Nunito', color: '#6b6154' }}>
                   {interpolateDescription(currentChallenge.description, drawnTeams)}
                 </p>
+                {currentChallenge.stopwatch && <ChallengeStopwatch />}
+                {currentChallenge.duration && <ChallengeTimer duration={currentChallenge.duration} />}
                 {showDetails && currentChallenge.details && (
                   <div style={{
                     padding: '8px 10px', background: '#f0e8d4',

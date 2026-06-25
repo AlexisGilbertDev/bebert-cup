@@ -9,6 +9,7 @@ export interface Challenge {
   name: string;
   description: string;
   duration?: number;
+  stopwatch?: boolean;
   details?: string;
   minPlayers: number;
   maxPlayers?: number;
