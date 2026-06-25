@@ -55,9 +55,9 @@ export default function ModeSelectionPage() {
             </div>
           </div>
           <p className="msb-card-desc">
-            3–8 joueurs · Élimination directe. Un seul ressort vivant.
+            3–8 joueurs · Élimination directe. À la fin, il n'en restera qu'un !
           </p>
-          <button className="msb-play-btn msb-play-btn--red" onClick={selectSurvivor}>
+          <button type="button" className="msb-play-btn msb-play-btn--red" onClick={selectSurvivor}>
             JOUER&nbsp;!
           </button>
         </div>
@@ -69,9 +69,9 @@ export default function ModeSelectionPage() {
             <div className="msb-vs-badge" aria-hidden="true">VS</div>
           </div>
           <p className="msb-card-desc">
-            2–4 joueurs · 8 manches. Le meilleur l'emporte.
+            2–4 joueurs · 8 manches. Le meilleur l'emporte !
           </p>
-          <button className="msb-play-btn msb-play-btn--blue" onClick={selectDuel}>
+          <button type="button" className="msb-play-btn msb-play-btn--blue" onClick={selectDuel}>
             JOUER&nbsp;!
           </button>
         </div>
