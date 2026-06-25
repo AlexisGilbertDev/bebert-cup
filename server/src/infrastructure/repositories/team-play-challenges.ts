@@ -5,7 +5,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-penaltys',
     name: 'Séance de Penaltys',
     description:
-      'Chaque équipe tire 5 penaltys dans l\'ordre qu\'elle veut. L\'équipe qui en marque le plus gagne la manche !',
+      'Chaque équipe tire 5 penaltys et s\'organise comme elle veut — qui tire, qui va au but. L\'équipe qui en marque le plus gagne la manche !',
     minPlayers: 4,
     mode: 'team-play',
   },
@@ -14,6 +14,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     name: 'Brasileira en Équipe',
     description:
       'Chaque équipe joue sa brésilienne — 3 touches maximum par joueur, pas de touche au sol. L\'équipe qui tient le plus longtemps gagne la manche !',
+    stopwatch: true,
     minPlayers: 4,
     mode: 'team-play',
   },
@@ -29,7 +30,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-cul-rouge',
     name: 'Cul Rouge',
     description:
-      'Chaque équipe désigne un tireur et un receveur. Le receveur se retourne, se penche, et le tireur adverse lui envoie le ballon. L\'équipe dont le receveur devine qui l\'a tiré remporte la manche !',
+      'Chaque équipe désigne un tireur et un receveur. Le receveur se retourne, se penche, et le tireur adverse lui envoie le ballon. L\'équipe qui vise juste remporte la manche !',
     minPlayers: 4,
     mode: 'team-play',
   },
@@ -37,7 +38,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-relais-jongle',
     name: 'Relais Jongle',
     description:
-      'Chaque joueur jongle 10 fois puis passe à un coéquipier — sans laisser tomber le ballon. L\'équipe qui complète le tour en premier gagne la manche !',
+      'Chaque joueur jongle 10 fois puis passe à un coéquipier — sans laisser tomber le ballon. L\'équipe qui fait le plus de tours gagne la manche !',
     minPlayers: 4,
     mode: 'team-play',
   },
