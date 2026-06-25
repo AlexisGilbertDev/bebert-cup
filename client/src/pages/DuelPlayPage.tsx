@@ -3,20 +3,48 @@ import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
-import ComicTitle from '../components/ComicTitle';
 import PageHeader from '../components/PageHeader';
-import { pickChallenge } from '../game';
 import { useDuelChallenges } from '../hooks/use-duel-challenges';
 import type { Challenge } from '../hooks/use-challenges';
 import '../components/comic.css';
+import './duel-play.css';
 
 const TOTAL_ROUNDS = 8;
+
+const PLAYER_COLORS = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b'];
 
 type Phase = 'scoring' | 'results';
 
 function findTied(scores: Record<string, number>, players: string[]): string[] {
   const max = Math.max(...players.map((player) => scores[player]));
   return players.filter((player) => scores[player] === max);
+}
+
+function computeNextChallenge(
+  challenges: Challenge[],
+  playerCount: number,
+  usedIds: ReadonlySet<string>,
+  excludeId?: string,
+): { challenge: Challenge; newUsedIds: Set<string> } | null {
+  const eligible = challenges.filter(
+    (c) => c.minPlayers <= playerCount && (c.maxPlayers === undefined || c.maxPlayers >= playerCount),
+  );
+  const exclude = excludeId ? new Set([...usedIds, excludeId]) : usedIds;
+  const pool = eligible.filter((c) => !exclude.has(c.id));
+  const isExhausted = pool.length === 0;
+  const candidates = isExhausted ? eligible.filter((c) => c.id !== excludeId) : pool;
+  if (candidates.length === 0) return null;
+  const challenge = candidates[Math.floor(Math.random() * candidates.length)];
+  const newUsedIds = isExhausted ? new Set([challenge.id]) : new Set([...usedIds, challenge.id]);
+  return { challenge, newUsedIds };
+}
+
+function medalFor(rank: number): string {
+  return (['🥇', '🥈', '🥉', '🏅'] as const)[rank] ?? '🏅';
+}
+
+function rankLabel(position: number): string {
+  return position === 1 ? '1er' : `${position}e`;
 }
 
 export default function DuelPlayPage() {
@@ -36,29 +64,37 @@ export default function DuelPlayPage() {
   const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(null);
   const [phase, setPhase] = useState<Phase>('scoring');
   const [orderedRanks, setOrderedRanks] = useState<string[]>([]);
-  const [showDetails, setShowDetails] = useState(false);
+  const [usedChallengeIds, setUsedChallengeIds] = useState<ReadonlySet<string>>(new Set());
 
   useEffect(() => {
     if (players.length === 0) navigate('/');
   }, [players, navigate]);
 
   useEffect(() => {
-    if (!loading && challenges.length > 0) {
-      setCurrentChallenge(pickChallenge(challenges, activePlayers.length));
+    if (!loading && challenges.length > 0 && currentChallenge === null) {
+      const result = computeNextChallenge(challenges, activePlayers.length, new Set());
+      if (result) {
+        setCurrentChallenge(result.challenge);
+        setUsedChallengeIds(result.newUsedIds);
+      }
     }
-  }, [loading, challenges, activePlayers.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, challenges, activePlayers.length, currentChallenge]);
 
   function resetRoundInputState() {
     setOrderedRanks([]);
-    setShowDetails(false);
   }
 
   function togglePlayerRank(player: string) {
     const rankIndex = orderedRanks.indexOf(player);
     if (rankIndex === -1) {
-      setOrderedRanks([...orderedRanks, player]);
+      const newRanks = [...orderedRanks, player];
+      if (newRanks.length === activePlayers.length - 1) {
+        const last = activePlayers.find((p) => !newRanks.includes(p));
+        if (last) { setOrderedRanks([...newRanks, last]); return; }
+      }
+      setOrderedRanks(newRanks);
     } else {
-      // Remove this player and all ranked after them
       setOrderedRanks(orderedRanks.slice(0, rankIndex));
     }
   }
@@ -79,14 +115,10 @@ export default function DuelPlayPage() {
   }
 
   function changeChallenge() {
-    const eligible = challenges.filter(
-      (c) =>
-        c.minPlayers <= activePlayers.length &&
-        (c.maxPlayers === undefined || c.maxPlayers >= activePlayers.length) &&
-        c.id !== currentChallenge?.id,
-    );
-    if (eligible.length === 0) return;
-    setCurrentChallenge(eligible[Math.floor(Math.random() * eligible.length)]);
+    const result = computeNextChallenge(challenges, activePlayers.length, usedChallengeIds, currentChallenge?.id);
+    if (!result) return;
+    setCurrentChallenge(result.challenge);
+    setUsedChallengeIds(result.newUsedIds);
     resetRoundInputState();
   }
 
@@ -99,9 +131,10 @@ export default function DuelPlayPage() {
         navigate('/duel/winner', { state: { scores, players } });
         return;
       }
+      const tieResult = computeNextChallenge(challenges, tied.length, usedChallengeIds);
       setIsTieBreak(true);
       setActivePlayers(tied);
-      setCurrentChallenge(pickChallenge(challenges, tied.length));
+      if (tieResult) { setCurrentChallenge(tieResult.challenge); setUsedChallengeIds(tieResult.newUsedIds); }
       resetRoundInputState();
       setPhase('scoring');
       return;
@@ -113,15 +146,17 @@ export default function DuelPlayPage() {
         navigate('/duel/winner', { state: { scores, players } });
         return;
       }
+      const tieResult = computeNextChallenge(challenges, tied.length, usedChallengeIds);
       setActivePlayers(tied);
-      setCurrentChallenge(pickChallenge(challenges, tied.length));
+      if (tieResult) { setCurrentChallenge(tieResult.challenge); setUsedChallengeIds(tieResult.newUsedIds); }
       resetRoundInputState();
       setPhase('scoring');
       return;
     }
 
+    const nextResult = computeNextChallenge(challenges, activePlayers.length, usedChallengeIds);
     setRound((previous) => previous + 1);
-    setCurrentChallenge(pickChallenge(challenges, activePlayers.length));
+    if (nextResult) { setCurrentChallenge(nextResult.challenge); setUsedChallengeIds(nextResult.newUsedIds); }
     resetRoundInputState();
     setPhase('scoring');
   }
@@ -150,97 +185,109 @@ export default function DuelPlayPage() {
 
   const roundLabel = isTieBreak ? 'PROLONGATION' : `MANCHE ${round}/${TOTAL_ROUNDS}`;
   const allRanked = orderedRanks.length === activePlayers.length;
-  const medals = ['🥇', '🥈', '🥉'];
+  const isLastNormalRound = !isTieBreak && round === TOTAL_ROUNDS;
+  const hasTieAfterLastRound = isLastNormalRound && findTied(scores, players).length > 1;
+  const nextButtonLabel = isTieBreak || round < TOTAL_ROUNDS || hasTieAfterLastRound
+    ? 'Manche suivante →'
+    : 'Voir les résultats →';
 
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <PageHeader>{roundLabel}</PageHeader>
 
-        <ComicPanel style={{ padding: 16 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-            <ComicTitle size="sm" as="h1" noStroke>{currentChallenge.name}</ComicTitle>
-            {currentChallenge.details && (
-              <button
-                type="button"
-                onClick={() => setShowDetails((previous) => !previous)}
-                style={{
-                  width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
-                  background: showDetails ? 'var(--ink)' : '#e8e0d0',
-                  border: '2px solid var(--ink)', cursor: 'pointer',
-                  font: '900 13px Nunito', color: showDetails ? '#fff' : 'var(--ink)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}
-              >
-                ?
+        {/* ── SCORING PHASE ──────────────────────────────── */}
+        {phase === 'scoring' && (
+          <>
+            {/* Header: round title + progress bar */}
+            <div className="dp-header">
+              <h1 className="dp-round-title">{roundLabel}</h1>
+              {!isTieBreak && (
+                <div className="dp-progress" role="progressbar" aria-valuenow={round} aria-valuemax={TOTAL_ROUNDS}>
+                  {Array.from({ length: TOTAL_ROUNDS }, (_, i) => (
+                    <div key={i} className={`dp-progress-segment${i < round ? ' dp-progress-segment--filled' : ''}`} />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Challenge card */}
+            <div className="dp-challenge-wrap">
+              <div className="dp-challenge-card">
+                <span className="dp-badge">DÉFI EN COURS</span>
+                <p className="dp-challenge-title">{currentChallenge.name}</p>
+                <p className="dp-challenge-desc">{currentChallenge.description}</p>
+              </div>
+              <button type="button" className="dp-change-btn" onClick={changeChallenge}>
+                ↻ Changer de défi
               </button>
-            )}
-          </div>
-          <p style={{ font: '700 15px Nunito', color: 'var(--text-muted)', marginTop: 8 }}>
-            {currentChallenge.description}
-          </p>
-          {showDetails && currentChallenge.details && (
-            <div style={{ marginTop: 8, padding: '8px 10px', background: '#f0e8d4', borderRadius: 8, border: '2px solid var(--ink)' }}>
-              <p style={{ font: '700 13px/1.45 Nunito', color: 'var(--ink)' }}>
-                {currentChallenge.details}
-              </p>
             </div>
-          )}
-        </ComicPanel>
 
-        {phase === 'scoring' && (
-          <ComicButton variant="ghost" onClick={changeChallenge}>
-            ↻ Changer de défi
-          </ComicButton>
-        )}
+            {/* Ranking section */}
+            <div className="dp-ranking-section">
+              <div className="dp-ranking-header">
+                <div>
+                  <p className="dp-ranking-title">CLASSEZ DU GAGNANT AU PERDANT</p>
+                  <p className="dp-ranking-hint">
+                    Touche les joueurs dans l'ordre — le 1er touché finit premier.
+                  </p>
+                </div>
+                <div className="dp-ranking-counter">
+                  <span className="dp-counter-fraction">{orderedRanks.length}/{activePlayers.length}</span>
+                  <span className="dp-counter-label">classés</span>
+                </div>
+              </div>
 
-        {phase === 'scoring' && (
-          <ComicPanel style={{ padding: 16 }}>
-            <p style={{ font: '800 13px Nunito', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
-              Classez du gagnant au perdant
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {activePlayers.map((player) => {
-                const rank = orderedRanks.indexOf(player);
-                const isRanked = rank !== -1;
-                return (
-                  <button
-                    key={player}
-                    type="button"
-                    onClick={() => togglePlayerRank(player)}
-                    style={{
-                      height: 56,
-                      border: '3px solid var(--ink)',
-                      borderRadius: 8,
-                      font: '800 16px Nunito',
-                      cursor: 'pointer',
-                      background: isRanked ? 'var(--ink)' : 'var(--paper)',
-                      color: isRanked ? '#fff' : 'var(--ink)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '0 16px',
-                    }}
-                  >
-                    <span>{player}</span>
-                    {isRanked && <span>{medals[rank]}</span>}
-                  </button>
-                );
-              })}
+              <div className="dp-players">
+                {activePlayers.map((player) => {
+                  const rank = orderedRanks.indexOf(player);
+                  const isRanked = rank !== -1;
+                  const avatarColor = PLAYER_COLORS[players.indexOf(player) % PLAYER_COLORS.length] ?? '#888';
+                  return (
+                    <button
+                      key={player}
+                      type="button"
+                      className={`dp-player-row${isRanked ? ' dp-player-row--ranked' : ' dp-player-row--unranked'}`}
+                      onClick={() => togglePlayerRank(player)}
+                    >
+                      <span className={`dp-medal${!isRanked ? ' dp-medal--empty' : ''}`}>
+                        {isRanked ? medalFor(rank) : null}
+                      </span>
+                      <span className="dp-avatar" style={{ background: avatarColor }}>
+                        {player.charAt(0).toUpperCase()}
+                      </span>
+                      <span className="dp-player-name">{player}</span>
+                      {isRanked && (
+                        <span className="dp-rank-label">{rankLabel(rank + 1)}</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {orderedRanks.length > 0 && (
+                <button type="button" className="dp-restart-btn" onClick={() => setOrderedRanks([])}>
+                  ↺ Recommencer le classement
+                </button>
+              )}
             </div>
-          </ComicPanel>
+
+            <button
+              type="button"
+              className={`dp-submit-btn${allRanked ? ' dp-submit-btn--active' : ' dp-submit-btn--disabled'}`}
+              onClick={allRanked ? submitRanking : undefined}
+              disabled={!allRanked}
+            >
+              {allRanked ? 'SOUMETTRE →' : 'CLASSE TOUS LES JOUEURS'}
+            </button>
+          </>
         )}
 
-        {phase === 'scoring' && (
-          <ComicButton onClick={submitRanking} disabled={!allRanked}>
-            Soumettre →
-          </ComicButton>
-        )}
-
+        {/* ── RESULTS PHASE ──────────────────────────────── */}
         {phase === 'results' && (
           <>
+            <PageHeader>{roundLabel}</PageHeader>
+
             <ComicPanel style={{ padding: 0, overflow: 'hidden' }}>
-              {/* Bandeau titre */}
               <div style={{
                 background: 'var(--ink)',
                 color: 'var(--yellow)',
@@ -253,7 +300,6 @@ export default function DuelPlayPage() {
                 CLASSEMENT
               </div>
 
-              {/* Lignes joueurs */}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {players
                   .slice()
@@ -274,7 +320,7 @@ export default function DuelPlayPage() {
                         }}
                       >
                         <span style={{ font: '900 22px Nunito', width: 32, flexShrink: 0 }}>
-                          {medals[index]}
+                          {medalFor(index)}
                         </span>
                         <span style={{ font: '800 16px Nunito', flex: 1 }}>{player}</span>
                         {gained > 0 && (
@@ -306,10 +352,11 @@ export default function DuelPlayPage() {
             </ComicPanel>
 
             <ComicButton onClick={nextRound}>
-              {isTieBreak || round < TOTAL_ROUNDS ? 'Manche suivante →' : 'Voir les résultats →'}
+              {nextButtonLabel}
             </ComicButton>
           </>
         )}
+
       </div>
     </div>
   );
