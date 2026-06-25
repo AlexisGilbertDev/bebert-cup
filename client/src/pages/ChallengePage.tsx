@@ -32,13 +32,13 @@ export default function ChallengePage() {
   const [eliminationOrder, setEliminationOrder] = useState<string[]>(locationState?.eliminationOrder ?? []);
 
   function drawPlayers(challenge: Challenge | null, pool: string[]) {
+    setShowDetails(false);
     if (!challenge?.draw || challenge.draw.length === 0) {
       setDrawnPlayers([]);
-    } else {
-      const shuffled = shuffle([...pool]);
-      setDrawnPlayers(challenge.draw.map((slot, index) => ({ player: shuffled[index], role: slot.role })));
+      return;
     }
-    setShowDetails(false);
+    const shuffled = shuffle([...pool]);
+    setDrawnPlayers(challenge.draw.map((slot, index) => ({ player: shuffled[index], role: slot.role })));
   }
 
   function interpolateDescription(description: string): string {

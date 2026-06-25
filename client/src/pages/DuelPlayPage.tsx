@@ -88,16 +88,16 @@ export default function DuelPlayPage() {
 
   function togglePlayerRank(player: string) {
     const rankIndex = orderedRanks.indexOf(player);
-    if (rankIndex === -1) {
-      const newRanks = [...orderedRanks, player];
-      if (newRanks.length === activePlayers.length - 1) {
-        const last = activePlayers.find((p) => !newRanks.includes(p));
-        if (last) { setOrderedRanks([...newRanks, last]); return; }
-      }
-      setOrderedRanks(newRanks);
-    } else {
+    if (rankIndex !== -1) {
       setOrderedRanks(orderedRanks.slice(0, rankIndex));
+      return;
     }
+    const newRanks = [...orderedRanks, player];
+    if (newRanks.length === activePlayers.length - 1) {
+      const last = activePlayers.find((p) => !newRanks.includes(p));
+      if (last) { setOrderedRanks([...newRanks, last]); return; }
+    }
+    setOrderedRanks(newRanks);
   }
 
   function submitRanking() {
