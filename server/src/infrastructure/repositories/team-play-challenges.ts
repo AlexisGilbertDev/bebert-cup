@@ -56,7 +56,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-gardien-rotatif',
     name: 'Gardien Rotatif',
     description:
-      'Les attaquants tirent chacun une fois depuis le placement de leur choix. Les défenseurs se relaient au but — 30 secondes chacun. Les équipes échangent les rôles. Celle qui encaisse le moins gagne la manche !',
+      'L\'équipe qui attaque se déplace librement et tire à volonté. Les défenseurs se relaient au but — 30 secondes chacun. Les équipes échangent les rôles. Celle qui encaisse le moins gagne la manche !',
     duration: 30,
     minPlayers: 4,
     mode: 'team-play',
