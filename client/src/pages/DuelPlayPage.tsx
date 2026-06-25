@@ -62,7 +62,7 @@ export default function DuelPlayPage() {
   }
 
   function submitRanking() {
-    const pointsByRank = activePlayers.length === 2 ? [1, 0] : [2, 1, 0];
+    const pointsByRank = activePlayers.length === 2 ? [1, 0] : activePlayers.length === 3 ? [2, 1, 0] : [3, 2, 1, 0];
     const points: Record<string, number> = {};
     orderedRanks.forEach((player, index) => {
       points[player] = pointsByRank[index] ?? 0;

@@ -7,9 +7,9 @@ import PageHeader from '../components/PageHeader';
 import '../components/comic.css';
 
 const MIN_PLAYERS = 2;
-const MAX_PLAYERS = 3;
+const MAX_PLAYERS = 4;
 
-const PLAYER_COLORS = ['#ef4444', '#3b82f6', '#10b981'];
+const PLAYER_COLORS = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b'];
 
 interface PlayerInput {
   id: string;

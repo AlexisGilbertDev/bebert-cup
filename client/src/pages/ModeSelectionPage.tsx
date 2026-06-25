@@ -69,7 +69,7 @@ export default function ModeSelectionPage() {
             <div className="msb-vs-badge" aria-hidden="true">VS</div>
           </div>
           <p className="msb-card-desc">
-            2–3 joueurs · 8 manches · Points sur 3. Le meilleur l'emporte.
+            2–4 joueurs · 8 manches · Points sur 3. Le meilleur l'emporte.
           </p>
           <button className="msb-play-btn msb-play-btn--blue" onClick={selectDuel}>
             JOUER&nbsp;!
