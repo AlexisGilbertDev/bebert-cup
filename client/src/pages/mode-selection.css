@@ -158,6 +158,7 @@
 
 .msb-card-title--red { color: #E23B40; }
 .msb-card-title--blue { color: #1B49B5; }
+.msb-card-title--green { color: #10b981; }
 
 .msb-card-desc {
   font-family: 'Schibsted Grotesk', 'Nunito', sans-serif;
@@ -194,6 +195,11 @@
 
 .msb-play-btn--blue {
   background: #1B49B5;
+  box-shadow: 0 5px 0 #15110C;
+}
+
+.msb-play-btn--green {
+  background: #10b981;
   box-shadow: 0 5px 0 #15110C;
 }
 
@@ -255,5 +261,24 @@
   letter-spacing: 1px;
   color: #fff;
   -webkit-text-stroke: 1px #15110C;
+  paint-order: stroke fill;
+}
+
+/* 2v2 badge (TEAM PLAY): green circle */
+.msb-team-badge {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 3px solid #15110C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #fff;
+  -webkit-text-stroke: 0.5px #15110C;
   paint-order: stroke fill;
 }

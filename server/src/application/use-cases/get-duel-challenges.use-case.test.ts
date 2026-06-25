@@ -10,6 +10,7 @@ class FakeChallengeRepository implements ChallengeRepositoryPort {
   ) {}
   findSurvivorChallenges() { return this.survivorChallenges; }
   findDuelChallenges() { return this.duelChallenges; }
+  findTeamPlayChallenges() { return []; }
 }
 
 describe('GetDuelChallengesUseCase', () => {

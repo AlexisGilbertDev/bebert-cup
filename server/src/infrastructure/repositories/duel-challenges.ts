@@ -21,7 +21,9 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-tour-du-monde',
     name: 'Tour du Monde — 45 secondes',
     description:
-      'Chacun son tour, réalisez le plus de tours du monde possible en 45 secondes chrono. Celui qui en fait le plus gagne !',
+      'Chacun son tour, réalisez le plus de tours du monde possible en 45 secondes chrono. Saisissez votre nombre — le classement détermine les points.',
+    details:
+      'Tour du monde : jongle, et au moment où le ballon est en l\'air, fais tourner ton pied autour du ballon (de l\'extérieur vers l\'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.',
     minPlayers: 2,
     mode: 'duel',
   },
@@ -37,7 +39,9 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-crossbar-reverse',
     name: 'Crossbar Reverse',
     description:
-      'Depuis la ligne de la surface, touchez la barre transversale AVEC REVERSE. Le premier à toucher la barre gagne !',
+      'Depuis la ligne de la surface, touchez la barre transversale avec un tir en reverse. Tapez votre prénom dès que vous réussissez — premier arrivé, meilleurs points.',
+    details:
+      'Reverse (ou rabona) : tu fais passer ton pied frappeur derrière ta jambe d\'appui pour frapper le ballon avec l\'extérieur ou le cou-de-pied de l\'autre côté. Le ballon part en croisant tes jambes.',
     minPlayers: 2,
     mode: 'duel',
   },
@@ -61,7 +65,9 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-ho',
     name: 'HO',
     description:
-      'HO ! C\'est un HORSE mais avec 2 lettres. Celui qui perd ses 2 lettres a perdu !',
+      'HORSE en version courte — deux lettres suffisent pour être éliminé. Un joueur tente un geste, les autres doivent le reproduire. Ratez et vous prenez une lettre. Tapez le joueur qui vient de prendre son dernier O.',
+    details:
+      'HORSE (HO ici) : à tour de rôle, un joueur propose un geste ou un tir. Tous les autres doivent le reproduire à l\'identique. Celui qui rate prend la lettre suivante (H puis O). Deux lettres et t\'es éliminé.',
     minPlayers: 2,
     mode: 'duel',
   },
@@ -69,7 +75,9 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-corner-reverse',
     name: 'Corner Rentrant Reverse',
     description:
-      'Depuis le point de corner, envoyez un corner rentrant AVEC REVERSE. Le premier qui marque gagne !',
+      'Depuis le drapeau de corner, envoyez un corner rentrant avec un tir en reverse. Tapez votre prénom dès que le ballon rentre — premier arrivé, meilleurs points.',
+    details:
+      'Corner rentrant : le ballon courbe vers l\'intérieur du but (comme un corner qui entre directement). Reverse : tu frappes en passant ton pied derrière ta jambe d\'appui. Les deux en même temps — bonne chance.',
     minPlayers: 2,
     mode: 'duel',
   },
