@@ -7,8 +7,9 @@ import '../components/comic.css';
 export default function FinalistPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const finalists = (location.state as { finalists?: string[] } | null)
-    ?.finalists;
+  const locationState = location.state as { finalists?: string[]; eliminationOrder?: string[] } | null;
+  const finalists = locationState?.finalists;
+  const eliminationOrder = locationState?.eliminationOrder;
 
   if (!finalists || finalists.length !== 2) {
     navigate('/');
@@ -31,7 +32,7 @@ export default function FinalistPage() {
           </div>
         </ComicPanel>
 
-        <ComicButton onClick={() => navigate('/survivor/play', { state: { finalists } })}>
+        <ComicButton onClick={() => navigate('/survivor/play', { state: { finalists, eliminationOrder } })}>
           LANCER LA FINALE !
         </ComicButton>
       </div>

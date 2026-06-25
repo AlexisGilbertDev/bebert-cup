@@ -1,28 +1,13 @@
 import { useEffect, useState } from 'react';
+import type { Challenge } from './use-challenges';
 
-export interface ChallengeDrawSlot {
-  role: string;
-}
-
-export interface Challenge {
-  id: string;
-  name: string;
-  description: string;
-  duration?: number;
-  details?: string;
-  minPlayers: number;
-  maxPlayers?: number;
-  draw?: ChallengeDrawSlot[];
-  teamDraw?: ChallengeDrawSlot[];
-}
-
-export function useChallenges() {
+export function useTeamPlayChallenges() {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/challenges')
+    fetch('/api/team-play/challenges')
       .then((response) => response.json())
       .then((data: Challenge[]) => {
         setChallenges(data);

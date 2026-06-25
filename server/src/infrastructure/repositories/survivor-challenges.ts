@@ -29,7 +29,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'qualification',
     name: 'Qualification',
     description:
-      '{{gardien}} va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le grand gagnat choisit qui il veut éliminer !',
+      '{{gardien}} va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le grand gagnant choisit qui il veut éliminer !',
     minPlayers: 3,
     mode: 'survivor',
     draw: [{ role: 'gardien' }],
@@ -40,6 +40,8 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       'Tirez dans l\'ordre affiché — chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
     duration: 45,
+    details:
+      'Tour du monde : jongle, et au moment où le ballon est en l\'air, fais tourner ton pied autour du ballon (de l\'extérieur vers l\'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.',
     minPlayers: 2,
     mode: 'survivor',
   },
@@ -83,6 +85,8 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     name: 'Petit Filet',
     description:
       "Chacun tire un pénalty sans gardien et doit mettre dans le petit filet. Ceux qui ratent se réaffrontent, et ainsi de suite — jusqu'à ce qu'il ne reste qu'un seul joueur incapable de faire le petit filet !",
+    details:
+      'Petit filet : les deux coins du but où le filet du fond rejoint le filet latéral — les poches dans les angles. Le ballon doit rentrer dans l\'une de ces deux zones, pas juste dans le but.',
     minPlayers: 2,
     mode: 'survivor',
   },
@@ -95,6 +99,14 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     mode: 'survivor',
   },
   {
+    id: 'jongle-distance',
+    name: 'Jongle & Marche',
+    description:
+      'Tout le monde jongle en avançant le plus loin possible. Celui qui parcourt la plus courte distance est éliminé !',
+    minPlayers: 2,
+    mode: 'survivor',
+  },
+  {
     id: 'centre-fatal',
     name: 'Centre Fatal',
     description:
@@ -102,5 +114,13 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     minPlayers: 2,
     mode: 'survivor',
     draw: [{ role: 'centreur' }, { role: 'finisseur' }],
+  },
+  {
+    id: 'belle-frappe',
+    name: 'La Belle Frappe',
+    description:
+      'Tout le monde tire en dehors de la surface. Celui qui met le plus beau but choisit qui il veut éliminer !',
+    minPlayers: 3,
+    mode: 'survivor',
   },
 ];

@@ -16,6 +16,10 @@ export default function ModeSelectionPage() {
     navigate('/duel/setup');
   }
 
+  function selectTeamPlay() {
+    navigate('/team-play/setup');
+  }
+
   return (
     <div className="comic-page">
       <div className="comic-content msb-content">
@@ -55,9 +59,9 @@ export default function ModeSelectionPage() {
             </div>
           </div>
           <p className="msb-card-desc">
-            3–8 joueurs · Élimination directe. Un seul ressort vivant.
+            3–8 joueurs · Élimination directe. À la fin, il n'en restera qu'un !
           </p>
-          <button className="msb-play-btn msb-play-btn--red" onClick={selectSurvivor}>
+          <button type="button" className="msb-play-btn msb-play-btn--red" onClick={selectSurvivor}>
             JOUER&nbsp;!
           </button>
         </div>
@@ -69,9 +73,23 @@ export default function ModeSelectionPage() {
             <div className="msb-vs-badge" aria-hidden="true">VS</div>
           </div>
           <p className="msb-card-desc">
-            2–4 joueurs · 8 manches. Le meilleur l'emporte.
+            2–4 joueurs · 8 manches. Le meilleur l'emporte !
           </p>
-          <button className="msb-play-btn msb-play-btn--blue" onClick={selectDuel}>
+          <button type="button" className="msb-play-btn msb-play-btn--blue" onClick={selectDuel}>
+            JOUER&nbsp;!
+          </button>
+        </div>
+
+        {/* 4c. Team Play card */}
+        <div className="msb-card">
+          <div className="msb-card-header">
+            <h2 className="msb-card-title msb-card-title--green">TEAM&nbsp;!</h2>
+            <div className="msb-team-badge" aria-hidden="true">2v2</div>
+          </div>
+          <p className="msb-card-desc">
+            4–8 joueurs · 2 équipes · 8 manches. L'équipe la plus forte gagne.
+          </p>
+          <button type="button" className="msb-play-btn msb-play-btn--green" onClick={selectTeamPlay}>
             JOUER&nbsp;!
           </button>
         </div>
