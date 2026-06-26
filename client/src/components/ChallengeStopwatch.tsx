@@ -54,29 +54,43 @@ export default function ChallengeStopwatch() {
         <button
           type="button"
           onClick={toggle}
+          aria-label={running ? 'Pause' : 'Démarrer'}
           style={{
             width: 44, height: 44, borderRadius: 10,
             border: '2.5px solid #3b82f6',
             background: running ? '#3b82f6' : '#fff',
             color: running ? '#fff' : '#3b82f6',
-            font: '900 18px Nunito', cursor: 'pointer',
+            cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}
         >
-          {running ? '⏸' : '▶'}
+          {running ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="5" y="4" width="4" height="16" rx="1"/>
+              <rect x="15" y="4" width="4" height="16" rx="1"/>
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          )}
         </button>
         <button
           type="button"
           onClick={reset}
+          aria-label="Réinitialiser"
           style={{
             width: 44, height: 44, borderRadius: 10,
             border: '2.5px solid var(--ink)',
             background: '#fff', color: 'var(--ink)',
-            font: '900 16px Nunito', cursor: 'pointer',
+            cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}
         >
-          ↺
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 .49-5.5L1 10"/>
+          </svg>
         </button>
       </div>
     </div>
