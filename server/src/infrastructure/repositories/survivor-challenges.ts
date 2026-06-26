@@ -79,6 +79,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     minPlayers: 3,
     mode: 'survivor',
     draw: [{ role: 'gardien' }, { role: 'tireur' }, { role: 'juge' }],
+    eliminableRoles: ['gardien', 'tireur'],
   },
   {
     id: 'petit-filet',
