@@ -9,10 +9,12 @@
     "test:integration": "vitest run --reporter=verbose src/**/*.integration.test.ts"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^4.21.2",
     "helmet": "^8.2.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.4",
     "@types/supertest": "^6.0.2",
