@@ -108,7 +108,7 @@ export default function ChallengeTimer({ duration }: Props) {
           lineHeight: 1,
           letterSpacing: 1,
         }}>
-          {finished ? 'TEMPS !' : display}
+          {finished ? 'TEMPS ÉCOULÉ !' : display}
         </div>
         {!finished && (
           <div style={{
