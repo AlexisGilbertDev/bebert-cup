@@ -21,7 +21,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'brasileira',
     name: 'Brasileira',
     description:
-      "Brésilienne avec 3 touches maximum par joueur. Celui qui fait toucher la balle au sol est éliminé !",
+      "Brésilienne avec 3 touches maximum par joueur. Celui qui fait tomber la balle est éliminé !",
     minPlayers: 2,
     mode: 'survivor',
   },
@@ -38,7 +38,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'tour-du-monde',
     name: 'Tour du monde',
     description:
-      'Tirez dans l\'ordre affiché — chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
+      'Dans l\'ordre affiché à l\'écran, chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
     duration: 45,
     details:
       'Tour du monde : jongle, et au moment où le ballon est en l\'air, fais tourner ton pied autour du ballon (de l\'extérieur vers l\'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.',
@@ -49,7 +49,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'le-miroir',
     name: 'Le Miroir',
     description:
-      "{{désignant}} effectue un geste technique et désigne un adversaire qui doit le reproduire. S'il rate, il est éliminé. S'il réussit, c'est {{désignant}} qui prend la porte !",
+      "{{désignant}} effectue un geste technique et désigne un adversaire qui doit le reproduire. S'il rate, il est éliminé. S'il réussit, {{désignant}} tu prends la porte !",
     minPlayers: 2,
     mode: 'survivor',
     draw: [{ role: 'désignant' }],
@@ -58,7 +58,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'la-quiche',
     name: 'La Quiche',
     description:
-      "Tout le monde frappe en dehors de la surface. Les participants se mettent d'accord à l'unanimité pour désigner la quiche de l'équipe qui sera éliminée !",
+      "Tout le monde frappe en dehors de la surface. Les participants se mettent d'accord à l'unanimité pour désigner la quiche qui aura fait la pire frappe qui sera éliminée !",
     minPlayers: 2,
     mode: 'survivor',
   },
@@ -66,7 +66,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'chandelle',
     name: 'La Chandelle',
     description:
-      "{{envoyeur}} envoie une chandelle. Les autres se battent pour la contrôler, elle doit coller au pied — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui la colle choisit qui il veut éliminer !",
+      "{{envoyeur}} envoie une chandelle. Les autres se battent pour la contrôler, elle doit coller au pied — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui parvient à la coller choisit qui il veut éliminer !",
     minPlayers: 3,
     mode: 'survivor',
     draw: [{ role: 'envoyeur' }],
