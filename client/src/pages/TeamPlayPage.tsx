@@ -13,7 +13,7 @@ const TOTAL_ROUNDS = 8;
 const TEAM1_COLOR = '#10b981';
 const TEAM2_COLOR = '#3b82f6';
 
-type RoundOutcome = 'team1' | 'team2' | 'draw';
+type RoundOutcome = 'team1' | 'team2';
 type Phase = 'scoring' | 'results';
 
 function drawTeams(challenge: Challenge): Array<{ team: string; role: string }> {
@@ -292,14 +292,6 @@ export default function TeamPlayPage() {
                 }}>
                   ÉQUIPE 1
                 </button>
-                <button type="button" onClick={() => submitOutcome('draw')} style={{
-                  flex: 0, minWidth: 70, minHeight: 58, borderRadius: 10,
-                  border: '3px solid var(--ink)', boxShadow: '0 4px 0 var(--ink)',
-                  background: 'var(--paper)', fontFamily: 'Bangers, cursive', fontSize: 16,
-                  color: 'var(--ink)', cursor: 'pointer',
-                }}>
-                  ÉGALITÉ
-                </button>
                 <button type="button" onClick={() => submitOutcome('team2')} style={{
                   flex: 1, minHeight: 58, borderRadius: 10, border: '3px solid var(--ink)',
                   boxShadow: '0 4px 0 var(--ink)', background: TEAM2_COLOR,
@@ -318,22 +310,18 @@ export default function TeamPlayPage() {
 
             {/* Round result */}
             <ComicPanel style={{ padding: 20, textAlign: 'center' }}>
-              {roundOutcome === 'draw' ? (
-                <p style={{ font: '900 22px Nunito', color: 'var(--ink)' }}>Égalité — 0 pt chacune</p>
-              ) : (
-                <div>
-                  <p style={{ font: '700 13px Nunito', color: '#9a8f76', marginBottom: 6 }}>
-                    Cette manche remportée par
-                  </p>
-                  <p style={{
-                    fontFamily: 'Bangers, cursive', fontSize: 32, letterSpacing: 1, lineHeight: 1,
-                    color: roundOutcome === 'team1' ? TEAM1_COLOR : TEAM2_COLOR,
-                  }}>
-                    {roundOutcome === 'team1' ? 'ÉQUIPE 1' : 'ÉQUIPE 2'}
-                    <span style={{ font: '900 16px Nunito', color: 'var(--ink)', marginLeft: 8 }}>+1 pt</span>
-                  </p>
-                </div>
-              )}
+              <div>
+                <p style={{ font: '700 13px Nunito', color: '#9a8f76', marginBottom: 6 }}>
+                  Cette manche remportée par
+                </p>
+                <p style={{
+                  fontFamily: 'Bangers, cursive', fontSize: 32, letterSpacing: 1, lineHeight: 1,
+                  color: roundOutcome === 'team1' ? TEAM1_COLOR : TEAM2_COLOR,
+                }}>
+                  {roundOutcome === 'team1' ? 'ÉQUIPE 1' : 'ÉQUIPE 2'}
+                  <span style={{ font: '900 16px Nunito', color: 'var(--ink)', marginLeft: 8 }}>+1 pt</span>
+                </p>
+              </div>
             </ComicPanel>
 
             {/* Scores */}

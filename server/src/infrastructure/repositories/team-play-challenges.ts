@@ -14,7 +14,6 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     name: 'Brasileira en Équipe',
     description:
       'Chaque équipe joue sa brésilienne — 3 touches maximum par joueur, pas de touche au sol. L\'équipe qui tient le plus longtemps gagne la manche !',
-    stopwatch: true,
     minPlayers: 4,
     mode: 'team-play',
   },
@@ -22,7 +21,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-coups-francs',
     name: 'Coups Francs',
     description:
-      'À tour de rôle, une équipe tire ses coups francs pendant que l\'autre fournit un gardien — sans mur, placement libre. L\'équipe qui marque le plus gagne la manche !',
+      'Chaque joueur choisit son placement et tire un coup franc — sans mur. Les rôles (tireur, gardien) se répartissent équitablement entre les deux équipes. L\'équipe qui marque le plus gagne la manche !',
     minPlayers: 4,
     mode: 'team-play',
   },
@@ -48,7 +47,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Chaque membre de l\'équipe doit réaliser une pyramide. La première équipe dont tous les joueurs y sont arrivés gagne la manche !',
     details:
-      'La pyramide : jongle en enchaînant 1 touche pied droit, 1 pied gauche, 2 pied droit, 2 pied gauche, 3 pied droit, 3 pied gauche — puis redescends jusqu\'à 1. Tout ça sans laisser tomber la balle.',
+      'La pyramide : jongle en enchaînant 1 touche pied droit, genou droit, épaule droite, tête puis épaule gauche, genou gauche et pied gauche. Tout ça sans laisser tomber la balle.',
     minPlayers: 4,
     mode: 'team-play',
   },
@@ -56,8 +55,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-gardien-rotatif',
     name: 'Gardien Rotatif',
     description:
-      'L\'équipe qui attaque se déplace librement et tire à volonté. Les défenseurs se relaient au but — 30 secondes chacun. Les équipes échangent les rôles. Celle qui encaisse le moins gagne la manche !',
-    duration: 30,
+      'Chaque joueur de l\'équipe qui défend passe 30 secondes au but pendant que l\'adversaire tire à volonté. L\'équipe qui encaisse le moins de buts gagne la manche !',
     minPlayers: 4,
     mode: 'team-play',
   },
@@ -81,7 +79,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-crossbar',
     name: 'Crossbar Challenge',
     description:
-      'Chaque joueur tire 2 fois sur la barre. L\'équipe qui cumule le plus de barres gagne la manche !',
+      'Chaque joueur essaie de tirer 2 fois sur la barre transversale depuis la ligne de la surface. L\'équipe qui cumule le plus de barres gagne la manche !',
     minPlayers: 4,
     mode: 'team-play',
   },
