@@ -5,9 +5,8 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'crossbar-challenge',
     name: 'Crossbar Challenge',
     description:
-      'Depuis la ligne de la surface, visez la barre transversale. Tirez dans l\'ordre affiché. Le dernier à ne pas avoir touché la barre est éliminé !',
+      "Depuis la ligne de la surface, visez la barre transversale. Tirez dans l'ordre affiché. Le dernier à ne pas avoir touché la barre est éliminé !",
     minPlayers: 2,
-
   },
   {
     id: 'goal-line-precision',
@@ -15,15 +14,13 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       'Depuis la ligne médiane, envoyez votre ballon le plus près possible de la ligne de but. Le plus éloigné est éliminé !',
     minPlayers: 2,
-
   },
   {
     id: 'brasileira',
     name: 'Brasileira',
     description:
-      "Brésilienne avec 3 touches maximum par joueur. Celui qui fait tomber la balle est éliminé !",
+      'Brésilienne avec 3 touches maximum par joueur. Celui qui fait tomber la balle est éliminé !',
     minPlayers: 2,
-
   },
   {
     id: 'qualification',
@@ -38,11 +35,10 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     id: 'tour-du-monde',
     name: 'Tour du monde',
     description:
-      'Dans l\'ordre affiché à l\'écran, chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.',
+      "Dans l'ordre affiché à l'écran, chacun votre tour, réalisez un tour du monde. Le dernier à ne pas y être arrivé est éliminé.",
     details:
-      'Tour du monde : jongle, et au moment où le ballon est en l\'air, fais tourner ton pied autour du ballon (de l\'extérieur vers l\'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.',
+      "Tour du monde : jongle, et au moment où le ballon est en l'air, fais tourner ton pied autour du ballon (de l'extérieur vers l'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.",
     minPlayers: 2,
-
   },
   {
     id: 'le-miroir',
@@ -59,13 +55,12 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       "Tout le monde frappe en dehors de la surface. Les participants se mettent d'accord à l'unanimité pour désigner la quiche qui aura fait la pire frappe qui sera éliminée !",
     minPlayers: 2,
-
   },
   {
     id: 'chandelle',
     name: 'La Chandelle',
     description:
-      "{{envoyeur}} envoie une chandelle. Les autres se battent pour la contrôler, elle doit coller au pied — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui parvient à la coller choisit qui il veut éliminer !",
+      '{{envoyeur}} envoie une chandelle. Les autres se battent pour la contrôler, elle doit coller au pied — si le contrôle ressemble à un contrôle sanitaire, on recommence. Celui qui parvient à la coller choisit qui il veut éliminer !',
     minPlayers: 3,
 
     draw: [{ role: 'envoyeur' }],
@@ -86,9 +81,8 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       "Chacun tire un pénalty sans gardien et doit mettre dans le petit filet. Ceux qui ratent se réaffrontent, et ainsi de suite — jusqu'à ce qu'il ne reste qu'un seul joueur incapable de faire le petit filet !",
     details:
-      'Petit filet : les deux coins du but où le filet du fond rejoint le filet latéral — les poches dans les angles. Le ballon doit rentrer dans l\'une de ces deux zones, pas juste dans le but.',
+      "Petit filet : les deux coins du but où le filet du fond rejoint le filet latéral — les poches dans les angles. Le ballon doit rentrer dans l'une de ces deux zones, pas juste dans le but.",
     minPlayers: 2,
-
   },
   {
     id: 'jongle',
@@ -96,7 +90,6 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       'Tout le monde jongle. Celui qui en fait le moins est éliminé !',
     minPlayers: 2,
-
   },
   {
     id: 'jongle-distance',
@@ -104,7 +97,6 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       'Tout le monde jongle en avançant le plus loin possible. Celui qui parcourt la plus courte distance est éliminé !',
     minPlayers: 2,
-
   },
   {
     id: 'centre-fatal',
@@ -121,6 +113,5 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       'Tout le monde tire en dehors de la surface. Celui qui met le plus beau but choisit qui il veut éliminer !',
     minPlayers: 3,
-
   },
 ];

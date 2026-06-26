@@ -37,58 +37,110 @@ export default function TeamWinnerPage() {
     <div className="wc-page">
       <Confetti />
       <div className="wc-content">
-
-        <h1 style={{
-          fontFamily: 'Luckiest Guy, cursive', fontSize: 48, textAlign: 'center',
-          color: winnerColor, WebkitTextStroke: '2px var(--ink)',
-          paintOrder: 'stroke fill', textShadow: '4px 4px 0 var(--ink)',
-          animation: 'wc-rise-in 0.5s cubic-bezier(.22,1,.36,1) both',
-        }}>
+        <h1
+          style={{
+            fontFamily: 'Luckiest Guy, cursive',
+            fontSize: 48,
+            textAlign: 'center',
+            color: winnerColor,
+            WebkitTextStroke: '2px var(--ink)',
+            paintOrder: 'stroke fill',
+            textShadow: '4px 4px 0 var(--ink)',
+            animation: 'wc-rise-in 0.5s cubic-bezier(.22,1,.36,1) both',
+          }}
+        >
           VICTOIRE !
         </h1>
 
         {/* Winner card */}
         <div className="wc-hero-card" style={{ borderColor: winnerColor }}>
-          <div style={{
-            background: `linear-gradient(135deg, #e8f5f0 0%, ${winnerColor} 100%)`,
-            borderRadius: '18px 18px 0 0', padding: '20px 16px 16px',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
-          }}>
-            <div style={{
-              width: 72, height: 72, borderRadius: '50%', background: winnerColor,
-              border: '4px solid var(--ink)', display: 'flex', alignItems: 'center',
-              justifyContent: 'center', fontFamily: 'Bangers', fontSize: 30, color: '#fff',
-              boxShadow: '0 4px 0 var(--ink)',
-            }}>
+          <div
+            style={{
+              background: `linear-gradient(135deg, #e8f5f0 0%, ${winnerColor} 100%)`,
+              borderRadius: '18px 18px 0 0',
+              padding: '20px 16px 16px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 10,
+            }}
+          >
+            <div
+              style={{
+                width: 72,
+                height: 72,
+                borderRadius: '50%',
+                background: winnerColor,
+                border: '4px solid var(--ink)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontFamily: 'Bangers',
+                fontSize: 30,
+                color: '#fff',
+                boxShadow: '0 4px 0 var(--ink)',
+              }}
+            >
               🏆
             </div>
             <h2 className="wc-hero-name" style={{ color: winnerColor }}>
               ÉQUIPE {winnerTeam}
             </h2>
-            <div style={{ font: '700 13px Nunito', color: '#fff', textAlign: 'center', opacity: 0.9 }}>
+            <div
+              style={{
+                font: '700 13px Nunito',
+                color: '#fff',
+                textAlign: 'center',
+                opacity: 0.9,
+              }}
+            >
               {winnerPlayers.join(' · ')}
             </div>
           </div>
-          <div style={{ padding: '12px 16px', display: 'flex', justifyContent: 'center' }}>
-            <span className="wc-pts-pill">{winnerScore} pt{winnerScore > 1 ? 's' : ''}</span>
+          <div
+            style={{
+              padding: '12px 16px',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <span className="wc-pts-pill">
+              {winnerScore} pt{winnerScore > 1 ? 's' : ''}
+            </span>
           </div>
         </div>
 
         {/* Loser row */}
         <div className="wc-leaderboard">
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px', opacity: 0.55,
-          }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '14px 16px',
+              opacity: 0.55,
+            }}
+          >
             <span style={{ font: '900 22px Nunito' }}>🥈</span>
             <div style={{ flex: 1 }}>
-              <div style={{ font: '800 14px Nunito', color: 'var(--ink)' }}>Équipe {loserTeam}</div>
-              <div style={{ font: '700 11px Nunito', color: '#9a8f76' }}>{loserPlayers.join(', ')}</div>
+              <div style={{ font: '800 14px Nunito', color: 'var(--ink)' }}>
+                Équipe {loserTeam}
+              </div>
+              <div style={{ font: '700 11px Nunito', color: '#9a8f76' }}>
+                {loserPlayers.join(', ')}
+              </div>
             </div>
-            <span style={{
-              fontFamily: 'Bangers', fontSize: 26, color: loserColor,
-              background: '#fff', border: '2px solid var(--ink)',
-              borderRadius: 8, padding: '2px 10px',
-            }}>
+            <span
+              style={{
+                fontFamily: 'Bangers',
+                fontSize: 26,
+                color: loserColor,
+                background: '#fff',
+                border: '2px solid var(--ink)',
+                borderRadius: 8,
+                padding: '2px 10px',
+              }}
+            >
               {loserScore} pt{loserScore !== 1 ? 's' : ''}
             </span>
           </div>
@@ -102,7 +154,6 @@ export default function TeamWinnerPage() {
         >
           REJOUER !
         </button>
-
       </div>
     </div>
   );

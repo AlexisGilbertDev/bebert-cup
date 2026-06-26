@@ -5,7 +5,11 @@ import { buildApp } from './server.js';
 describe('GET /api/health', () => {
   it('returns 200 with status ok', async () => {
     const application = buildApp({
-      challengeRepository: { findSurvivorChallenges: () => [], findDuelChallenges: () => [], findTeamPlayChallenges: () => [] },
+      challengeRepository: {
+        findSurvivorChallenges: () => [],
+        findDuelChallenges: () => [],
+        findTeamPlayChallenges: () => [],
+      },
     });
     const response = await request(application).get('/api/health');
     expect(response.status).toBe(200);

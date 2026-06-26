@@ -26,19 +26,33 @@ export default function WinnerPage() {
   const initial = winner.charAt(0).toUpperCase();
 
   // winner first, then eliminated players from most recent to earliest
-  const ranking = [winner, ...eliminationOrder.slice().reverse().filter((name) => name !== winner)];
+  const ranking = [
+    winner,
+    ...eliminationOrder
+      .slice()
+      .reverse()
+      .filter((name) => name !== winner),
+  ];
 
   return (
     <div className="wc-page">
       <Confetti />
       <div className="wc-content">
-
         <div className="wc-header">
-          <button type="button" className="wc-btn-round wc-btn-round--red" onClick={() => navigate('/')} aria-label="Accueil">
+          <button
+            type="button"
+            className="wc-btn-round wc-btn-round--red"
+            onClick={() => navigate('/')}
+            aria-label="Accueil"
+          >
             ←
           </button>
-          <h1 className="wc-title" style={{ color: ACCENT }}>SURVIVOR&nbsp;!</h1>
-          <div className="wc-btn-round wc-btn-round--gold" aria-hidden="true">🏆</div>
+          <h1 className="wc-title" style={{ color: ACCENT }}>
+            SURVIVOR&nbsp;!
+          </h1>
+          <div className="wc-btn-round wc-btn-round--gold" aria-hidden="true">
+            🏆
+          </div>
         </div>
 
         <div className="wc-hero-card">
@@ -47,12 +61,16 @@ export default function WinnerPage() {
             <span className="wc-crown">👑</span>
             <div
               className="wc-avatar"
-              style={{ background: `radial-gradient(circle at 35% 30%, #ffe39a, ${ACCENT})` }}
+              style={{
+                background: `radial-gradient(circle at 35% 30%, #ffe39a, ${ACCENT})`,
+              }}
             >
               {initial}
             </div>
           </div>
-          <p className="wc-hero-name" style={{ color: ACCENT }}>{winner}</p>
+          <p className="wc-hero-name" style={{ color: ACCENT }}>
+            {winner}
+          </p>
           <div className="wc-pts-pill">SURVIVOR&nbsp;!</div>
         </div>
 
@@ -70,7 +88,9 @@ export default function WinnerPage() {
                   <span className="wc-row-medal">{survivorMedal(index)}</span>
                   <span className="wc-row-name">{name}</span>
                   {isWinner && (
-                    <span className="wc-row-score" style={{ color: ACCENT }}>🏆</span>
+                    <span className="wc-row-score" style={{ color: ACCENT }}>
+                      🏆
+                    </span>
                   )}
                 </div>
               );
@@ -86,7 +106,6 @@ export default function WinnerPage() {
         >
           REJOUER&nbsp;!
         </button>
-
       </div>
     </div>
   );

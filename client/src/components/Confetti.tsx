@@ -1,6 +1,14 @@
 import { useEffect, useRef } from 'react';
 
-const COLORS = ['#e8413a', '#f4c64a', '#2aa775', '#5b6af5', '#ff9a3c', '#141414', '#fff'];
+const COLORS = [
+  '#e8413a',
+  '#f4c64a',
+  '#2aa775',
+  '#5b6af5',
+  '#ff9a3c',
+  '#141414',
+  '#fff',
+];
 
 interface Particle {
   x: number;
@@ -76,7 +84,10 @@ export default function Confetti() {
         p.y += p.vy;
         p.rot += p.rotV;
         if (p.y > H * 0.88) p.opacity -= 0.03;
-        if (p.opacity <= 0 || p.y > H + 20) { particles.splice(i, 1); continue; }
+        if (p.opacity <= 0 || p.y > H + 20) {
+          particles.splice(i, 1);
+          continue;
+        }
 
         ctx.save();
         ctx.globalAlpha = p.opacity;

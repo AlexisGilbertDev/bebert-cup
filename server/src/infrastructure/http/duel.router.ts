@@ -8,7 +8,9 @@ export function buildDuelRouter(dependencies: {
   const router = Router();
 
   router.get('/challenges', (_request, response) => {
-    const useCase = new GetDuelChallengesUseCase(dependencies.challengeRepository);
+    const useCase = new GetDuelChallengesUseCase(
+      dependencies.challengeRepository,
+    );
     response.json(useCase.execute());
   });
 

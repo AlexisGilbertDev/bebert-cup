@@ -6,9 +6,15 @@ import { buildApp } from './server.js';
 
 class FakeChallengeRepository implements ChallengeRepositoryPort {
   constructor(private readonly teamPlayChallenges: Challenge[]) {}
-  findSurvivorChallenges() { return []; }
-  findDuelChallenges() { return []; }
-  findTeamPlayChallenges() { return this.teamPlayChallenges; }
+  findSurvivorChallenges() {
+    return [];
+  }
+  findDuelChallenges() {
+    return [];
+  }
+  findTeamPlayChallenges() {
+    return this.teamPlayChallenges;
+  }
 }
 
 const fakeTeamPlayChallenges: Challenge[] = [
@@ -25,7 +31,9 @@ describe('GET /api/team-play/challenges', () => {
     const application = buildApp({
       challengeRepository: new FakeChallengeRepository(fakeTeamPlayChallenges),
     });
-    const response = await request(application).get('/api/team-play/challenges');
+    const response = await request(application).get(
+      '/api/team-play/challenges',
+    );
     expect(response.status).toBe(200);
     expect(response.body).toEqual(fakeTeamPlayChallenges);
   });
@@ -34,7 +42,9 @@ describe('GET /api/team-play/challenges', () => {
     const application = buildApp({
       challengeRepository: new FakeChallengeRepository([]),
     });
-    const response = await request(application).get('/api/team-play/challenges');
+    const response = await request(application).get(
+      '/api/team-play/challenges',
+    );
     expect(response.status).toBe(200);
     expect(response.body).toEqual([]);
   });

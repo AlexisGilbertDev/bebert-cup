@@ -57,14 +57,26 @@ describe('pickChallenge', () => {
 
   it('excludes challenges where playerCount exceeds maxPlayers', () => {
     const challenges: Challenge[] = [
-      { id: '2only', name: '2only', description: '', minPlayers: 2, maxPlayers: 2 },
+      {
+        id: '2only',
+        name: '2only',
+        description: '',
+        minPlayers: 2,
+        maxPlayers: 2,
+      },
     ];
     expect(pickChallenge(challenges, 3)).toBeNull();
   });
 
   it('includes challenges where playerCount is within maxPlayers', () => {
     const challenges: Challenge[] = [
-      { id: '2only', name: '2only', description: '', minPlayers: 2, maxPlayers: 2 },
+      {
+        id: '2only',
+        name: '2only',
+        description: '',
+        minPlayers: 2,
+        maxPlayers: 2,
+      },
     ];
     expect(pickChallenge(challenges, 2)).not.toBeNull();
   });
