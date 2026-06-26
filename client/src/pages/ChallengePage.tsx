@@ -7,10 +7,11 @@ import ChallengeTimer from '../components/ChallengeTimer';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import ComicTitle from '../components/ComicTitle';
-import PageHeader from '../components/PageHeader';
 import { pickChallenge, resolveRound, shuffle } from '../game';
 import { useChallenges, type Challenge } from '../hooks/use-challenges';
 import '../components/comic.css';
+
+const PLAYER_COLORS = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'];
 
 export default function ChallengePage() {
   const { players } = useSession();
@@ -119,7 +120,34 @@ export default function ChallengePage() {
   return (
     <div className="comic-page">
       <div className="comic-content">
-        <PageHeader>DÉFI · {activePlayers.length} joueurs</PageHeader>
+        <div className="page-header">
+          <button type="button" aria-label="Retour" onClick={() => navigate('/')} className="comic-btn-retour">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 5 L7 12 L14 19" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+            {players.map((player, index) => {
+              const isOut = eliminationOrder.includes(player) || player === eliminated;
+              return (
+                <div
+                  key={player}
+                  title={player}
+                  style={{
+                    width: 30, height: 30, borderRadius: '50%', flexShrink: 0,
+                    background: isOut ? '#9a8f76' : PLAYER_COLORS[index % PLAYER_COLORS.length],
+                    border: '2.5px solid var(--ink)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    font: '800 12px/1 Nunito', color: '#fff',
+                    opacity: isOut ? 0.4 : 1,
+                  }}
+                >
+                  {isOut ? '✕' : player.charAt(0).toUpperCase()}
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
         <ComicPanel style={{ padding: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
