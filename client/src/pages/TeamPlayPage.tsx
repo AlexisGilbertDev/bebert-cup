@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ChangeChallengeButton from '../components/ChangeChallengeButton';
 import ChallengeStopwatch from '../components/ChallengeStopwatch';
 import ChallengeTimer from '../components/ChallengeTimer';
 import ComicButton from '../components/ComicButton';
@@ -270,13 +271,7 @@ export default function TeamPlayPage() {
                   </div>
                 )}
               </div>
-              <button type="button" onClick={changeChallenge} style={{
-                background: 'none', border: 'none', color: '#9a8f76',
-                font: '700 13px Nunito', cursor: 'pointer', padding: '2px 0',
-                textDecoration: 'underline', textUnderlineOffset: 3, alignSelf: 'flex-start',
-              }}>
-                ↻ Changer de défi
-              </button>
+              <ChangeChallengeButton onClick={changeChallenge} />
             </div>
 
             {/* Outcome buttons */}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
+import ChangeChallengeButton from '../components/ChangeChallengeButton';
 import ChallengeTimer from '../components/ChallengeTimer';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
@@ -223,9 +224,7 @@ export default function DuelPlayPage() {
                   </div>
                 )}
               </div>
-              <button type="button" className="dp-change-btn" onClick={changeChallenge}>
-                ↻ Changer de défi
-              </button>
+              <ChangeChallengeButton onClick={changeChallenge} />
             </div>
 
             {/* Ranking section */}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSession } from '../context/session.context';
 import Caption from '../components/Caption';
+import ChangeChallengeButton from '../components/ChangeChallengeButton';
 import ChallengeTimer from '../components/ChallengeTimer';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
@@ -189,9 +190,7 @@ export default function ChallengePage() {
                 </button>
               ))}
             </div>
-            <ComicButton variant="ghost" onClick={changeChallenge}>
-              🔀 Changer de défi
-            </ComicButton>
+            <ChangeChallengeButton onClick={changeChallenge} />
           </>
         )}
 

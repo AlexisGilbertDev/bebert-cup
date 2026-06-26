@@ -194,6 +194,21 @@
   box-shadow: 1px 1px 0 var(--ink);
 }
 
+/* Change challenge link-button */
+.comic-change-btn {
+  background: none;
+  border: none;
+  color: #9a8f76;
+  font: 700 13px 'Nunito', sans-serif;
+  cursor: pointer;
+  padding: 2px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  align-self: flex-start;
+}
+
+.comic-change-btn:active { color: var(--ink); }
+
 /* Player color dot (comic style) */
 .player-dot {
   display: inline-block;
