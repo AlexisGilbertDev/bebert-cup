@@ -248,65 +248,126 @@ export default function TeamPlayPage() {
             <div
               style={{
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                background: 'var(--ink)',
-                borderRadius: 12,
-                padding: '10px 16px',
-                gap: 8,
+                height: 96,
+                border: '4px solid #15110C',
+                borderRadius: 16,
+                overflow: 'hidden',
+                boxShadow: '5px 5px 0 #15110C',
               }}
             >
-              <div style={{ textAlign: 'center', flex: 1 }}>
+              {/* Équipe 1 */}
+              <div
+                style={{
+                  flex: 1,
+                  background: '#2BB673',
+                  backgroundImage:
+                    'radial-gradient(rgba(255,255,255,.18) 1.4px, transparent 1.5px)',
+                  backgroundSize: '11px 11px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 2,
+                }}
+              >
                 <div
                   style={{
-                    font: '900 11px Nunito',
-                    color: TEAM1_COLOR,
-                    letterSpacing: 1,
+                    fontFamily: 'Anton, sans-serif',
+                    fontSize: 13,
+                    letterSpacing: 2,
+                    color: 'rgba(0,0,0,.55)',
                     textTransform: 'uppercase',
-                    marginBottom: 2,
                   }}
                 >
-                  Équipe 1
+                  ÉQUIPE 1
                 </div>
                 <div
                   style={{
-                    fontFamily: 'Bangers',
-                    fontSize: 40,
+                    fontFamily: 'Anton, sans-serif',
+                    fontSize: 46,
                     color: '#fff',
                     lineHeight: 1,
+                    WebkitTextStroke: '2px #15110C',
+                    paintOrder: 'stroke fill',
+                    transform: 'skewX(-6deg)',
                   }}
                 >
                   {scores.team1}
                 </div>
               </div>
+
+              {/* VS */}
               <div
                 style={{
-                  fontFamily: 'Bangers',
-                  fontSize: 22,
-                  color: 'rgba(255,255,255,.4)',
-                  letterSpacing: 2,
+                  width: 74,
+                  flexShrink: 0,
+                  background: '#15110C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                VS
-              </div>
-              <div style={{ textAlign: 'center', flex: 1 }}>
                 <div
                   style={{
-                    font: '900 11px Nunito',
-                    color: TEAM2_COLOR,
-                    letterSpacing: 1,
-                    textTransform: 'uppercase',
-                    marginBottom: 2,
+                    width: 56,
+                    height: 56,
+                    background: '#F6C544',
+                    clipPath:
+                      'polygon(50% 0%,59% 29%,90% 10%,70% 38%,100% 50%,70% 62%,90% 90%,59% 71%,50% 100%,41% 71%,10% 90%,30% 62%,0% 50%,30% 38%,10% 10%,41% 29%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  Équipe 2
+                  <span
+                    style={{
+                      fontFamily: 'Anton, sans-serif',
+                      fontSize: 19,
+                      color: '#15110C',
+                      transform: 'skewX(-8deg)',
+                      display: 'block',
+                    }}
+                  >
+                    VS
+                  </span>
+                </div>
+              </div>
+
+              {/* Équipe 2 */}
+              <div
+                style={{
+                  flex: 1,
+                  background: '#1B49B5',
+                  backgroundImage:
+                    'radial-gradient(rgba(255,255,255,.18) 1.4px, transparent 1.5px)',
+                  backgroundSize: '11px 11px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 2,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: 'Anton, sans-serif',
+                    fontSize: 13,
+                    letterSpacing: 2,
+                    color: 'rgba(255,255,255,.6)',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  ÉQUIPE 2
                 </div>
                 <div
                   style={{
-                    fontFamily: 'Bangers',
-                    fontSize: 40,
+                    fontFamily: 'Anton, sans-serif',
+                    fontSize: 46,
                     color: '#fff',
                     lineHeight: 1,
+                    WebkitTextStroke: '2px #15110C',
+                    paintOrder: 'stroke fill',
+                    transform: 'skewX(-6deg)',
                   }}
                 >
                   {scores.team2}
