@@ -54,8 +54,10 @@ export default function ChallengeTimer({ duration }: Props) {
   }, [duration]);
 
   useEffect(() => {
-    if (!running) return;
-    if (timeLeft <= 0) { setRunning(false); return; }
+    if (!running) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      return;
+    }
     intervalRef.current = setInterval(() => {
       setTimeLeft((previous) => {
         if (previous <= 1) {
@@ -67,7 +69,7 @@ export default function ChallengeTimer({ duration }: Props) {
       });
     }, 1000);
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [running, timeLeft]);
+  }, [running]);
 
   function toggle() {
     if (timeLeft === 0) return;
