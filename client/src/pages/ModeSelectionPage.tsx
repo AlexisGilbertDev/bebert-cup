@@ -1,88 +1,66 @@
 import { useNavigate } from 'react-router-dom';
-import '../components/comic.css';
 import './mode-selection.css';
 
 export default function ModeSelectionPage() {
   const navigate = useNavigate();
 
-  function selectSurvivor() {
-    navigate('/survivor/setup');
-  }
-
-  function selectDuel() {
-    navigate('/duel/setup');
-  }
-
-  function selectTeamPlay() {
-    navigate('/team-play/setup');
-  }
-
   return (
-    <div className="comic-page">
-      <div className="comic-content msb-content">
+    <div className="msb-page">
 
-        {/* 1. Logo + POW badge */}
-        <div className="msb-logo-wrap">
-          <h1 className="msb-logo">BEBERT<br />CUP</h1>
-          <div className="msb-pow-wrap" aria-hidden="true">
-            <div className="msb-pow">POW!</div>
-          </div>
+      {/* Header */}
+      <div className="msb-header">
+        <h1 className="msb-logo">BEBERT CUP</h1>
+        <div className="msb-pow-wrap" aria-hidden="true">
+          <div className="msb-pow">POW!</div>
         </div>
+      </div>
 
-        {/* 2. Hero panel */}
-        <div className="msb-hero">
-          <img
-            src="/assets/bebert-character.png"
-            alt="Bebert, le héros de la Bebert Cup"
-            className="msb-hero-img"
-          />
-          <div className="msb-hero-tab" aria-hidden="true">NANKATSU SC</div>
-        </div>
+      {/* Hero */}
+      <div className="msb-hero">
+        <img
+          src="/assets/bebert-character.png"
+          alt="Bebert, le héros de la Bebert Cup"
+          className="msb-hero-img"
+        />
+        <div className="msb-hero-tab" aria-hidden="true">NANKATSU SC</div>
+      </div>
 
-        {/* 3. Mode banner — pancarte inclinée */}
-        <div className="msb-banner-wrap">
-          <div className="msb-banner-shadow" aria-hidden="true" />
-          <div className="msb-banner">CHOIX DU MODE</div>
-        </div>
+      {/* Banner */}
+      <div className="msb-banner-wrap" aria-hidden="true">
+        <div className="msb-banner-shadow" />
+        <div className="msb-banner">CHOIX DU MODE</div>
+      </div>
 
-        {/* 4a. Survivor card */}
-        <div className="msb-card">
-          <div className="msb-card-header">
-            <h2 className="msb-card-title msb-card-title--red">SURVIVOR&nbsp;!</h2>
+      {/* Cards */}
+      <div className="msb-cards">
+
+        <button type="button" className="msb-card" onClick={() => navigate('/survivor/setup')}>
+          <div className="msb-card-top">
+            <span className="msb-card-name msb-card-name--red">SURVIVOR !</span>
             <div className="msb-target" aria-hidden="true">
               <div className="msb-target-ring">
                 <div className="msb-target-dot" />
               </div>
             </div>
           </div>
-          <p className="msb-card-desc">
-            3–8 joueurs · Élimination directe. À la fin, il n'en restera qu'un !
-          </p>
-          <button type="button" className="msb-play-btn msb-play-btn--red" onClick={selectSurvivor}>
-            JOUER&nbsp;!
-          </button>
-        </div>
+          <p className="msb-card-desc">3–8 joueurs · Élimination directe. À la fin, il n'en restera qu'un !</p>
+          <span className="msb-pill msb-pill--red" aria-hidden="true">JOUER ›</span>
+        </button>
 
-        {/* 4b. Duel card */}
-        <div className="msb-card">
-          <div className="msb-card-header">
-            <h2 className="msb-card-title msb-card-title--blue">DUEL&nbsp;!</h2>
+        <button type="button" className="msb-card" onClick={() => navigate('/duel/setup')}>
+          <div className="msb-card-top">
+            <span className="msb-card-name msb-card-name--blue">DUEL !</span>
             <div className="msb-vs-badge" aria-hidden="true">VS</div>
           </div>
-          <p className="msb-card-desc">
-            2–4 joueurs · 8 manches. Le meilleur l'emporte !
-          </p>
-          <button type="button" className="msb-play-btn msb-play-btn--blue" onClick={selectDuel}>
-            JOUER&nbsp;!
-          </button>
-        </div>
+          <p className="msb-card-desc">2–4 joueurs · 8 manches. Le meilleur l'emporte !</p>
+          <span className="msb-pill msb-pill--blue" aria-hidden="true">JOUER ›</span>
+        </button>
 
-        {/* 4c. Team Play card */}
-        <div className="msb-card">
-          <div className="msb-card-header">
-            <h2 className="msb-card-title msb-card-title--green">TEAM&nbsp;!</h2>
+        <button type="button" className="msb-card" onClick={() => navigate('/team-play/setup')}>
+          <div className="msb-card-top">
+            <span className="msb-card-name msb-card-name--green">TEAM !</span>
             <div className="msb-team-badge" aria-hidden="true">
-              <svg width="34" height="34" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+              <svg width="28" height="28" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" fill="#fff">
                 <circle cx="7"  cy="13" r="3.5"/><rect x="3"  y="17" width="8" height="10" rx="2"/>
                 <circle cx="14" cy="13" r="3.5"/><rect x="10" y="17" width="8" height="10" rx="2"/>
                 <circle cx="26" cy="13" r="3.5"/><rect x="22" y="17" width="8" height="10" rx="2"/>
@@ -90,13 +68,9 @@ export default function ModeSelectionPage() {
               </svg>
             </div>
           </div>
-          <p className="msb-card-desc">
-            4–8 joueurs · 2 équipes · 8 manches. L'équipe la plus forte gagne.
-          </p>
-          <button type="button" className="msb-play-btn msb-play-btn--green" onClick={selectTeamPlay}>
-            JOUER&nbsp;!
-          </button>
-        </div>
+          <p className="msb-card-desc">4–8 joueurs · 2 équipes · 8 manches. L'équipe la plus forte gagne.</p>
+          <span className="msb-pill msb-pill--green" aria-hidden="true">JOUER ›</span>
+        </button>
 
       </div>
     </div>
