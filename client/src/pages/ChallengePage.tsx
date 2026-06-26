@@ -171,6 +171,7 @@ export default function ChallengePage() {
 
         {!eliminated && (
           <>
+            <ChangeChallengeButton onClick={changeChallenge} />
             <Caption>Qui est éliminé&nbsp;?</Caption>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {activePlayers.map((player) => (
@@ -190,7 +191,6 @@ export default function ChallengePage() {
                 </button>
               ))}
             </div>
-            <ChangeChallengeButton onClick={changeChallenge} />
           </>
         )}
 
