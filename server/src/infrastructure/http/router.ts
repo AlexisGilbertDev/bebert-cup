@@ -19,5 +19,9 @@ export function buildRouter(dependencies: AppDependencies): Router {
   router.use('/duel', buildDuelRouter(dependencies));
   router.use('/team-play', buildTeamPlayRouter(dependencies));
 
+  router.use((_request, response) => {
+    response.status(404).json({ error: 'Not found' });
+  });
+
   return router;
 }

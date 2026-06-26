@@ -26,7 +26,7 @@ export default function WinnerPage() {
   const initial = winner.charAt(0).toUpperCase();
 
   // winner first, then eliminated players from most recent to earliest
-  const ranking = [winner, ...eliminationOrder.slice().reverse()];
+  const ranking = [winner, ...eliminationOrder.slice().reverse().filter((name) => name !== winner)];
 
   return (
     <div className="wc-page">

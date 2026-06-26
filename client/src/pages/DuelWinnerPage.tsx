@@ -16,7 +16,7 @@ export default function DuelWinnerPage() {
   const navigate = useNavigate();
   const state = location.state as LocationState;
 
-  if (!state) {
+  if (!state || state.players.length === 0) {
     navigate('/');
     return null;
   }

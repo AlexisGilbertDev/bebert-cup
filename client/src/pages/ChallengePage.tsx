@@ -31,6 +31,7 @@ export default function ChallengePage() {
   const [drawnPlayers, setDrawnPlayers] = useState<Array<{ player: string; role: string }>>([]);
   const [showDetails, setShowDetails] = useState(false);
   const [eliminationOrder, setEliminationOrder] = useState<string[]>(locationState?.eliminationOrder ?? []);
+  const [usedChallengeIds, setUsedChallengeIds] = useState<ReadonlySet<string>>(new Set());
 
   function drawPlayers(challenge: Challenge | null, pool: string[]) {
     setShowDetails(false);
@@ -53,6 +54,7 @@ export default function ChallengePage() {
     if (!loading && challenges.length > 0) {
       const challenge = pickChallenge(challenges, activePlayers.length);
       setCurrentChallenge(challenge);
+      if (challenge) setUsedChallengeIds(new Set([challenge.id]));
       drawPlayers(challenge, activePlayers);
     }
   }, [loading, challenges, activePlayers.length]);
@@ -63,13 +65,15 @@ export default function ChallengePage() {
 
   function changeChallenge() {
     if (!currentChallenge) return;
-    const eligible = challenges.filter(
-      (c) =>
-        c.minPlayers <= activePlayers.length && c.id !== currentChallenge.id,
-    );
-    if (eligible.length === 0) return;
-    const next = eligible[Math.floor(Math.random() * eligible.length)];
+    const excluded = new Set([...usedChallengeIds, currentChallenge.id]);
+    const fresh = challenges.filter((c) => c.minPlayers <= activePlayers.length && !excluded.has(c.id));
+    const pool = fresh.length > 0
+      ? fresh
+      : challenges.filter((c) => c.minPlayers <= activePlayers.length && c.id !== currentChallenge.id);
+    if (pool.length === 0) return;
+    const next = pool[Math.floor(Math.random() * pool.length)];
     setCurrentChallenge(next);
+    setUsedChallengeIds(fresh.length > 0 ? new Set([...usedChallengeIds, next.id]) : new Set([next.id]));
     drawPlayers(next, activePlayers);
   }
 
@@ -86,11 +90,7 @@ export default function ChallengePage() {
       return;
     }
     setEliminationOrder(newEliminationOrder);
-    const order = shuffle(result.survivors);
-    const next = pickChallenge(challenges, order.length);
-    setActivePlayers(order);
-    setCurrentChallenge(next);
-    drawPlayers(next, order);
+    setActivePlayers(shuffle(result.survivors));
     setEliminated(null);
   }
 

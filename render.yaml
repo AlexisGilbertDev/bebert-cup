@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: bebert-cup
+    runtime: node
+    region: frankfurt
+    buildCommand: npm install --prefix client && npm install --prefix server && npm run build
+    startCommand: node server/dist/main.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CORS_ORIGIN
+        value: https://bebert-cup.onrender.com

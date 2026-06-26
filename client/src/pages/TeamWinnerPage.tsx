@@ -36,7 +36,7 @@ export default function TeamWinnerPage() {
   return (
     <div className="wc-page">
       <Confetti />
-      <div className="comic-content">
+      <div className="wc-content">
 
         <h1 style={{
           fontFamily: 'Luckiest Guy, cursive', fontSize: 48, textAlign: 'center',
@@ -97,6 +97,7 @@ export default function TeamWinnerPage() {
         <button
           type="button"
           className="wc-replay-btn"
+          style={{ background: winnerColor }}
           onClick={() => navigate('/')}
         >
           REJOUER !
