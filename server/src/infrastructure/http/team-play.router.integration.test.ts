@@ -17,7 +17,6 @@ const fakeTeamPlayChallenges: Challenge[] = [
     name: 'Team Play Challenge',
     description: 'A team play challenge.',
     minPlayers: 4,
-    mode: 'team-play',
   },
 ];
 

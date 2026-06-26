@@ -17,7 +17,6 @@ const fakeDuelChallenges: Challenge[] = [
     name: 'Duel Challenge',
     description: 'A duel challenge.',
     minPlayers: 2,
-    mode: 'duel',
   },
 ];
 
