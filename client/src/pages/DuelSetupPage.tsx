@@ -26,7 +26,7 @@ function createInput(): PlayerInput {
 
 export default function DuelSetupPage() {
   const [inputs, setInputs] = useState<PlayerInput[]>([createInput(), createInput()]);
-  const { setMode, setPlayers } = useSession();
+  const { setPlayers } = useSession();
   const navigate = useNavigate();
 
   function updateInput(id: string, value: string) {
@@ -49,7 +49,6 @@ export default function DuelSetupPage() {
 
   function handleStart() {
     if (!canStart) return;
-    setMode('duel');
     setPlayers(filled);
     navigate('/duel/play');
   }

@@ -8,7 +8,10 @@ export function useTeamPlayChallenges() {
 
   useEffect(() => {
     fetch('/api/team-play/challenges')
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
       .then((data: Challenge[]) => {
         setChallenges(data);
         setLoading(false);

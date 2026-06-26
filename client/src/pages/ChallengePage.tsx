@@ -39,7 +39,7 @@ export default function ChallengePage() {
       return;
     }
     const shuffled = shuffle([...pool]);
-    setDrawnPlayers(challenge.draw.map((slot, index) => ({ player: shuffled[index], role: slot.role })));
+    setDrawnPlayers(challenge.draw.slice(0, shuffled.length).map((slot, index) => ({ player: shuffled[index], role: slot.role })));
   }
 
   function interpolateDescription(description: string): string {

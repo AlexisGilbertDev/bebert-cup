@@ -8,6 +8,4 @@ const dependencies = {
 
 const application = buildApp(dependencies);
 
-application.listen(env.PORT, () => {
-  console.log(`Server running on port ${env.PORT}`);
-});
+application.listen(env.PORT);

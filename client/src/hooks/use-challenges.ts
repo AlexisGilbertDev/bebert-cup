@@ -24,7 +24,10 @@ export function useChallenges() {
 
   useEffect(() => {
     fetch('/api/challenges')
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
       .then((data: Challenge[]) => {
         setChallenges(data);
         setLoading(false);

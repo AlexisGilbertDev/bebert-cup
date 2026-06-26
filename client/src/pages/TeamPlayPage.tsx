@@ -78,9 +78,13 @@ export default function TeamPlayPage() {
   useEffect(() => {
     if (!loading && challenges.length > 0 && currentChallenge === null) {
       const result = computeNextChallenge(challenges, new Set());
-      if (result) applyChallenge(result.challenge, result.newUsedIds);
+      if (result) {
+        setCurrentChallenge(result.challenge);
+        setUsedChallengeIds(result.newUsedIds);
+        setDrawnTeams(drawTeams(result.challenge));
+        setShowDetails(false);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, challenges, currentChallenge]);
 
   function changeChallenge() {
