@@ -5,7 +5,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-jongle',
     name: 'La Jongle',
     description:
-      'Chacun jongle de son côté. Celui qui en fait le plus gagne !',
+      'Chacun votre tour, jonglez. Celui qui en fait le plus gagne !',
     minPlayers: 2,
     mode: 'duel',
   },
@@ -21,7 +21,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-tour-du-monde',
     name: 'Tour du Monde — 45 secondes',
     description:
-      'Chacun son tour, réalisez le plus de tours du monde possible en 45 secondes chrono. Saisissez votre nombre — le classement détermine les points.',
+      'Chacun son tour, réalisez le plus de tours du monde possible en 45 secondes chrono. Celui qui en fait le plus gagne !',
     duration: 45,
     details:
       'Tour du monde : jongle, et au moment où le ballon est en l\'air, fais tourner ton pied autour du ballon (de l\'extérieur vers l\'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.',
@@ -40,9 +40,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-crossbar-reverse',
     name: 'Crossbar Reverse',
     description:
-      'Depuis la ligne de la surface, touchez la barre transversale avec un tir en reverse. Tapez votre prénom dès que vous réussissez — premier arrivé, meilleurs points.',
-    details:
-      'Reverse (ou rabona) : tu fais passer ton pied frappeur derrière ta jambe d\'appui pour frapper le ballon avec l\'extérieur ou le cou-de-pied de l\'autre côté. Le ballon part en croisant tes jambes.',
+      'Tirez depuis la ligne de la surface pour toucher la barre transversale. Si vous réussissez, le joueur suivant a un tir pour annuler votre point — c\'est le Reverse. S\'il touche aussi la barre, c\'est lui qui marque. Sinon, le point est à vous.',
     minPlayers: 2,
     mode: 'duel',
   },
@@ -50,7 +48,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-bresilienne',
     name: 'Brésilienne',
     description:
-      'Brésilienne avec 3 touches maximum par joueur. Celui qui rate a perdu !',
+      'Brésilienne avec 3 touches maximum par joueur. Celui qui fait tomber le ballon a perdu !',
     minPlayers: 2,
     mode: 'duel',
   },
@@ -66,7 +64,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-ho',
     name: 'HO',
     description:
-      'HORSE en version courte — deux lettres suffisent pour être éliminé. Un joueur tente un geste, les autres doivent le reproduire. Ratez et vous prenez une lettre. Tapez le joueur qui vient de prendre son dernier O.',
+      'HORSE en version courte — deux lettres suffisent pour être éliminé. Un joueur tente un geste, les autres doivent le reproduire. Ratez et vous perdez une lettre.',
     details:
       'HORSE (HO ici) : à tour de rôle, un joueur propose un geste ou un tir. Tous les autres doivent le reproduire à l\'identique. Celui qui rate prend la lettre suivante (H puis O). Deux lettres et t\'es éliminé.',
     minPlayers: 2,
@@ -76,9 +74,9 @@ export const DUEL_CHALLENGES: Challenge[] = [
     id: 'duel-corner-reverse',
     name: 'Corner Rentrant Reverse',
     description:
-      'Depuis le drapeau de corner, envoyez un corner rentrant avec un tir en reverse. Tapez votre prénom dès que le ballon rentre — premier arrivé, meilleurs points.',
+      'Depuis le drapeau de corner, envoyez un corner rentrant directement dans le but. Si vous réussissez, le joueur suivant a un essai pour annuler votre point — c\'est le Reverse. S\'il entre aussi un corner rentrant, c\'est lui qui marque. Sinon, le point est à vous.',
     details:
-      'Corner rentrant : le ballon courbe vers l\'intérieur du but (comme un corner qui entre directement). Reverse : tu frappes en passant ton pied derrière ta jambe d\'appui. Les deux en même temps — bonne chance.',
+      'Corner rentrant : le ballon courbe vers l\'intérieur du but (comme un corner qui entre directement sans être touché).',
     minPlayers: 2,
     mode: 'duel',
   },
