@@ -21,7 +21,6 @@ describe('GetSurvivorChallengesUseCase', () => {
         name: 'Crossbar Challenge',
         description: 'Hit the crossbar.',
         minPlayers: 2,
-        mode: 'survivor',
       },
     ];
     const useCase = new GetSurvivorChallengesUseCase(new FakeChallengeRepository(challenges));
@@ -39,14 +38,12 @@ describe('GetSurvivorChallengesUseCase', () => {
       name: 'Survivor',
       description: 'A survivor challenge.',
       minPlayers: 2,
-      mode: 'survivor',
     };
     const duelChallenge: Challenge = {
       id: 'duel-1',
       name: 'Duel',
       description: 'A duel challenge.',
       minPlayers: 2,
-      mode: 'duel',
     };
     const useCase = new GetSurvivorChallengesUseCase(
       new FakeChallengeRepository([survivorChallenge], [duelChallenge]),

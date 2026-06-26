@@ -7,7 +7,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Chaque équipe tire 5 penaltys et s\'organise comme elle le veut — qui tire, qui va au but. L\'équipe qui en marque le plus gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-brasileira',
@@ -15,7 +15,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Chaque équipe joue sa brésilienne — 3 touches maximum par joueur, pas de touche au sol. L\'équipe qui tient le plus longtemps gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-coups-francs',
@@ -23,7 +23,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Chaque joueur choisit son placement et tire un coup franc — sans mur. Les rôles (tireur, gardien) se répartissent équitablement entre les deux équipes. L\'équipe qui marque le plus gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-cul-rouge',
@@ -31,7 +31,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Chaque équipe désigne un tireur et un receveur. Le receveur se retourne, se penche, et le tireur adverse lui envoie le ballon. L\'équipe qui vise juste remporte la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-relais-jongle',
@@ -39,7 +39,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Chaque joueur jongle 10 fois puis passe à un coéquipier — sans laisser tomber le ballon. L\'équipe qui fait le plus de tours gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-pyramide',
@@ -49,7 +49,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     details:
       'La pyramide : jongle en enchaînant 1 touche pied droit, genou droit, épaule droite, tête puis épaule gauche, genou gauche et pied gauche. Tout ça sans laisser tomber la balle.',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-gardien-rotatif',
@@ -57,7 +57,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Chaque joueur de l\'équipe qui défend passe 30 secondes au but pendant que l\'adversaire tire à volonté. L\'équipe qui encaisse le moins de buts gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-petit-pont',
@@ -65,7 +65,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Les deux équipes s\'affrontent — la première équipe à mettre un petit pont à n\'importe quel adversaire gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-mini-match',
@@ -73,7 +73,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Match en un but. La première équipe à marquer gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-crossbar',
@@ -81,7 +81,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Chaque joueur essaie de tirer 2 fois sur la barre transversale depuis la ligne de la surface. L\'équipe qui cumule le plus de barres gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
   },
   {
     id: 'team-attaque-defense',
@@ -89,7 +89,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       '{{équipe attaque}} attaque, l\'autre défend. L\'équipe qui remporte le duel gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
     teamDraw: [{ role: 'équipe attaque' }],
   },
   {
@@ -98,7 +98,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       '{{équipe corner}} tire le corner. L\'autre équipe choisit un gardien pour défendre le centre. L\'équipe qui remporte le duel gagne la manche !',
     minPlayers: 4,
-    mode: 'team-play',
+
     teamDraw: [{ role: 'équipe corner' }],
   },
 ];

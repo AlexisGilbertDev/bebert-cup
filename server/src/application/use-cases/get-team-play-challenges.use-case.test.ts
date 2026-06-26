@@ -18,7 +18,6 @@ describe('GetTeamPlayChallengesUseCase', () => {
         name: 'Team Play Challenge',
         description: 'A team play challenge.',
         minPlayers: 4,
-        mode: 'team-play',
       },
     ];
     const useCase = new GetTeamPlayChallengesUseCase(new FakeChallengeRepository(challenges));
@@ -36,15 +35,14 @@ describe('GetTeamPlayChallengesUseCase', () => {
       name: 'Team Play',
       description: 'A team play challenge.',
       minPlayers: 4,
-      mode: 'team-play',
     };
 
     class MixedFakeRepository implements ChallengeRepositoryPort {
       findSurvivorChallenges(): Challenge[] {
-        return [{ id: 'survivor-1', name: 'Survivor', description: 'S', minPlayers: 2, mode: 'survivor' }];
+        return [{ id: 'survivor-1', name: 'Survivor', description: 'S', minPlayers: 2 }];
       }
       findDuelChallenges(): Challenge[] {
-        return [{ id: 'duel-1', name: 'Duel', description: 'D', minPlayers: 2, mode: 'duel' }];
+        return [{ id: 'duel-1', name: 'Duel', description: 'D', minPlayers: 2 }];
       }
       findTeamPlayChallenges(): Challenge[] {
         return [teamPlayChallenge];

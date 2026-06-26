@@ -1,5 +1,3 @@
-export type ChallengeMode = 'survivor' | 'duel' | 'team-play';
-
 export interface ChallengeDrawSlot {
   role: string;
 }
@@ -13,7 +11,6 @@ export interface Challenge {
   details?: string;
   minPlayers: number;
   maxPlayers?: number;
-  mode: ChallengeMode;
   draw?: ChallengeDrawSlot[];
   eliminableRoles?: string[];
   teamDraw?: ChallengeDrawSlot[];
