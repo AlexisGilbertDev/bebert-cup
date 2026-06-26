@@ -11,9 +11,16 @@ export function buildApp(dependencies: AppDependencies): express.Application {
   application.use(cors({ origin: env.CORS_ORIGIN }));
   application.use(express.json());
   application.use('/api', buildRouter(dependencies));
-  application.use((_error: unknown, _request: express.Request, response: express.Response, _next: express.NextFunction) => {
-    console.error(_error);
-    response.status(500).json({ error: 'Internal server error' });
-  });
+  application.use(
+    (
+      _error: unknown,
+      _request: express.Request,
+      response: express.Response,
+      _next: express.NextFunction,
+    ) => {
+      console.error(_error);
+      response.status(500).json({ error: 'Internal server error' });
+    },
+  );
   return application;
 }

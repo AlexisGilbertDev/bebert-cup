@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSession } from '../context/session.context';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
+import { useSession } from '../context/session.context';
 import '../components/comic.css';
 
 const MIN_PLAYERS = 2;
@@ -25,12 +25,17 @@ function createInput(): PlayerInput {
 }
 
 export default function DuelSetupPage() {
-  const [inputs, setInputs] = useState<PlayerInput[]>([createInput(), createInput()]);
+  const [inputs, setInputs] = useState<PlayerInput[]>([
+    createInput(),
+    createInput(),
+  ]);
   const { setPlayers } = useSession();
   const navigate = useNavigate();
 
   function updateInput(id: string, value: string) {
-    setInputs(inputs.map((input) => (input.id === id ? { ...input, value } : input)));
+    setInputs(
+      inputs.map((input) => (input.id === id ? { ...input, value } : input)),
+    );
   }
 
   function addPlayer() {
@@ -58,9 +63,19 @@ export default function DuelSetupPage() {
       <div className="comic-content">
         <PageHeader>JOUEURS</PageHeader>
 
-        <ComicPanel style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <ComicPanel
+          style={{
+            padding: 16,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+          }}
+        >
           {inputs.map((input, index) => (
-            <div key={input.id} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div
+              key={input.id}
+              style={{ display: 'flex', alignItems: 'center', gap: 10 }}
+            >
               <span
                 className="player-dot"
                 style={{ backgroundColor: PLAYER_COLORS[index] }}
@@ -107,7 +122,13 @@ export default function DuelSetupPage() {
         </ComicPanel>
 
         {hasDuplicates && (
-          <p style={{ font: '700 14px Nunito', color: 'var(--red)', textAlign: 'center' }}>
+          <p
+            style={{
+              font: '700 14px Nunito',
+              color: 'var(--red)',
+              textAlign: 'center',
+            }}
+          >
             Deux joueurs ne peuvent pas avoir le même pseudo.
           </p>
         )}

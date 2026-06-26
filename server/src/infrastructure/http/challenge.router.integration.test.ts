@@ -6,9 +6,15 @@ import { buildApp } from './server.js';
 
 class FakeChallengeRepository implements ChallengeRepositoryPort {
   constructor(private readonly survivorChallenges: Challenge[]) {}
-  findSurvivorChallenges() { return this.survivorChallenges; }
-  findDuelChallenges() { return []; }
-  findTeamPlayChallenges() { return []; }
+  findSurvivorChallenges() {
+    return this.survivorChallenges;
+  }
+  findDuelChallenges() {
+    return [];
+  }
+  findTeamPlayChallenges() {
+    return [];
+  }
 }
 
 const fakeChallenges: Challenge[] = [

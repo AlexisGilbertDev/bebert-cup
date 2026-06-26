@@ -8,7 +8,9 @@ export function buildChallengeRouter(dependencies: {
   const router = Router();
 
   router.get('/', (_request, response) => {
-    const useCase = new GetSurvivorChallengesUseCase(dependencies.challengeRepository);
+    const useCase = new GetSurvivorChallengesUseCase(
+      dependencies.challengeRepository,
+    );
     response.json(useCase.execute());
   });
 

@@ -6,7 +6,11 @@ interface ComicPanelProps {
   style?: React.CSSProperties;
 }
 
-export default function ComicPanel({ children, className = '', style }: ComicPanelProps) {
+export default function ComicPanel({
+  children,
+  className = '',
+  style,
+}: ComicPanelProps) {
   return (
     <div className={`comic-panel ${className}`} style={style}>
       {children}

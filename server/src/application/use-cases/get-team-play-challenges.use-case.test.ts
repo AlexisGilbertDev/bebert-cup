@@ -5,9 +5,15 @@ import { GetTeamPlayChallengesUseCase } from './get-team-play-challenges.use-cas
 
 class FakeChallengeRepository implements ChallengeRepositoryPort {
   constructor(private readonly teamPlayChallenges: Challenge[] = []) {}
-  findSurvivorChallenges() { return []; }
-  findDuelChallenges() { return []; }
-  findTeamPlayChallenges() { return this.teamPlayChallenges; }
+  findSurvivorChallenges() {
+    return [];
+  }
+  findDuelChallenges() {
+    return [];
+  }
+  findTeamPlayChallenges() {
+    return this.teamPlayChallenges;
+  }
 }
 
 describe('GetTeamPlayChallengesUseCase', () => {
@@ -20,12 +26,16 @@ describe('GetTeamPlayChallengesUseCase', () => {
         minPlayers: 4,
       },
     ];
-    const useCase = new GetTeamPlayChallengesUseCase(new FakeChallengeRepository(challenges));
+    const useCase = new GetTeamPlayChallengesUseCase(
+      new FakeChallengeRepository(challenges),
+    );
     expect(useCase.execute()).toEqual(challenges);
   });
 
   it('returns an empty array when there are no team-play challenges', () => {
-    const useCase = new GetTeamPlayChallengesUseCase(new FakeChallengeRepository([]));
+    const useCase = new GetTeamPlayChallengesUseCase(
+      new FakeChallengeRepository([]),
+    );
     expect(useCase.execute()).toEqual([]);
   });
 
@@ -39,10 +49,19 @@ describe('GetTeamPlayChallengesUseCase', () => {
 
     class MixedFakeRepository implements ChallengeRepositoryPort {
       findSurvivorChallenges(): Challenge[] {
-        return [{ id: 'survivor-1', name: 'Survivor', description: 'S', minPlayers: 2 }];
+        return [
+          {
+            id: 'survivor-1',
+            name: 'Survivor',
+            description: 'S',
+            minPlayers: 2,
+          },
+        ];
       }
       findDuelChallenges(): Challenge[] {
-        return [{ id: 'duel-1', name: 'Duel', description: 'D', minPlayers: 2 }];
+        return [
+          { id: 'duel-1', name: 'Duel', description: 'D', minPlayers: 2 },
+        ];
       }
       findTeamPlayChallenges(): Challenge[] {
         return [teamPlayChallenge];

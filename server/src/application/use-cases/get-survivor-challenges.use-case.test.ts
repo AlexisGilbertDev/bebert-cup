@@ -8,9 +8,15 @@ class FakeChallengeRepository implements ChallengeRepositoryPort {
     private readonly survivorChallenges: Challenge[],
     private readonly duelChallenges: Challenge[] = [],
   ) {}
-  findSurvivorChallenges() { return this.survivorChallenges; }
-  findDuelChallenges() { return this.duelChallenges; }
-  findTeamPlayChallenges() { return []; }
+  findSurvivorChallenges() {
+    return this.survivorChallenges;
+  }
+  findDuelChallenges() {
+    return this.duelChallenges;
+  }
+  findTeamPlayChallenges() {
+    return [];
+  }
 }
 
 describe('GetSurvivorChallengesUseCase', () => {
@@ -23,12 +29,16 @@ describe('GetSurvivorChallengesUseCase', () => {
         minPlayers: 2,
       },
     ];
-    const useCase = new GetSurvivorChallengesUseCase(new FakeChallengeRepository(challenges));
+    const useCase = new GetSurvivorChallengesUseCase(
+      new FakeChallengeRepository(challenges),
+    );
     expect(useCase.execute()).toEqual(challenges);
   });
 
   it('returns an empty array when there are no survivor challenges', () => {
-    const useCase = new GetSurvivorChallengesUseCase(new FakeChallengeRepository([]));
+    const useCase = new GetSurvivorChallengesUseCase(
+      new FakeChallengeRepository([]),
+    );
     expect(useCase.execute()).toEqual([]);
   });
 

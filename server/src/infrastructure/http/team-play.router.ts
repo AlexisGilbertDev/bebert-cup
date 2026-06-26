@@ -8,7 +8,9 @@ export function buildTeamPlayRouter(dependencies: {
   const router = Router();
 
   router.get('/challenges', (_request, response) => {
-    const useCase = new GetTeamPlayChallengesUseCase(dependencies.challengeRepository);
+    const useCase = new GetTeamPlayChallengesUseCase(
+      dependencies.challengeRepository,
+    );
     response.json(useCase.execute());
   });
 

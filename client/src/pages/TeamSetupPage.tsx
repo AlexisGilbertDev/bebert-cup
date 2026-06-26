@@ -28,16 +28,24 @@ function createInput(team: 1 | 2): PlayerInput {
 export default function TeamSetupPage() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState<PlayerInput[]>([
-    createInput(1), createInput(1),
-    createInput(2), createInput(2),
+    createInput(1),
+    createInput(1),
+    createInput(2),
+    createInput(2),
   ]);
 
   function updateValue(id: string, value: string) {
-    setInputs(inputs.map((input) => (input.id === id ? { ...input, value } : input)));
+    setInputs(
+      inputs.map((input) => (input.id === id ? { ...input, value } : input)),
+    );
   }
 
   function toggleTeam(id: string) {
-    setInputs(inputs.map((input) => (input.id === id ? { ...input, team: input.team === 1 ? 2 : 1 } : input)));
+    setInputs(
+      inputs.map((input) =>
+        input.id === id ? { ...input, team: input.team === 1 ? 2 : 1 } : input,
+      ),
+    );
   }
 
   function addPlayer() {
@@ -49,19 +57,32 @@ export default function TeamSetupPage() {
   }
 
   function removePlayer(id: string) {
-    if (inputs.length > MIN_PLAYERS) setInputs(inputs.filter((input) => input.id !== id));
+    if (inputs.length > MIN_PLAYERS)
+      setInputs(inputs.filter((input) => input.id !== id));
   }
 
-  const filled = inputs.map((input) => ({ ...input, value: input.value.trim() })).filter((input) => input.value);
-  const team1Players = filled.filter((input) => input.team === 1).map((input) => input.value);
-  const team2Players = filled.filter((input) => input.team === 2).map((input) => input.value);
+  const filled = inputs
+    .map((input) => ({ ...input, value: input.value.trim() }))
+    .filter((input) => input.value);
+  const team1Players = filled
+    .filter((input) => input.team === 1)
+    .map((input) => input.value);
+  const team2Players = filled
+    .filter((input) => input.team === 2)
+    .map((input) => input.value);
   const allValues = filled.map((input) => input.value);
   const hasDuplicates = new Set(allValues).size < allValues.length;
-  const canStart = filled.length >= MIN_PLAYERS && team1Players.length >= 1 && team2Players.length >= 1 && !hasDuplicates;
+  const canStart =
+    filled.length >= MIN_PLAYERS &&
+    team1Players.length >= 1 &&
+    team2Players.length >= 1 &&
+    !hasDuplicates;
 
   function handleStart() {
     if (!canStart) return;
-    navigate('/team-play/play', { state: { team1: team1Players, team2: team2Players } });
+    navigate('/team-play/play', {
+      state: { team1: team1Players, team2: team2Players },
+    });
   }
 
   return (
@@ -69,36 +90,67 @@ export default function TeamSetupPage() {
       <div className="comic-content">
         <PageHeader>ÉQUIPES</PageHeader>
 
-        <ComicPanel style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <ComicPanel
+          style={{
+            padding: 16,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+          }}
+        >
           {/* Legend */}
           <div style={{ display: 'flex', gap: 16, marginBottom: 4 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{
-                width: 14, height: 14, borderRadius: 3,
-                background: TEAM1_COLOR, border: '2px solid var(--ink)', flexShrink: 0,
-              }} />
-              <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>Équipe 1</span>
+              <span
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: 3,
+                  background: TEAM1_COLOR,
+                  border: '2px solid var(--ink)',
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>
+                Équipe 1
+              </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{
-                width: 14, height: 14, borderRadius: 3,
-                background: TEAM2_COLOR, border: '2px solid var(--ink)', flexShrink: 0,
-              }} />
-              <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>Équipe 2</span>
+              <span
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: 3,
+                  background: TEAM2_COLOR,
+                  border: '2px solid var(--ink)',
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>
+                Équipe 2
+              </span>
             </div>
           </div>
 
           {inputs.map((input) => (
-            <div key={input.id} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div
+              key={input.id}
+              style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+            >
               {/* Team toggle */}
               <button
                 type="button"
                 onClick={() => toggleTeam(input.id)}
                 style={{
-                  width: 30, height: 30, borderRadius: 6, flexShrink: 0, cursor: 'pointer',
+                  width: 30,
+                  height: 30,
+                  borderRadius: 6,
+                  flexShrink: 0,
+                  cursor: 'pointer',
                   background: input.team === 1 ? TEAM1_COLOR : TEAM2_COLOR,
                   border: '2.5px solid var(--ink)',
-                  font: '900 11px Nunito', color: '#fff',
+                  font: '900 11px Nunito',
+                  color: '#fff',
                 }}
               >
                 {input.team}
@@ -111,10 +163,15 @@ export default function TeamSetupPage() {
                 onChange={(event) => updateValue(input.id, event.target.value)}
                 maxLength={30}
                 style={{
-                  flex: 1, height: 44,
-                  border: '3px solid var(--ink)', borderRadius: 6,
-                  padding: '0 12px', font: '800 16px Nunito',
-                  background: 'var(--paper)', color: 'var(--ink)', outline: 'none',
+                  flex: 1,
+                  height: 44,
+                  border: '3px solid var(--ink)',
+                  borderRadius: 6,
+                  padding: '0 12px',
+                  font: '800 16px Nunito',
+                  background: 'var(--paper)',
+                  color: 'var(--ink)',
+                  outline: 'none',
                 }}
               />
 
@@ -123,9 +180,15 @@ export default function TeamSetupPage() {
                   type="button"
                   onClick={() => removePlayer(input.id)}
                   style={{
-                    width: 36, height: 36, border: '2px solid var(--ink)',
-                    borderRadius: 6, background: '#fff', cursor: 'pointer',
-                    font: '900 16px Nunito', color: 'var(--ink)', flexShrink: 0,
+                    width: 36,
+                    height: 36,
+                    border: '2px solid var(--ink)',
+                    borderRadius: 6,
+                    background: '#fff',
+                    cursor: 'pointer',
+                    font: '900 16px Nunito',
+                    color: 'var(--ink)',
+                    flexShrink: 0,
                   }}
                 >
                   ✕
@@ -136,7 +199,13 @@ export default function TeamSetupPage() {
         </ComicPanel>
 
         {hasDuplicates && (
-          <p style={{ font: '700 14px Nunito', color: 'var(--red)', textAlign: 'center' }}>
+          <p
+            style={{
+              font: '700 14px Nunito',
+              color: 'var(--red)',
+              textAlign: 'center',
+            }}
+          >
             Deux joueurs ne peuvent pas avoir le même pseudo.
           </p>
         )}
@@ -146,7 +215,9 @@ export default function TeamSetupPage() {
             <span style={{ font: '800 13px Nunito', color: TEAM1_COLOR }}>
               Équipe 1 : {team1Players.length}
             </span>
-            <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>vs</span>
+            <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>
+              vs
+            </span>
             <span style={{ font: '800 13px Nunito', color: TEAM2_COLOR }}>
               Équipe 2 : {team2Players.length}
             </span>

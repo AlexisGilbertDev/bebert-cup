@@ -1,5 +1,5 @@
-import { existsSync } from 'fs';
-import { resolve } from 'path';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import express from 'express';
 import { env } from './config/env.js';
 import { buildApp } from './infrastructure/http/server.js';

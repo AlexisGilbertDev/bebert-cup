@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSession } from '../context/session.context';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
+import { useSession } from '../context/session.context';
 import '../components/comic.css';
 
 const MIN_PLAYERS = 3;
@@ -73,9 +73,19 @@ export default function HomePage() {
       <div className="comic-content">
         <PageHeader>JOUEURS</PageHeader>
 
-        <ComicPanel style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <ComicPanel
+          style={{
+            padding: 16,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+          }}
+        >
           {inputs.map((input, index) => (
-            <div key={input.id} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div
+              key={input.id}
+              style={{ display: 'flex', alignItems: 'center', gap: 10 }}
+            >
               <span
                 className="player-dot"
                 style={{ backgroundColor: PLAYER_COLORS[index] }}
@@ -122,7 +132,13 @@ export default function HomePage() {
         </ComicPanel>
 
         {hasDuplicates && (
-          <p style={{ font: '700 14px Nunito', color: 'var(--red)', textAlign: 'center' }}>
+          <p
+            style={{
+              font: '700 14px Nunito',
+              color: 'var(--red)',
+              textAlign: 'center',
+            }}
+          >
             Deux joueurs ne peuvent pas avoir le même pseudo.
           </p>
         )}
