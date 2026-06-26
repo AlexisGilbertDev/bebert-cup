@@ -202,22 +202,28 @@ export default function ChallengePage() {
             <ChangeChallengeButton onClick={changeChallenge} />
             <Caption>Qui est éliminé&nbsp;?</Caption>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {activePlayers.map((player) => (
-                <button
-                  key={player}
-                  type="button"
-                  onClick={() => setEliminated(player)}
-                  className="comic-btn"
-                  style={{
-                    background: '#fff',
-                    color: 'var(--ink)',
-                    font: '800 18px Nunito',
-                    letterSpacing: 0,
-                  }}
-                >
-                  {player}
-                </button>
-              ))}
+              {activePlayers.map((player) => {
+                const drawnRole = drawnPlayers.find((d) => d.player === player)?.role;
+                const isJuge = drawnRole === 'juge';
+                return (
+                  <button
+                    key={player}
+                    type="button"
+                    onClick={() => { if (!isJuge) setEliminated(player); }}
+                    disabled={isJuge}
+                    className="comic-btn"
+                    style={{
+                      background: isJuge ? '#e5e0d5' : '#fff',
+                      color: isJuge ? '#b0a890' : 'var(--ink)',
+                      font: '800 18px Nunito',
+                      letterSpacing: 0,
+                      cursor: isJuge ? 'default' : undefined,
+                    }}
+                  >
+                    {player}{isJuge ? ' (juge)' : ''}
+                  </button>
+                );
+              })}
             </div>
           </>
         )}
