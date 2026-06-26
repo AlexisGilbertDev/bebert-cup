@@ -1,14 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { useSession } from '../context/session.context';
 import '../components/comic.css';
 import './mode-selection.css';
 
 export default function ModeSelectionPage() {
-  const { setMode } = useSession();
   const navigate = useNavigate();
 
   function selectSurvivor() {
-    setMode('survivor');
     navigate('/survivor/setup');
   }
 
@@ -84,7 +81,14 @@ export default function ModeSelectionPage() {
         <div className="msb-card">
           <div className="msb-card-header">
             <h2 className="msb-card-title msb-card-title--green">TEAM&nbsp;!</h2>
-            <div className="msb-team-badge" aria-hidden="true">2v2</div>
+            <div className="msb-team-badge" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                <circle cx="7"  cy="13" r="3.5"/><rect x="3"  y="17" width="8" height="10" rx="2"/>
+                <circle cx="14" cy="13" r="3.5"/><rect x="10" y="17" width="8" height="10" rx="2"/>
+                <circle cx="26" cy="13" r="3.5"/><rect x="22" y="17" width="8" height="10" rx="2"/>
+                <circle cx="33" cy="13" r="3.5"/><rect x="29" y="17" width="8" height="10" rx="2"/>
+              </svg>
+            </div>
           </div>
           <p className="msb-card-desc">
             4–8 joueurs · 2 équipes · 8 manches. L'équipe la plus forte gagne.

@@ -264,7 +264,7 @@
   paint-order: stroke fill;
 }
 
-/* 2v2 badge (TEAM PLAY): green circle */
+/* Teams badge (TEAM PLAY): green circle */
 .msb-team-badge {
   flex-shrink: 0;
   width: 46px;
@@ -275,10 +275,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Anton', sans-serif;
-  font-size: 14px;
-  letter-spacing: 1px;
-  color: #fff;
-  -webkit-text-stroke: 0.5px #15110C;
-  paint-order: stroke fill;
+  overflow: hidden;
 }
