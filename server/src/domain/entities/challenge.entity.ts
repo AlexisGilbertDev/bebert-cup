@@ -15,5 +15,6 @@ export interface Challenge {
   maxPlayers?: number;
   mode: ChallengeMode;
   draw?: ChallengeDrawSlot[];
+  eliminableRoles?: string[];
   teamDraw?: ChallengeDrawSlot[];
 }

@@ -202,28 +202,38 @@ export default function ChallengePage() {
             <ChangeChallengeButton onClick={changeChallenge} />
             <Caption>Qui est éliminé&nbsp;?</Caption>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {activePlayers.map((player) => {
-                const drawnRole = drawnPlayers.find((d) => d.player === player)?.role;
-                const isJuge = drawnRole === 'juge';
-                return (
-                  <button
-                    key={player}
-                    type="button"
-                    onClick={() => { if (!isJuge) setEliminated(player); }}
-                    disabled={isJuge}
-                    className="comic-btn"
-                    style={{
-                      background: isJuge ? '#e5e0d5' : '#fff',
-                      color: isJuge ? '#b0a890' : 'var(--ink)',
-                      font: '800 18px Nunito',
-                      letterSpacing: 0,
-                      cursor: isJuge ? 'default' : undefined,
-                    }}
-                  >
-                    {player}{isJuge ? ' (juge)' : ''}
-                  </button>
-                );
-              })}
+              {(() => {
+                const eliminableNames: Set<string> | null = currentChallenge.eliminableRoles
+                  ? new Set(
+                      drawnPlayers
+                        .filter((d) => currentChallenge.eliminableRoles!.includes(d.role))
+                        .map((d) => d.player)
+                    )
+                  : null;
+                return activePlayers.map((player) => {
+                  const drawnRole = drawnPlayers.find((d) => d.player === player)?.role;
+                  const isDisabled = eliminableNames ? !eliminableNames.has(player) : drawnRole === 'juge';
+                  const suffix = drawnRole && isDisabled ? ` (${drawnRole})` : '';
+                  return (
+                    <button
+                      key={player}
+                      type="button"
+                      onClick={() => { if (!isDisabled) setEliminated(player); }}
+                      disabled={isDisabled}
+                      className="comic-btn"
+                      style={{
+                        background: isDisabled ? '#e5e0d5' : '#fff',
+                        color: isDisabled ? '#b0a890' : 'var(--ink)',
+                        font: '800 18px Nunito',
+                        letterSpacing: 0,
+                        cursor: isDisabled ? 'default' : undefined,
+                      }}
+                    >
+                      {player}{suffix}
+                    </button>
+                  );
+                });
+              })()}
             </div>
           </>
         )}
