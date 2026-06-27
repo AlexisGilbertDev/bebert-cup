@@ -221,7 +221,7 @@ export default function TeamPlayPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <h1
                 style={{
-                  fontFamily: 'Bangers, cursive',
+                  fontFamily: 'Bangers, sans-serif',
                   fontSize: 36,
                   letterSpacing: 2,
                   color: 'var(--ink)',
@@ -420,7 +420,7 @@ export default function TeamPlayPage() {
                 >
                   <p
                     style={{
-                      fontFamily: 'Bangers, cursive',
+                      fontFamily: 'Bangers, sans-serif',
                       fontSize: 24,
                       color: 'var(--ink)',
                       letterSpacing: 0.5,
@@ -543,7 +543,7 @@ export default function TeamPlayPage() {
                     border: '3px solid var(--ink)',
                     boxShadow: '0 4px 0 var(--ink)',
                     background: TEAM1_COLOR,
-                    fontFamily: 'Bangers, cursive',
+                    fontFamily: 'Bangers, sans-serif',
                     fontSize: 20,
                     color: '#fff',
                     cursor: 'pointer',
@@ -561,7 +561,7 @@ export default function TeamPlayPage() {
                     border: '3px solid var(--ink)',
                     boxShadow: '0 4px 0 var(--ink)',
                     background: TEAM2_COLOR,
-                    fontFamily: 'Bangers, cursive',
+                    fontFamily: 'Bangers, sans-serif',
                     fontSize: 20,
                     color: '#fff',
                     cursor: 'pointer',
@@ -592,7 +592,7 @@ export default function TeamPlayPage() {
                 </p>
                 <p
                   style={{
-                    fontFamily: 'Bangers, cursive',
+                    fontFamily: 'Bangers, sans-serif',
                     fontSize: 32,
                     letterSpacing: 1,
                     lineHeight: 1,

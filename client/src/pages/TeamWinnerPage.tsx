@@ -43,7 +43,7 @@ export default function TeamWinnerPage() {
       <div className="wc-content">
         <h1
           style={{
-            fontFamily: 'Luckiest Guy, cursive',
+            fontFamily: 'Luckiest Guy, sans-serif',
             fontSize: 48,
             textAlign: 'center',
             color: winnerColor,
