@@ -29,7 +29,7 @@
 }
 
 .wc-title {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Luckiest Guy', sans-serif;
   font-size: 38px;
   letter-spacing: 1px;
   text-shadow: 3px 4px 0 #141414;
@@ -116,14 +116,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Luckiest Guy', sans-serif;
   font-size: 40px;
   color: #fff;
   text-shadow: 2px 2px 0 rgba(20,20,20,.3);
 }
 
 .wc-hero-name {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Luckiest Guy', sans-serif;
   font-size: 44px;
   line-height: 1;
   letter-spacing: 1px;
@@ -134,7 +134,7 @@
 .wc-pts-pill {
   background: #141414;
   color: #f4c64a;
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Luckiest Guy', sans-serif;
   font-size: 18px;
   letter-spacing: 1px;
   padding: 6px 20px;
@@ -153,7 +153,7 @@
 }
 
 .wc-section-label {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Luckiest Guy', sans-serif;
   font-size: 15px;
   letter-spacing: 2px;
   color: #141414;
@@ -180,7 +180,7 @@
 .wc-row-name  { font-size: 17px; font-weight: 600; color: #141414; flex: 1; }
 
 .wc-row-score {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Luckiest Guy', sans-serif;
   font-size: 24px;
   color: #141414;
 }
@@ -194,7 +194,7 @@
   border-radius: 16px;
   box-shadow: 0 7px 0 #141414;
   color: #fff;
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Luckiest Guy', sans-serif;
   font-size: 30px;
   letter-spacing: 1px;
   cursor: pointer;

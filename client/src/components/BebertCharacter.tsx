@@ -148,7 +148,7 @@ export default function BebertCharacter() {
               left: '50%',
               bottom: 4,
               transform: 'translateX(-50%)',
-              fontFamily: "'Bangers',cursive",
+              fontFamily: "'Bangers', sans-serif",
               fontSize: 28,
               color: '#fff',
               WebkitTextStroke: '2px #14110d',

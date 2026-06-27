@@ -8,7 +8,7 @@
 }
 
 .dp-round-title {
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   font-size: 36px;
   letter-spacing: 2px;
   color: var(--ink);
@@ -67,7 +67,7 @@
 }
 
 .dp-challenge-title {
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   font-size: 24px;
   color: var(--ink);
   letter-spacing: 0.5px;
@@ -115,7 +115,7 @@
 }
 
 .dp-counter-fraction {
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   font-size: 28px;
   color: var(--red);
   letter-spacing: 1px;
@@ -234,7 +234,7 @@
   width: 100%;
   min-height: 58px;
   border-radius: 12px;
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   font-size: 26px;
   letter-spacing: 1px;
   cursor: pointer;

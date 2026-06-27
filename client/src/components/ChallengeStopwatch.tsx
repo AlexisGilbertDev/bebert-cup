@@ -55,7 +55,7 @@ export default function ChallengeStopwatch() {
         </div>
         <div
           style={{
-            fontFamily: 'Bangers, cursive',
+            fontFamily: 'Bangers, sans-serif',
             fontSize: 32,
             color: '#3b82f6',
             lineHeight: 1,

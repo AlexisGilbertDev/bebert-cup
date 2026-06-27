@@ -47,7 +47,7 @@ export default function FinalistPage() {
             </span>
             <span
               style={{
-                fontFamily: 'Bangers, cursive',
+                fontFamily: 'Bangers, sans-serif',
                 color: 'var(--red)',
                 fontSize: 28,
                 letterSpacing: 2,

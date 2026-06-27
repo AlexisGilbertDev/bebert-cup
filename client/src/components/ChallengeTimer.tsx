@@ -111,7 +111,7 @@ export default function ChallengeTimer({ duration }: Props) {
       <div style={{ flex: 1 }}>
         <div
           style={{
-            fontFamily: 'Bangers, cursive',
+            fontFamily: 'Bangers, sans-serif',
             fontSize: finished ? 22 : 32,
             color: accent,
             lineHeight: 1,
