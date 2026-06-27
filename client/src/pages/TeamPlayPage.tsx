@@ -23,10 +23,11 @@ type Phase = 'scoring' | 'results';
 
 function drawTeams(
   challenge: Challenge,
+  name1: string,
+  name2: string,
 ): Array<{ team: string; role: string }> {
   if (!challenge.teamDraw || challenge.teamDraw.length === 0) return [];
-  const teams =
-    Math.random() < 0.5 ? ['Équipe 1', 'Équipe 2'] : ['Équipe 2', 'Équipe 1'];
+  const teams = Math.random() < 0.5 ? [name1, name2] : [name2, name1];
   return challenge.teamDraw.map((slot, index) => ({
     team: teams[index % 2],
     role: slot.role,
@@ -68,9 +69,13 @@ export default function TeamPlayPage() {
   const locationState = location.state as {
     team1?: string[];
     team2?: string[];
+    teamName1?: string;
+    teamName2?: string;
   } | null;
   const team1 = locationState?.team1 ?? [];
   const team2 = locationState?.team2 ?? [];
+  const teamName1 = locationState?.teamName1 ?? 'Équipe 1';
+  const teamName2 = locationState?.teamName2 ?? 'Équipe 2';
 
   const { challenges, loading, error } = useTeamPlayChallenges();
 
@@ -97,7 +102,7 @@ export default function TeamPlayPage() {
   function applyChallenge(challenge: Challenge, newUsedIds: Set<string>) {
     setCurrentChallenge(challenge);
     setUsedChallengeIds(newUsedIds);
-    setDrawnTeams(drawTeams(challenge));
+    setDrawnTeams(drawTeams(challenge, teamName1, teamName2));
     setShowDetails(false);
   }
 
@@ -107,11 +112,11 @@ export default function TeamPlayPage() {
       if (result) {
         setCurrentChallenge(result.challenge);
         setUsedChallengeIds(result.newUsedIds);
-        setDrawnTeams(drawTeams(result.challenge));
+        setDrawnTeams(drawTeams(result.challenge, teamName1, teamName2));
         setShowDetails(false);
       }
     }
-  }, [loading, challenges, currentChallenge]);
+  }, [loading, challenges, currentChallenge, teamName1, teamName2]);
 
   function changeChallenge() {
     const result = computeNextChallenge(
@@ -138,7 +143,7 @@ export default function TeamPlayPage() {
 
     if (isLastNormalRound) {
       if (scores.team1 !== scores.team2) {
-        navigate('/team-play/winner', { state: { scores, team1, team2 } });
+        navigate('/team-play/winner', { state: { scores, team1, team2, teamName1, teamName2 } });
         return;
       }
       setIsTieBreak(true);
@@ -150,7 +155,7 @@ export default function TeamPlayPage() {
     }
 
     if (isTieBreak && scores.team1 !== scores.team2) {
-      navigate('/team-play/winner', { state: { scores, team1, team2 } });
+      navigate('/team-play/winner', { state: { scores, team1, team2, teamName1, teamName2 } });
       return;
     }
 
@@ -216,7 +221,7 @@ export default function TeamPlayPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <h1
                 style={{
-                  fontFamily: 'Bangers, cursive',
+                  fontFamily: 'Bangers, sans-serif',
                   fontSize: 36,
                   letterSpacing: 2,
                   color: 'var(--ink)',
@@ -279,7 +284,7 @@ export default function TeamPlayPage() {
                     textTransform: 'uppercase',
                   }}
                 >
-                  ÉQUIPE 1
+                  {teamName1}
                 </div>
                 <div
                   style={{
@@ -357,7 +362,7 @@ export default function TeamPlayPage() {
                     textTransform: 'uppercase',
                   }}
                 >
-                  ÉQUIPE 2
+                  {teamName2}
                 </div>
                 <div
                   style={{
@@ -415,7 +420,7 @@ export default function TeamPlayPage() {
                 >
                   <p
                     style={{
-                      fontFamily: 'Bangers, cursive',
+                      fontFamily: 'Bangers, sans-serif',
                       fontSize: 24,
                       color: 'var(--ink)',
                       letterSpacing: 0.5,
@@ -538,13 +543,13 @@ export default function TeamPlayPage() {
                     border: '3px solid var(--ink)',
                     boxShadow: '0 4px 0 var(--ink)',
                     background: TEAM1_COLOR,
-                    fontFamily: 'Bangers, cursive',
+                    fontFamily: 'Bangers, sans-serif',
                     fontSize: 20,
                     color: '#fff',
                     cursor: 'pointer',
                   }}
                 >
-                  ÉQUIPE 1
+                  {teamName1}
                 </button>
                 <button
                   type="button"
@@ -556,13 +561,13 @@ export default function TeamPlayPage() {
                     border: '3px solid var(--ink)',
                     boxShadow: '0 4px 0 var(--ink)',
                     background: TEAM2_COLOR,
-                    fontFamily: 'Bangers, cursive',
+                    fontFamily: 'Bangers, sans-serif',
                     fontSize: 20,
                     color: '#fff',
                     cursor: 'pointer',
                   }}
                 >
-                  ÉQUIPE 2
+                  {teamName2}
                 </button>
               </div>
             </div>
@@ -587,14 +592,14 @@ export default function TeamPlayPage() {
                 </p>
                 <p
                   style={{
-                    fontFamily: 'Bangers, cursive',
+                    fontFamily: 'Bangers, sans-serif',
                     fontSize: 32,
                     letterSpacing: 1,
                     lineHeight: 1,
                     color: roundOutcome === 'team1' ? TEAM1_COLOR : TEAM2_COLOR,
                   }}
                 >
-                  {roundOutcome === 'team1' ? 'ÉQUIPE 1' : 'ÉQUIPE 2'}
+                  {roundOutcome === 'team1' ? teamName1 : teamName2}
                   <span
                     style={{
                       font: '900 16px Nunito',
@@ -625,13 +630,13 @@ export default function TeamPlayPage() {
               </div>
               {[
                 {
-                  label: 'Équipe 1',
+                  label: teamName1,
                   color: TEAM1_COLOR,
                   score: scores.team1,
                   players: team1,
                 },
                 {
-                  label: 'Équipe 2',
+                  label: teamName2,
                   color: TEAM2_COLOR,
                   score: scores.team2,
                   players: team2,
