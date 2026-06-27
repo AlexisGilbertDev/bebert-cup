@@ -38,7 +38,7 @@
 
 /* Title — mots courts/punchy (Bangers avec stroke) */
 .comic-title {
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   color: var(--red);
   -webkit-text-stroke: 1.5px var(--ink);
   text-shadow: 2px 2px 0 var(--ink);
@@ -94,7 +94,7 @@
   border-radius: 6px;
   background: var(--red);
   color: #fff;
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   font-size: 24px;
   letter-spacing: 0.04em;
   box-shadow: 0 4px 0 var(--ink);
@@ -134,7 +134,7 @@
   border: 3px solid var(--ink);
   border-radius: 14px;
   padding: 6px 11px;
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   color: var(--red);
   box-shadow: 2px 2px 0 var(--ink);
   transform: rotate(3deg);
@@ -152,7 +152,7 @@
   background: var(--yellow);
   border: 3px solid var(--ink);
   box-shadow: 3px 3px 0 var(--ink);
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   font-size: 17px;
   color: var(--ink);
   transform: rotate(12deg);
@@ -166,7 +166,7 @@
 }
 
 .page-header-title {
-  font-family: 'Bangers', cursive;
+  font-family: 'Bangers', sans-serif;
   font-size: 38px;
   color: var(--ink);
   letter-spacing: 2px;
