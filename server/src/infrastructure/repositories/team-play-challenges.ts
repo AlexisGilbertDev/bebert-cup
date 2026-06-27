@@ -33,7 +33,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     id: 'team-relais-jongle',
     name: 'Relais Jongle',
     description:
-      "Chaque joueur jongle 10 fois puis passe à un coéquipier — sans laisser tomber le ballon. L'équipe qui fait le plus de tours gagne la manche !",
+      "Chaque joueur jongle 10 fois puis passe à son coéquipier sur sa gauche — sans laisser tomber le ballon. L'équipe qui fait le plus de tours gagne la manche !",
     minPlayers: 4,
   },
   {

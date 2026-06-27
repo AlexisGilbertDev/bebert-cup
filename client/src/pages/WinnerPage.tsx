@@ -4,12 +4,12 @@ import './winner.css';
 
 type LocationState = { winner: string; eliminationOrder?: string[] } | null;
 
-const ACCENT = '#2aa775';
+const ACCENT = '#e8413a';
 
 function survivorMedal(index: number): string {
   if (index === 0) return '🥇';
   if (index === 1) return '🥈';
-  return '☠️';
+  return '🍫';
 }
 
 export default function WinnerPage() {

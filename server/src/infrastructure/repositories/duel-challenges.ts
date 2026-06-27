@@ -17,10 +17,10 @@ export const DUEL_CHALLENGES: Challenge[] = [
   },
   {
     id: 'duel-tour-du-monde',
-    name: 'Tour du Monde — 45 secondes',
+    name: 'Tour du Monde — 30 secondes',
     description:
-      'Chacun son tour, réalisez le plus de tours du monde possible en 45 secondes chrono. Celui qui en fait le plus gagne !',
-    duration: 45,
+      'Chacun son tour, réalisez le plus de tours du monde possible en 30 secondes chrono. Celui qui en fait le plus gagne !',
+    duration: 30,
     details:
       "Tour du monde : jongle, et au moment où le ballon est en l'air, fais tourner ton pied autour du ballon (de l'extérieur vers l'intérieur) avant de le retoucher. Ça compte si le ballon ne touche pas le sol.",
     minPlayers: 2,
@@ -64,7 +64,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
   },
   {
     id: 'duel-corner-reverse',
-    name: 'Corner Rentrant Reverse',
+    name: 'Corner Rentrant',
     description:
       "Depuis le drapeau de corner, envoyez un corner rentrant directement dans le but. Si vous réussissez, le joueur suivant a un essai pour annuler votre point — c'est le Reverse. S'il entre aussi un corner rentrant, c'est lui qui marque. Sinon, le point est à vous.",
     details:
