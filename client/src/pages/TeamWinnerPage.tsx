@@ -13,11 +13,15 @@ export default function TeamWinnerPage() {
     scores?: { team1: number; team2: number };
     team1?: string[];
     team2?: string[];
+    teamName1?: string;
+    teamName2?: string;
   } | null;
 
   const scores = locationState?.scores;
   const team1 = locationState?.team1 ?? [];
   const team2 = locationState?.team2 ?? [];
+  const teamName1 = locationState?.teamName1 ?? 'Équipe 1';
+  const teamName2 = locationState?.teamName2 ?? 'Équipe 2';
 
   if (!scores || (team1.length === 0 && team2.length === 0)) {
     navigate('/');
@@ -84,7 +88,7 @@ export default function TeamWinnerPage() {
               🏆
             </div>
             <h2 className="wc-hero-name" style={{ color: winnerColor }}>
-              ÉQUIPE {winnerTeam}
+              {winnerTeam === 1 ? teamName1 : teamName2}
             </h2>
             <div
               style={{
@@ -124,7 +128,7 @@ export default function TeamWinnerPage() {
             <span style={{ font: '900 22px Nunito' }}>🥈</span>
             <div style={{ flex: 1 }}>
               <div style={{ font: '800 14px Nunito', color: 'var(--ink)' }}>
-                Équipe {loserTeam}
+                {loserTeam === 1 ? teamName1 : teamName2}
               </div>
               <div style={{ font: '700 11px Nunito', color: '#9a8f76' }}>
                 {loserPlayers.join(', ')}

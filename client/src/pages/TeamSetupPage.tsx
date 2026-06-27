@@ -27,6 +27,8 @@ function createInput(team: 1 | 2): PlayerInput {
 
 export default function TeamSetupPage() {
   const navigate = useNavigate();
+  const [teamName1, setTeamName1] = useState('');
+  const [teamName2, setTeamName2] = useState('');
   const [inputs, setInputs] = useState<PlayerInput[]>([
     createInput(1),
     createInput(1),
@@ -81,7 +83,12 @@ export default function TeamSetupPage() {
   function handleStart() {
     if (!canStart) return;
     navigate('/team-play/play', {
-      state: { team1: team1Players, team2: team2Players },
+      state: {
+        team1: team1Players,
+        team2: team2Players,
+        teamName1: teamName1.trim() || 'Équipe 1',
+        teamName2: teamName2.trim() || 'Équipe 2',
+      },
     });
   }
 
@@ -100,7 +107,7 @@ export default function TeamSetupPage() {
         >
           {/* Legend */}
           <div style={{ display: 'flex', gap: 16, marginBottom: 4 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1 }}>
               <span
                 style={{
                   width: 14,
@@ -111,11 +118,26 @@ export default function TeamSetupPage() {
                   flexShrink: 0,
                 }}
               />
-              <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>
-                Équipe 1
-              </span>
+              <input
+                type="text"
+                placeholder="Équipe 1"
+                value={teamName1}
+                onChange={(event) => setTeamName1(event.target.value)}
+                maxLength={20}
+                style={{
+                  font: '800 13px Nunito',
+                  color: 'var(--ink)',
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: `2px solid ${TEAM1_COLOR}`,
+                  outline: 'none',
+                  width: 0,
+                  flex: 1,
+                  padding: '1px 2px',
+                }}
+              />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1 }}>
               <span
                 style={{
                   width: 14,
@@ -126,9 +148,24 @@ export default function TeamSetupPage() {
                   flexShrink: 0,
                 }}
               />
-              <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>
-                Équipe 2
-              </span>
+              <input
+                type="text"
+                placeholder="Équipe 2"
+                value={teamName2}
+                onChange={(event) => setTeamName2(event.target.value)}
+                maxLength={20}
+                style={{
+                  font: '800 13px Nunito',
+                  color: 'var(--ink)',
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: `2px solid ${TEAM2_COLOR}`,
+                  outline: 'none',
+                  width: 0,
+                  flex: 1,
+                  padding: '1px 2px',
+                }}
+              />
             </div>
           </div>
 
@@ -213,13 +250,13 @@ export default function TeamSetupPage() {
         {canStart && (
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
             <span style={{ font: '800 13px Nunito', color: TEAM1_COLOR }}>
-              Équipe 1 : {team1Players.length}
+              {teamName1 || 'Équipe 1'} : {team1Players.length}
             </span>
             <span style={{ font: '800 13px Nunito', color: 'var(--ink)' }}>
               vs
             </span>
             <span style={{ font: '800 13px Nunito', color: TEAM2_COLOR }}>
-              Équipe 2 : {team2Players.length}
+              {teamName2 || 'Équipe 2'} : {team2Players.length}
             </span>
           </div>
         )}
