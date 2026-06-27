@@ -103,7 +103,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     name: 'Centre Fatal',
     description:
       "{{centreur}} envoie un centre, {{finisseur}} doit le reprendre de la tête. S'il rate, {{centreur}} tu es éliminé. S'il marque, élimine qui tu veux.",
-    minPlayers: 2,
+    minPlayers: 4,
 
     draw: [{ role: 'centreur' }, { role: 'finisseur' }],
   },
