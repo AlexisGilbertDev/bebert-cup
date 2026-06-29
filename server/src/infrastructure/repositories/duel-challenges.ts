@@ -26,6 +26,14 @@ export const DUEL_CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'duel-crossbar-exterieur-1min',
+    name: 'Crossbar Extérieur — 1 Minute',
+    description:
+      "Chacun votre tour, tirez depuis l'extérieur de la surface et visez la barre transversale. Vous avez 1 minute chrono pour en mettre le plus possible. Celui qui touche le plus de fois la barre gagne !",
+    duration: 60,
+    minPlayers: 2,
+  },
+  {
     id: 'duel-crossbar-5',
     name: 'Crossbar Challenge — 5 Tirs',
     description:
@@ -72,11 +80,28 @@ export const DUEL_CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'duel-tour-des-cages',
+    name: 'Tour des Cages',
+    description:
+      'Chacun votre tour, marquez un but dans toutes les cages du terrain le plus vite possible. Le chrono tourne — le plus rapide gagne !',
+    stopwatch: true,
+    minPlayers: 2,
+  },
+  {
     id: 'duel-1v1',
     name: '1v1 — Premier But',
     description: 'Un contre un, en un seul but ! Le premier qui marque gagne !',
     minPlayers: 2,
     maxPlayers: 2,
+  },
+  {
+    id: 'duel-foot-golf',
+    name: 'Foot-Golf',
+    description:
+      "Depuis le rond central, faites rentrer le ballon dans l'arc de cercle d'un point de corner en le moins de touches possible. Celui qui y arrive en moins de frappes gagne !",
+    details:
+      "Le ballon doit s'arrêter à l'intérieur de l'arc de cercle du drapeau de corner visé. Comptez chaque frappe. En cas d'égalité, rejouez.",
+    minPlayers: 2,
   },
   {
     id: 'duel-lucarne',
