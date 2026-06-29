@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ChallengeStopwatch from '../components/ChallengeStopwatch';
 import ChallengeTimer from '../components/ChallengeTimer';
 import ChangeChallengeButton from '../components/ChangeChallengeButton';
 import ComicButton from '../components/ComicButton';
@@ -298,6 +299,11 @@ export default function DuelPlayPage() {
                 <p className="dp-challenge-desc">
                   {currentChallenge.description}
                 </p>
+                {currentChallenge.stopwatch && (
+                  <div style={{ marginTop: 12 }}>
+                    <ChallengeStopwatch label="Chrono par joueur" />
+                  </div>
+                )}
                 {currentChallenge.duration && (
                   <div style={{ marginTop: 12 }}>
                     <ChallengeTimer duration={currentChallenge.duration} />
