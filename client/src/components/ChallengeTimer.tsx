@@ -66,7 +66,11 @@ export default function ChallengeTimer({ duration }: Props) {
         if (previous <= 1) {
           setRunning(false);
           playWhistle();
+          navigator.vibrate?.([150, 80, 150, 80, 400]);
           return 0;
+        }
+        if (previous <= 6) {
+          navigator.vibrate?.(40);
         }
         return previous - 1;
       });
