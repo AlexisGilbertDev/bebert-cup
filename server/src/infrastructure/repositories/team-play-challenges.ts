@@ -13,6 +13,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     name: 'Brésilienne en Équipe',
     description:
       "Chaque équipe joue sa brésilienne — 3 touches maximum par joueur, pas de touche au sol. L'équipe qui tient le plus longtemps gagne la manche !",
+    stopwatch: true,
     minPlayers: 4,
   },
   {
@@ -50,6 +51,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     name: 'Gardien Rotatif',
     description:
       "Chaque joueur de l'équipe qui défend passe 30 secondes au but pendant que l'adversaire tire à volonté. L'équipe qui encaisse le moins de buts gagne la manche !",
+    duration: 30,
     minPlayers: 4,
   },
   {
@@ -60,10 +62,32 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     minPlayers: 4,
   },
   {
+    id: 'team-poteau',
+    name: 'Premier Poteau',
+    description:
+      'Match entre les deux équipes — la première à toucher un poteau gagne la manche !',
+    minPlayers: 4,
+  },
+  {
+    id: 'team-3-touches',
+    name: 'Match 3 Touches',
+    description:
+      'Match entre les deux équipes — chaque joueur n\'a le droit qu\'à 3 touches de balle maximum. La première équipe à marquer gagne la manche !',
+    minPlayers: 4,
+  },
+  {
     id: 'team-mini-match',
     name: 'Mini Match',
     description:
       'Match en un but. La première équipe à marquer gagne la manche !',
+    minPlayers: 4,
+  },
+  {
+    id: 'team-crossbar-exterieur-1min',
+    name: 'Crossbar Extérieur — 1 Minute',
+    description:
+      "Chaque équipe tire depuis l'extérieur de la surface et vise la barre transversale pendant 1 minute chrono. L'équipe qui cumule le plus de barres gagne la manche !",
+    duration: 60,
     minPlayers: 4,
   },
   {
@@ -81,6 +105,15 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     minPlayers: 4,
 
     teamDraw: [{ role: 'équipe attaque' }],
+  },
+  {
+    id: 'team-corner-rentrant',
+    name: 'Corner Rentrant',
+    description:
+      'La première équipe à rentrer un corner directement dans le but gagne la manche !',
+    details:
+      "Corner rentrant : le ballon courbe vers l'intérieur du but et entre directement sans être touché par un autre joueur.",
+    minPlayers: 4,
   },
   {
     id: 'team-corner-duel',
