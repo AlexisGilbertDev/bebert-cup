@@ -458,7 +458,9 @@ export default function TeamPlayPage() {
                     drawnTeams,
                   )}
                 </p>
-                {currentChallenge.stopwatch && <ChallengeStopwatch />}
+                {currentChallenge.stopwatch && (
+                  <ChallengeStopwatch players={[...team1, ...team2]} />
+                )}
                 {currentChallenge.duration && (
                   <ChallengeTimer duration={currentChallenge.duration} />
                 )}

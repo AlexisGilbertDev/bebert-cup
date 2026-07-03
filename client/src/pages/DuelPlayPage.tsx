@@ -301,7 +301,7 @@ export default function DuelPlayPage() {
                 </p>
                 {currentChallenge.stopwatch && (
                   <div style={{ marginTop: 12 }}>
-                    <ChallengeStopwatch label="Chrono par joueur" />
+                    <ChallengeStopwatch players={activePlayers} />
                   </div>
                 )}
                 {currentChallenge.duration && (
