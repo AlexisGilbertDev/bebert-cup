@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 function formatTime(seconds: number): string {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
-  return mins > 0 ? `${mins}:${secs.toString().padStart(2, '0')}` : `${seconds}s`;
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
 interface PlayerTime {
