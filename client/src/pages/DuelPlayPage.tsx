@@ -53,7 +53,7 @@ function computeNextChallenge(
 }
 
 function medalFor(rank: number): string {
-  return (['🥇', '🥈', '🥉', '🏅'] as const)[rank] ?? '🏅';
+  return (['🥇', '🥈', '🥉'] as const)[rank] ?? `${rank + 1}.`;
 }
 
 function rankLabel(position: number): string {
