@@ -6,10 +6,21 @@ function formatTime(seconds: number): string {
   return mins > 0 ? `${mins}:${secs.toString().padStart(2, '0')}` : `${seconds}s`;
 }
 
-export default function ChallengeStopwatch({ label = 'Chrono par équipe' }: { label?: string }) {
+interface PlayerTime {
+  name: string;
+  time: number;
+}
+
+interface Props {
+  label?: string;
+  players?: string[];
+}
+
+export default function ChallengeStopwatch({ label = 'Chrono', players = [] }: Props) {
   const [elapsed, setElapsed] = useState(0);
   const [running, setRunning] = useState(false);
-  const [savedTime, setSavedTime] = useState<number | null>(null);
+  const [playerTimes, setPlayerTimes] = useState<PlayerTime[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -27,70 +38,95 @@ export default function ChallengeStopwatch({ label = 'Chrono par équipe' }: { l
   }
 
   function reset() {
-    if (elapsed > 0) setSavedTime(elapsed);
+    if (elapsed > 0 && players.length > 0) {
+      const name = players[currentIndex % players.length];
+      setPlayerTimes((previous) => [...previous, { name, time: elapsed }]);
+      setCurrentIndex((previous) => previous + 1);
+    }
     setRunning(false);
     setElapsed(0);
   }
 
+  const currentPlayerName =
+    players.length > 0 ? players[currentIndex % players.length] : null;
+  const chronoLabel = currentPlayerName ?? label;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      {savedTime !== null && (
+      {playerTimes.length > 0 && (
         <div
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            padding: '8px 14px',
             background: '#f5f0ff',
             border: '2px solid #8b5cf6',
             borderRadius: 10,
+            overflow: 'hidden',
           }}
         >
-          <div style={{ flex: 1 }}>
-            <div
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '5px 10px 4px',
+              borderBottom: '1.5px solid #d8b4fe',
+            }}
+          >
+            <span
               style={{
                 font: '800 10px Nunito',
                 textTransform: 'uppercase',
                 letterSpacing: 1.5,
                 color: '#8b5cf6',
-                marginBottom: 2,
               }}
             >
-              Équipe précédente
-            </div>
-            <div
+              Temps
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                setPlayerTimes([]);
+                setCurrentIndex(0);
+              }}
+              aria-label="Effacer les temps"
               style={{
-                fontFamily: 'Bangers, sans-serif',
-                fontSize: 26,
-                color: '#8b5cf6',
+                background: 'none',
+                border: 'none',
+                color: '#a78bfa',
+                cursor: 'pointer',
+                fontSize: 16,
                 lineHeight: 1,
-                letterSpacing: 1,
+                padding: 0,
               }}
             >
-              {formatTime(savedTime)}
-            </div>
+              ×
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => setSavedTime(null)}
-            aria-label="Effacer le temps précédent"
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 8,
-              border: '2px solid #8b5cf6',
-              background: '#fff',
-              color: '#8b5cf6',
-              cursor: 'pointer',
-              fontSize: 16,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}
-          >
-            ×
-          </button>
+          {playerTimes.map((entry, index) => (
+            <div
+              key={index}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '5px 10px',
+                borderTop: index > 0 ? '1px solid #ede9fe' : undefined,
+              }}
+            >
+              <span style={{ font: '700 13px Nunito', color: '#4c1d95' }}>
+                {entry.name}
+              </span>
+              <span
+                style={{
+                  fontFamily: 'Bangers, sans-serif',
+                  fontSize: 18,
+                  color: '#7c3aed',
+                  letterSpacing: 0.5,
+                }}
+              >
+                {formatTime(entry.time)}
+              </span>
+            </div>
+          ))}
         </div>
       )}
 
@@ -115,7 +151,7 @@ export default function ChallengeStopwatch({ label = 'Chrono par équipe' }: { l
               marginBottom: 3,
             }}
           >
-            {label}
+            {chronoLabel}
           </div>
           <div
             style={{
