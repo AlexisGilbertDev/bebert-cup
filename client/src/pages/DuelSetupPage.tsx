@@ -4,6 +4,11 @@ import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
 import { useSession } from '../context/session.context';
+import { readJson, removeJson, writeJson } from '../lib/local-storage';
+import {
+  buildInitialNames,
+  DUEL_PLAYERS_STORAGE_KEY,
+} from '../lib/player-setup';
 import '../components/comic.css';
 
 const MIN_PLAYERS = 2;
@@ -25,10 +30,13 @@ function createInput(): PlayerInput {
 }
 
 export default function DuelSetupPage() {
-  const [inputs, setInputs] = useState<PlayerInput[]>([
-    createInput(),
-    createInput(),
-  ]);
+  const [inputs, setInputs] = useState<PlayerInput[]>(() =>
+    buildInitialNames(
+      readJson<string[]>(DUEL_PLAYERS_STORAGE_KEY, []),
+      MIN_PLAYERS,
+      MAX_PLAYERS,
+    ).map((value) => ({ id: generateId(), value })),
+  );
   const { setPlayers } = useSession();
   const navigate = useNavigate();
 
@@ -55,7 +63,18 @@ export default function DuelSetupPage() {
   function handleStart() {
     if (!canStart) return;
     setPlayers(filled);
+    writeJson(DUEL_PLAYERS_STORAGE_KEY, filled);
     navigate('/duel/play');
+  }
+
+  function clearSavedNames() {
+    removeJson(DUEL_PLAYERS_STORAGE_KEY);
+    setInputs(
+      buildInitialNames([], MIN_PLAYERS, MAX_PLAYERS).map((value) => ({
+        id: generateId(),
+        value,
+      })),
+    );
   }
 
   return (
@@ -136,6 +155,12 @@ export default function DuelSetupPage() {
         {inputs.length < MAX_PLAYERS && (
           <ComicButton variant="yellow" onClick={addPlayer}>
             + Ajouter un joueur
+          </ComicButton>
+        )}
+
+        {filled.length > 0 && (
+          <ComicButton variant="ghost" onClick={clearSavedNames}>
+            Vider les noms
           </ComicButton>
         )}
 
