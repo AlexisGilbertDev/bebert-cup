@@ -4,6 +4,11 @@ import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
 import { useSession } from '../context/session.context';
+import { readJson, removeJson, writeJson } from '../lib/local-storage';
+import {
+  buildInitialNames,
+  SURVIVOR_PLAYERS_STORAGE_KEY,
+} from '../lib/player-setup';
 import '../components/comic.css';
 
 const MIN_PLAYERS = 3;
@@ -34,11 +39,13 @@ function createInput(): PlayerInput {
 }
 
 export default function HomePage() {
-  const [inputs, setInputs] = useState<PlayerInput[]>([
-    createInput(),
-    createInput(),
-    createInput(),
-  ]);
+  const [inputs, setInputs] = useState<PlayerInput[]>(() =>
+    buildInitialNames(
+      readJson<string[]>(SURVIVOR_PLAYERS_STORAGE_KEY, []),
+      MIN_PLAYERS,
+      MAX_PLAYERS,
+    ).map((value) => ({ id: generateId(), value })),
+  );
   const { setPlayers } = useSession();
   const navigate = useNavigate();
 
@@ -65,7 +72,18 @@ export default function HomePage() {
   function handleStart() {
     if (!canStart) return;
     setPlayers(filled);
+    writeJson(SURVIVOR_PLAYERS_STORAGE_KEY, filled);
     navigate('/survivor/play');
+  }
+
+  function clearSavedNames() {
+    removeJson(SURVIVOR_PLAYERS_STORAGE_KEY);
+    setInputs(
+      buildInitialNames([], MIN_PLAYERS, MAX_PLAYERS).map((value) => ({
+        id: generateId(),
+        value,
+      })),
+    );
   }
 
   return (
@@ -150,6 +168,12 @@ export default function HomePage() {
         >
           + Ajouter un joueur
         </ComicButton>
+
+        {filled.length > 0 && (
+          <ComicButton variant="ghost" onClick={clearSavedNames}>
+            Vider les noms
+          </ComicButton>
+        )}
 
         <ComicButton onClick={handleStart} disabled={!canStart}>
           DÉMARRER !

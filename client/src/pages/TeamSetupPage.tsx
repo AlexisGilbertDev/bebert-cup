@@ -3,6 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
+import { readJson, removeJson, writeJson } from '../lib/local-storage';
+import {
+  buildInitialTeamNames,
+  type StoredTeamSetup,
+  TEAM_PLAY_STORAGE_KEY,
+} from '../lib/player-setup';
 import '../components/comic.css';
 
 const MIN_PLAYERS = 4;
@@ -21,20 +27,28 @@ interface PlayerInput {
   team: 1 | 2;
 }
 
-function createInput(team: 1 | 2): PlayerInput {
-  return { id: generateId(), value: '', team };
+function createInput(team: 1 | 2, value = ''): PlayerInput {
+  return { id: generateId(), value, team };
 }
 
 export default function TeamSetupPage() {
   const navigate = useNavigate();
-  const [teamName1, setTeamName1] = useState('');
-  const [teamName2, setTeamName2] = useState('');
-  const [inputs, setInputs] = useState<PlayerInput[]>([
-    createInput(1),
-    createInput(1),
-    createInput(2),
-    createInput(2),
-  ]);
+  const [savedTeamSetup] = useState(() =>
+    readJson<StoredTeamSetup | null>(TEAM_PLAY_STORAGE_KEY, null),
+  );
+  const [teamName1, setTeamName1] = useState(savedTeamSetup?.teamName1 ?? '');
+  const [teamName2, setTeamName2] = useState(savedTeamSetup?.teamName2 ?? '');
+  const [inputs, setInputs] = useState<PlayerInput[]>(() => {
+    const { team1, team2 } = buildInitialTeamNames(
+      savedTeamSetup,
+      MIN_PLAYERS,
+      MAX_PLAYERS,
+    );
+    return [
+      ...team1.map((value) => createInput(1, value)),
+      ...team2.map((value) => createInput(2, value)),
+    ];
+  });
 
   function updateValue(id: string, value: string) {
     setInputs(
@@ -82,14 +96,37 @@ export default function TeamSetupPage() {
 
   function handleStart() {
     if (!canStart) return;
+    const resolvedTeamName1 = teamName1.trim() || 'Équipe 1';
+    const resolvedTeamName2 = teamName2.trim() || 'Équipe 2';
+    writeJson<StoredTeamSetup>(TEAM_PLAY_STORAGE_KEY, {
+      teamName1: resolvedTeamName1,
+      teamName2: resolvedTeamName2,
+      team1: team1Players,
+      team2: team2Players,
+    });
     navigate('/team-play/play', {
       state: {
         team1: team1Players,
         team2: team2Players,
-        teamName1: teamName1.trim() || 'Équipe 1',
-        teamName2: teamName2.trim() || 'Équipe 2',
+        teamName1: resolvedTeamName1,
+        teamName2: resolvedTeamName2,
       },
     });
+  }
+
+  function clearSavedNames() {
+    removeJson(TEAM_PLAY_STORAGE_KEY);
+    setTeamName1('');
+    setTeamName2('');
+    const { team1, team2 } = buildInitialTeamNames(
+      null,
+      MIN_PLAYERS,
+      MAX_PLAYERS,
+    );
+    setInputs([
+      ...team1.map((value) => createInput(1, value)),
+      ...team2.map((value) => createInput(2, value)),
+    ]);
   }
 
   return (
@@ -264,6 +301,12 @@ export default function TeamSetupPage() {
         {inputs.length < MAX_PLAYERS && (
           <ComicButton variant="yellow" onClick={addPlayer}>
             + Ajouter un joueur
+          </ComicButton>
+        )}
+
+        {filled.length > 0 && (
+          <ComicButton variant="ghost" onClick={clearSavedNames}>
+            Vider les noms
           </ComicButton>
         )}
 
