@@ -19,9 +19,23 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
   },
   {
     id: 'brasileira',
-    name: 'Brasileira',
+    name: 'Brésilienne',
     description:
       'Brésilienne avec 3 touches maximum par joueur. Celui qui fait tomber la balle est éliminé !',
+    minPlayers: 2,
+  },
+  {
+    id: 'brasileira-2-touches',
+    name: 'Brésilienne (2 touches)',
+    description:
+      'Brésilienne avec 2 touches maximum par joueur. Celui qui fait tomber la balle est éliminé !',
+    minPlayers: 2,
+  },
+  {
+    id: 'brasileira-1-touche',
+    name: 'Brésilienne (1 touche)',
+    description:
+      'Brésilienne avec 1 touche maximum par joueur. Celui qui fait tomber la balle est éliminé !',
     minPlayers: 2,
   },
   {
@@ -121,5 +135,19 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
       'Tout le monde tire en dehors de la surface. Celui qui met le plus beau but choisit qui il veut éliminer !',
     minPlayers: 3,
     equipment: 'but',
+  },
+  {
+    id: 'le-mur',
+    name: 'Le Mur',
+    description:
+      'Chacun votre tour, envoyez le ballon contre un mur et contrôlez-le en une seule touche. Le premier qui rate est éliminé !',
+    minPlayers: 2,
+  },
+  {
+    id: 'petit-pont',
+    name: 'Petit Pont',
+    description:
+      "Duels de petit pont entre les joueurs. Le premier qui s'en prend un est éliminé !",
+    minPlayers: 2,
   },
 ];

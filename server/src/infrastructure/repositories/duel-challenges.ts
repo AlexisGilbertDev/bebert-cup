@@ -9,6 +9,20 @@ export const DUEL_CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'duel-jongle-mauvais-pied',
+    name: 'Jongle Mauvais Pied',
+    description:
+      'Chacun votre tour, jonglez uniquement du mauvais pied. Celui qui en fait le plus gagne !',
+    minPlayers: 2,
+  },
+  {
+    id: 'duel-jongle-genou',
+    name: 'Jongle du Genou',
+    description:
+      'Chacun votre tour, jonglez uniquement du genou. Celui qui en fait le plus gagne !',
+    minPlayers: 2,
+  },
+  {
     id: 'duel-jongle-distance',
     name: 'Jongle — Plus Longue Distance',
     description:
@@ -56,6 +70,34 @@ export const DUEL_CHALLENGES: Challenge[] = [
     description:
       'Brésilienne avec 3 touches maximum par joueur. Celui qui fait tomber le ballon a perdu !',
     minPlayers: 2,
+  },
+  {
+    id: 'duel-bresilienne-2-touches',
+    name: 'Brésilienne (2 touches)',
+    description:
+      'Brésilienne avec 2 touches maximum par joueur. Celui qui fait tomber le ballon a perdu !',
+    minPlayers: 2,
+  },
+  {
+    id: 'duel-bresilienne-1-touche',
+    name: 'Brésilienne (1 touche)',
+    description:
+      'Brésilienne avec 1 touche maximum par joueur. Celui qui fait tomber le ballon a perdu !',
+    minPlayers: 2,
+  },
+  {
+    id: 'duel-bresilienne-gage',
+    name: 'Brésilienne à Gage',
+    description:
+      'Pas de limite de touches ! Chaque joueur tiré au sort doit respecter le geste imposé par son gage (voir le tirage au sort ci-dessous). Celui qui fait tomber le ballon a perdu !',
+    minPlayers: 2,
+
+    draw: [
+      { role: 'mauvais pied' },
+      { role: 'genou' },
+      { role: 'tête' },
+      { role: 'aile de pigeon' },
+    ],
   },
   {
     id: 'duel-combat-de-coq',
@@ -131,5 +173,12 @@ export const DUEL_CHALLENGES: Challenge[] = [
       'Tirs au but en 6 tentatives chacun. Le plus grand nombre de buts marque la victoire !',
     minPlayers: 2,
     equipment: 'but',
+  },
+  {
+    id: 'duel-le-mur',
+    name: 'Le Mur',
+    description:
+      'Chacun votre tour, envoyez le ballon contre un mur et enchaînez les allers-retours en une seule touche à chaque fois. Celui qui tient le plus longtemps sans faute gagne !',
+    minPlayers: 2,
   },
 ];

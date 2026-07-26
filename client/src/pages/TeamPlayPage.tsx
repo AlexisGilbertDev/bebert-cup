@@ -6,6 +6,7 @@ import ChangeChallengeButton from '../components/ChangeChallengeButton';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
+import { shuffle } from '../game';
 import type { Challenge } from '../hooks/use-challenges';
 import { useTeamPlayChallenges } from '../hooks/use-team-play-challenges';
 import '../components/comic.css';
@@ -32,6 +33,23 @@ function drawTeams(
     team: teams[index % 2],
     role: slot.role,
   }));
+}
+
+function drawIndividualRoles(
+  challenge: Challenge,
+  teamOnePlayers: string[],
+  teamTwoPlayers: string[],
+): Array<{ player: string; role: string }> {
+  const roles = challenge.draw;
+  if (!roles || roles.length === 0) return [];
+  const drawForTeam = (teamPlayers: string[]) => {
+    const shuffled = shuffle([...teamPlayers]);
+    return roles.slice(0, shuffled.length).map((slot, index) => ({
+      player: shuffled[index],
+      role: slot.role,
+    }));
+  };
+  return [...drawForTeam(teamOnePlayers), ...drawForTeam(teamTwoPlayers)];
 }
 
 function interpolateDescription(
@@ -88,6 +106,9 @@ export default function TeamPlayPage() {
   const [drawnTeams, setDrawnTeams] = useState<
     Array<{ team: string; role: string }>
   >([]);
+  const [drawnPlayers, setDrawnPlayers] = useState<
+    Array<{ player: string; role: string }>
+  >([]);
   const [showDetails, setShowDetails] = useState(false);
   const [phase, setPhase] = useState<Phase>('scoring');
   const [roundOutcome, setRoundOutcome] = useState<RoundOutcome | null>(null);
@@ -103,6 +124,7 @@ export default function TeamPlayPage() {
     setCurrentChallenge(challenge);
     setUsedChallengeIds(newUsedIds);
     setDrawnTeams(drawTeams(challenge, teamName1, teamName2));
+    setDrawnPlayers(drawIndividualRoles(challenge, team1, team2));
     setShowDetails(false);
   }
 
@@ -113,10 +135,19 @@ export default function TeamPlayPage() {
         setCurrentChallenge(result.challenge);
         setUsedChallengeIds(result.newUsedIds);
         setDrawnTeams(drawTeams(result.challenge, teamName1, teamName2));
+        setDrawnPlayers(drawIndividualRoles(result.challenge, team1, team2));
         setShowDetails(false);
       }
     }
-  }, [loading, challenges, currentChallenge, teamName1, teamName2]);
+  }, [
+    loading,
+    challenges,
+    currentChallenge,
+    teamName1,
+    teamName2,
+    team1,
+    team2,
+  ]);
 
   function changeChallenge() {
     const result = computeNextChallenge(
@@ -509,6 +540,41 @@ export default function TeamPlayPage() {
                         style={{ font: '800 14px Nunito', margin: '1px 0' }}
                       >
                         {team}{' '}
+                        <span
+                          style={{ font: '700 12px Nunito', color: '#6b6154' }}
+                        >
+                          → {role}
+                        </span>
+                      </p>
+                    ))}
+                  </div>
+                )}
+                {drawnPlayers.length > 0 && (
+                  <div
+                    style={{
+                      marginTop: 4,
+                      padding: '8px 10px',
+                      background: 'var(--yellow)',
+                      borderRadius: 8,
+                      border: '2px solid var(--ink)',
+                    }}
+                  >
+                    <p
+                      style={{
+                        font: '800 11px Nunito',
+                        textTransform: 'uppercase',
+                        letterSpacing: 1,
+                        marginBottom: 4,
+                      }}
+                    >
+                      🎲 Tirage au sort
+                    </p>
+                    {drawnPlayers.map(({ player, role }) => (
+                      <p
+                        key={player}
+                        style={{ font: '800 14px Nunito', margin: '1px 0' }}
+                      >
+                        {player}{' '}
                         <span
                           style={{ font: '700 12px Nunito', color: '#6b6154' }}
                         >
