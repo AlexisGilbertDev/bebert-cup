@@ -69,6 +69,20 @@ export const DUEL_CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'duel-bresilienne-gage',
+    name: 'Brésilienne à Gage',
+    description:
+      'Pas de limite de touches ! Chaque joueur tiré au sort doit respecter le geste imposé par son gage (voir le tirage au sort ci-dessous). Celui qui fait tomber le ballon a perdu !',
+    minPlayers: 2,
+
+    draw: [
+      { role: 'mauvais pied' },
+      { role: 'genou' },
+      { role: 'tête' },
+      { role: 'aile de pigeon' },
+    ],
+  },
+  {
     id: 'duel-combat-de-coq',
     name: 'Combat de Coq',
     description:

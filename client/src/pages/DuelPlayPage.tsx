@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChallengeStopwatch from '../components/ChallengeStopwatch';
 import ChallengeTimer from '../components/ChallengeTimer';
@@ -7,6 +7,7 @@ import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
 import PageHeader from '../components/PageHeader';
 import { useSession } from '../context/session.context';
+import { shuffle } from '../game';
 import type { Challenge } from '../hooks/use-challenges';
 import { useDuelChallenges } from '../hooks/use-duel-challenges';
 import '../components/comic.css';
@@ -82,6 +83,25 @@ export default function DuelPlayPage() {
   const [usedChallengeIds, setUsedChallengeIds] = useState<ReadonlySet<string>>(
     new Set(),
   );
+  const [drawnPlayers, setDrawnPlayers] = useState<
+    Array<{ player: string; role: string }>
+  >([]);
+
+  const drawPlayers = useCallback(
+    (challenge: Challenge | null, pool: string[]) => {
+      if (!challenge?.draw || challenge.draw.length === 0) {
+        setDrawnPlayers([]);
+        return;
+      }
+      const shuffled = shuffle([...pool]);
+      setDrawnPlayers(
+        challenge.draw
+          .slice(0, shuffled.length)
+          .map((slot, index) => ({ player: shuffled[index], role: slot.role })),
+      );
+    },
+    [],
+  );
 
   useEffect(() => {
     if (players.length === 0) navigate('/');
@@ -97,6 +117,7 @@ export default function DuelPlayPage() {
       if (result) {
         setCurrentChallenge(result.challenge);
         setUsedChallengeIds(result.newUsedIds);
+        drawPlayers(result.challenge, activePlayers);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -153,6 +174,7 @@ export default function DuelPlayPage() {
     if (!result) return;
     setCurrentChallenge(result.challenge);
     setUsedChallengeIds(result.newUsedIds);
+    drawPlayers(result.challenge, activePlayers);
     resetRoundInputState();
   }
 
@@ -175,6 +197,7 @@ export default function DuelPlayPage() {
       if (tieResult) {
         setCurrentChallenge(tieResult.challenge);
         setUsedChallengeIds(tieResult.newUsedIds);
+        drawPlayers(tieResult.challenge, tied);
       }
       resetRoundInputState();
       setPhase('scoring');
@@ -196,6 +219,7 @@ export default function DuelPlayPage() {
       if (tieResult) {
         setCurrentChallenge(tieResult.challenge);
         setUsedChallengeIds(tieResult.newUsedIds);
+        drawPlayers(tieResult.challenge, tied);
       }
       resetRoundInputState();
       setPhase('scoring');
@@ -211,6 +235,7 @@ export default function DuelPlayPage() {
     if (nextResult) {
       setCurrentChallenge(nextResult.challenge);
       setUsedChallengeIds(nextResult.newUsedIds);
+      drawPlayers(nextResult.challenge, activePlayers);
     }
     resetRoundInputState();
     setPhase('scoring');
@@ -299,6 +324,16 @@ export default function DuelPlayPage() {
                 <p className="dp-challenge-desc">
                   {currentChallenge.description}
                 </p>
+                {drawnPlayers.length > 0 && (
+                  <div className="dp-draw">
+                    <p className="dp-draw-title">🎲 Tirage au sort</p>
+                    {drawnPlayers.map(({ player, role }) => (
+                      <p key={role} className="dp-draw-row">
+                        {player} <span className="dp-draw-role">→ {role}</span>
+                      </p>
+                    ))}
+                  </div>
+                )}
                 {currentChallenge.stopwatch && (
                   <div style={{ marginTop: 12 }}>
                     <ChallengeStopwatch players={activePlayers} />
