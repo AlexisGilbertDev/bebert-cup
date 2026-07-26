@@ -79,6 +79,31 @@
   color: #6b6154;
 }
 
+/* Draw (tirage au sort) panel */
+.dp-draw {
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.dp-draw-title {
+  font: 800 12px 'Nunito', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.dp-draw-row {
+  font: 800 15px 'Nunito', sans-serif;
+  margin: 2px 0;
+}
+
+.dp-draw-role {
+  font: 700 13px 'Nunito', sans-serif;
+  color: #6b6154;
+}
+
 /* Ranking section */
 .dp-ranking-section {
   display: flex;
