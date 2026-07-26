@@ -16,6 +16,13 @@ export const DUEL_CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'duel-jongle-genou',
+    name: 'Jongle du Genou',
+    description:
+      'Chacun votre tour, jonglez uniquement du genou. Celui qui en fait le plus gagne !',
+    minPlayers: 2,
+  },
+  {
     id: 'duel-jongle-distance',
     name: 'Jongle — Plus Longue Distance',
     description:
