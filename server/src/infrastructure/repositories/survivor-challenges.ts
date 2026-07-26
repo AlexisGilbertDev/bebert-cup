@@ -135,4 +135,11 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
       'Chacun votre tour, envoyez le ballon contre un mur et contrôlez-le en une seule touche. Le premier qui rate est éliminé !',
     minPlayers: 2,
   },
+  {
+    id: 'petit-pont',
+    name: 'Petit Pont',
+    description:
+      "Duels de petit pont entre les joueurs. Le premier qui s'en prend un est éliminé !",
+    minPlayers: 2,
+  },
 ];
