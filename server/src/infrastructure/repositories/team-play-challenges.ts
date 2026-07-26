@@ -94,9 +94,9 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
   },
   {
     id: 'team-petit-pont',
-    name: 'Petit Pont 1v1',
+    name: 'Petit Pont en Équipe',
     description:
-      "Les deux équipes s'affrontent — la première équipe à mettre un petit pont à n'importe quel adversaire gagne la manche !",
+      "Tous les joueurs des deux équipes jouent en même temps — chacun essaie de mettre un petit pont à n'importe quel adversaire. La première équipe dont un joueur y arrive gagne la manche !",
     minPlayers: 4,
   },
   {
