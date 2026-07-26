@@ -7,6 +7,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       "Chaque équipe tire 5 penaltys et s'organise comme elle le veut — qui tire, qui va au but. L'équipe qui en marque le plus gagne la manche !",
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-brasileira',
@@ -53,6 +54,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       "Chaque joueur choisit son placement et tire un coup franc — sans mur. Les rôles (tireur, gardien) se répartissent équitablement entre les deux équipes. L'équipe qui marque le plus gagne la manche !",
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-cul-rouge',
@@ -91,6 +93,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
       "Chaque joueur de l'équipe qui défend passe 30 secondes au but pendant que l'adversaire tire à volonté. L'équipe qui encaisse le moins de buts gagne la manche !",
     duration: 30,
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-petit-pont',
@@ -105,13 +108,15 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Match entre les deux équipes — la première à toucher un poteau gagne la manche !',
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-3-touches',
     name: 'Match 3 Touches',
     description:
-      'Match entre les deux équipes — chaque joueur n\'a le droit qu\'à 3 touches de balle maximum. La première équipe à marquer gagne la manche !',
+      "Match entre les deux équipes — chaque joueur n'a le droit qu'à 3 touches de balle maximum. La première équipe à marquer gagne la manche !",
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-mini-match',
@@ -119,6 +124,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Match en un but. La première équipe à marquer gagne la manche !',
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-crossbar-exterieur-1min',
@@ -127,6 +133,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
       "Chaque équipe tire depuis l'extérieur de la surface et vise la barre transversale pendant 1 minute chrono. L'équipe qui cumule le plus de barres gagne la manche !",
     duration: 60,
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-crossbar',
@@ -134,6 +141,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       "Chaque joueur essaie de tirer 2 fois sur la barre transversale depuis la ligne de la surface. L'équipe qui cumule le plus de barres gagne la manche !",
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-attaque-defense',
@@ -141,6 +149,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       "{{équipe attaque}} attaque, l'autre défend. L'équipe qui remporte le duel gagne la manche !",
     minPlayers: 4,
+    equipment: 'but',
 
     teamDraw: [{ role: 'équipe attaque' }],
   },
@@ -152,6 +161,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     details:
       "Corner rentrant : le ballon courbe vers l'intérieur du but et entre directement sans être touché par un autre joueur.",
     minPlayers: 4,
+    equipment: 'but',
   },
   {
     id: 'team-corner-duel',
@@ -159,6 +169,7 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       "{{équipe corner}} tire le corner. L'autre équipe choisit un gardien pour défendre le centre. L'équipe qui remporte le duel gagne la manche !",
     minPlayers: 4,
+    equipment: 'but',
 
     teamDraw: [{ role: 'équipe corner' }],
   },
@@ -168,5 +179,6 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     description:
       'Tous les joueurs des deux équipes jouent au mur en une seule touche, chacun leur tour. Le dernier joueur encore en vie fait gagner sa manche à son équipe !',
     minPlayers: 4,
+    equipment: 'mur',
   },
 ];

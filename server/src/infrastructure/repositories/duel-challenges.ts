@@ -46,6 +46,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
       "Chacun votre tour, tirez depuis l'extérieur de la surface et visez la barre transversale. Vous avez 1 minute chrono pour en mettre le plus possible. Celui qui touche le plus de fois la barre gagne !",
     duration: 60,
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-crossbar-5',
@@ -53,6 +54,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     description:
       'Chacun tire 5 fois depuis la ligne de la surface et vise la barre transversale. Celui qui touche le plus de fois la barre gagne !',
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-crossbar-reverse',
@@ -60,6 +62,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     description:
       "Tirez depuis la ligne de la surface pour toucher la barre transversale. Si vous réussissez, le joueur suivant a un tir pour annuler votre point — c'est le Reverse. S'il touche aussi la barre, c'est lui qui marque. Sinon, le point est à vous.",
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-bresilienne',
@@ -120,6 +123,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     details:
       "Corner rentrant : le ballon courbe vers l'intérieur du but (comme un corner qui entre directement sans être touché).",
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-tour-des-cages',
@@ -128,6 +132,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
       'Chacun votre tour, marquez un but dans toutes les cages du terrain le plus vite possible. Le chrono tourne — le plus rapide gagne !',
     stopwatch: true,
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-1v1',
@@ -135,6 +140,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     description: 'Un contre un, en un seul but ! Le premier qui marque gagne !',
     minPlayers: 2,
     maxPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-foot-golf',
@@ -150,6 +156,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     name: 'La Lucarne',
     description: 'Placement libre. Le premier qui met une lucarne a gagné !',
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-plus-beau-coup-franc',
@@ -157,6 +164,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     description:
       'Chacun choisit son placement et tente son plus beau coup franc en une seule tentative. Le plus beau gagne !',
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-penalties',
@@ -164,6 +172,7 @@ export const DUEL_CHALLENGES: Challenge[] = [
     description:
       'Tirs au but en 6 tentatives chacun. Le plus grand nombre de buts marque la victoire !',
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'duel-le-mur',
@@ -171,5 +180,6 @@ export const DUEL_CHALLENGES: Challenge[] = [
     description:
       'Chacun votre tour, envoyez le ballon contre un mur et enchaînez les allers-retours en une seule touche à chaque fois. Celui qui tient le plus longtemps sans faute gagne !',
     minPlayers: 2,
+    equipment: 'mur',
   },
 ];

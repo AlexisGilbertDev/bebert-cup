@@ -2,6 +2,8 @@ export interface ChallengeDrawSlot {
   role: string;
 }
 
+export type ChallengeEquipment = 'but' | 'mur';
+
 export interface Challenge {
   id: string;
   name: string;
@@ -14,4 +16,5 @@ export interface Challenge {
   draw?: ChallengeDrawSlot[];
   eliminableRoles?: string[];
   teamDraw?: ChallengeDrawSlot[];
+  equipment?: ChallengeEquipment;
 }
