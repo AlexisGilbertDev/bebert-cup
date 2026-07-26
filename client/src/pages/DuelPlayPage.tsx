@@ -120,8 +120,7 @@ export default function DuelPlayPage() {
         drawPlayers(result.challenge, activePlayers);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, challenges, activePlayers.length, currentChallenge]);
+  }, [loading, challenges, activePlayers, currentChallenge, drawPlayers]);
 
   function resetRoundInputState() {
     setOrderedRanks([]);

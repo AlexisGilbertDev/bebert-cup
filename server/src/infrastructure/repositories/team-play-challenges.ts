@@ -33,6 +33,21 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     minPlayers: 4,
   },
   {
+    id: 'team-bresilienne-gage',
+    name: 'Brésilienne à Gage en Équipe',
+    description:
+      "Chaque équipe joue sa brésilienne à gage — pas de limite de touches, mais chaque joueur tiré au sort doit respecter le geste imposé par son gage (voir le tirage au sort ci-dessous). L'équipe qui tient le plus longtemps gagne la manche !",
+    stopwatch: true,
+    minPlayers: 4,
+
+    draw: [
+      { role: 'mauvais pied' },
+      { role: 'genou' },
+      { role: 'tête' },
+      { role: 'aile de pigeon' },
+    ],
+  },
+  {
     id: 'team-coups-francs',
     name: 'Coups Francs',
     description:
@@ -44,6 +59,13 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     name: 'Cul Rouge',
     description:
       "Chaque équipe désigne un tireur et un receveur. Le receveur se retourne, se penche, et le tireur adverse lui envoie le ballon. L'équipe qui vise juste remporte la manche !",
+    minPlayers: 4,
+  },
+  {
+    id: 'team-jongle-mauvais-pied',
+    name: 'Jongle Mauvais Pied en Équipe',
+    description:
+      "Chaque joueur jongle uniquement du mauvais pied. Additionnez le nombre de jongles de tous les joueurs de votre équipe — l'équipe qui totalise le plus gagne la manche !",
     minPlayers: 4,
   },
   {

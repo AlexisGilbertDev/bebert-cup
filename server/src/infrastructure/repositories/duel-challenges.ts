@@ -9,6 +9,13 @@ export const DUEL_CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'duel-jongle-mauvais-pied',
+    name: 'Jongle Mauvais Pied',
+    description:
+      'Chacun votre tour, jonglez uniquement du mauvais pied. Celui qui en fait le plus gagne !',
+    minPlayers: 2,
+  },
+  {
     id: 'duel-jongle-distance',
     name: 'Jongle — Plus Longue Distance',
     description:
