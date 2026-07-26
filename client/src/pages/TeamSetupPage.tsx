@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Caption from '../components/Caption';
 import ComicButton from '../components/ComicButton';
 import ComicPanel from '../components/ComicPanel';
+import EquipmentToggle from '../components/EquipmentToggle';
 import PageHeader from '../components/PageHeader';
 import { readJson, removeJson, writeJson } from '../lib/local-storage';
 import {
@@ -309,6 +311,9 @@ export default function TeamSetupPage() {
             Vider les noms
           </ComicButton>
         )}
+
+        <Caption>Matériel disponible</Caption>
+        <EquipmentToggle />
 
         <ComicButton onClick={handleStart} disabled={!canStart}>
           DÉMARRER !

@@ -1,4 +1,9 @@
 import { useEffect, useState } from 'react';
+import {
+  type ChallengeEquipment,
+  isChallengePlayable,
+  readEquipmentSettings,
+} from '../lib/equipment';
 
 export interface ChallengeDrawSlot {
   role: string;
@@ -16,6 +21,7 @@ export interface Challenge {
   draw?: ChallengeDrawSlot[];
   eliminableRoles?: string[];
   teamDraw?: ChallengeDrawSlot[];
+  equipment?: ChallengeEquipment;
 }
 
 export function useChallenges() {
@@ -30,7 +36,12 @@ export function useChallenges() {
         return response.json();
       })
       .then((data: Challenge[]) => {
-        setChallenges(data);
+        const equipmentSettings = readEquipmentSettings();
+        setChallenges(
+          data.filter((challenge) =>
+            isChallengePlayable(challenge, equipmentSettings),
+          ),
+        );
         setLoading(false);
       })
       .catch(() => {

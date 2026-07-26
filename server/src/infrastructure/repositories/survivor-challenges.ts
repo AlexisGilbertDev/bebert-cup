@@ -7,6 +7,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       "Depuis la ligne de la surface, visez la barre transversale. Tirez dans l'ordre affiché. Le dernier à ne pas avoir touché la barre est éliminé !",
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'goal-line-precision',
@@ -14,6 +15,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       'Depuis la ligne médiane, envoyez votre ballon le plus près possible de la ligne de but. Le plus éloigné est éliminé !',
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'brasileira',
@@ -28,6 +30,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       '{{gardien}} va au but. Les autres tirent depuis la ligne de la surface — seuls les buteurs passent au tour suivant. Le grand gagnant choisit qui il veut éliminer !',
     minPlayers: 3,
+    equipment: 'but',
 
     draw: [{ role: 'gardien' }],
   },
@@ -55,6 +58,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       "Tout le monde frappe en dehors de la surface. Les participants se mettent d'accord à l'unanimité pour désigner la quiche qui aura fait la pire frappe qui sera éliminée !",
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'chandelle',
@@ -71,6 +75,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       "{{tireur}} doit tirer sur {{gardien}} mais c'est {{juge}} qui décide d'où le tir doit être effectué. Celui qui perd le duel est éliminé !",
     minPlayers: 3,
+    equipment: 'but',
 
     draw: [{ role: 'gardien' }, { role: 'tireur' }, { role: 'juge' }],
     eliminableRoles: ['gardien', 'tireur'],
@@ -83,6 +88,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     details:
       "Petit filet : les deux coins du but où le filet du fond rejoint le filet latéral — les poches dans les angles. Le ballon doit rentrer dans l'une de ces deux zones, pas juste dans le but.",
     minPlayers: 2,
+    equipment: 'but',
   },
   {
     id: 'jongle',
@@ -104,6 +110,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       "{{centreur}} envoie un centre, {{finisseur}} doit le reprendre de la tête. S'il rate, {{centreur}} tu es éliminé. S'il marque, élimine qui tu veux.",
     minPlayers: 4,
+    equipment: 'but',
 
     draw: [{ role: 'centreur' }, { role: 'finisseur' }],
   },
@@ -113,5 +120,6 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       'Tout le monde tire en dehors de la surface. Celui qui met le plus beau but choisit qui il veut éliminer !',
     minPlayers: 3,
+    equipment: 'but',
   },
 ];

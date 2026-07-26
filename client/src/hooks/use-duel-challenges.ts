@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { isChallengePlayable, readEquipmentSettings } from '../lib/equipment';
 import type { Challenge } from './use-challenges';
 
 export function useDuelChallenges() {
@@ -13,7 +14,12 @@ export function useDuelChallenges() {
         return response.json();
       })
       .then((data: Challenge[]) => {
-        setChallenges(data);
+        const equipmentSettings = readEquipmentSettings();
+        setChallenges(
+          data.filter((challenge) =>
+            isChallengePlayable(challenge, equipmentSettings),
+          ),
+        );
         setLoading(false);
       })
       .catch(() => {
