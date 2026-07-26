@@ -142,6 +142,7 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     description:
       'Chacun votre tour, envoyez le ballon contre un mur et contrôlez-le en une seule touche. Le premier qui rate est éliminé !',
     minPlayers: 2,
+    equipment: 'mur',
   },
   {
     id: 'petit-pont',

@@ -180,5 +180,6 @@ export const DUEL_CHALLENGES: Challenge[] = [
     description:
       'Chacun votre tour, envoyez le ballon contre un mur et enchaînez les allers-retours en une seule touche à chaque fois. Celui qui tient le plus longtemps sans faute gagne !',
     minPlayers: 2,
+    equipment: 'mur',
   },
 ];
