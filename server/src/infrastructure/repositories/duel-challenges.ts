@@ -62,6 +62,13 @@ export const DUEL_CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'duel-bresilienne-1-touche',
+    name: 'Brésilienne (1 touche)',
+    description:
+      'Brésilienne avec 1 touche maximum par joueur. Celui qui fait tomber le ballon a perdu !',
+    minPlayers: 2,
+  },
+  {
     id: 'duel-combat-de-coq',
     name: 'Combat de Coq',
     description:

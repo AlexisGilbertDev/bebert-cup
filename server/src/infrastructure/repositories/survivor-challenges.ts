@@ -30,6 +30,13 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
     minPlayers: 2,
   },
   {
+    id: 'brasileira-1-touche',
+    name: 'Brésilienne (1 touche)',
+    description:
+      'Brésilienne avec 1 touche maximum par joueur. Celui qui fait tomber la balle est éliminé !',
+    minPlayers: 2,
+  },
+  {
     id: 'qualification',
     name: 'Qualification',
     description:

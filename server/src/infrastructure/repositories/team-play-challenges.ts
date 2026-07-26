@@ -25,6 +25,14 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
     minPlayers: 4,
   },
   {
+    id: 'team-brasileira-1-touche',
+    name: 'Brésilienne en Équipe (1 touche)',
+    description:
+      "Chaque équipe joue sa brésilienne — 1 touche maximum par joueur, pas de touche au sol. L'équipe qui tient le plus longtemps gagne la manche !",
+    stopwatch: true,
+    minPlayers: 4,
+  },
+  {
     id: 'team-coups-francs',
     name: 'Coups Francs',
     description:
