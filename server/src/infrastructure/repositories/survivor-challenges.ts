@@ -128,4 +128,11 @@ export const SURVIVOR_CHALLENGES: Challenge[] = [
       'Tout le monde tire en dehors de la surface. Celui qui met le plus beau but choisit qui il veut éliminer !',
     minPlayers: 3,
   },
+  {
+    id: 'le-mur',
+    name: 'Le Mur',
+    description:
+      'Chacun votre tour, envoyez le ballon contre un mur et contrôlez-le en une seule touche. Le premier qui rate est éliminé !',
+    minPlayers: 2,
+  },
 ];

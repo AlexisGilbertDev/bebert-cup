@@ -158,4 +158,11 @@ export const DUEL_CHALLENGES: Challenge[] = [
       'Tirs au but en 6 tentatives chacun. Le plus grand nombre de buts marque la victoire !',
     minPlayers: 2,
   },
+  {
+    id: 'duel-le-mur',
+    name: 'Le Mur',
+    description:
+      'Chacun votre tour, envoyez le ballon contre un mur et enchaînez les allers-retours en une seule touche à chaque fois. Celui qui tient le plus longtemps sans faute gagne !',
+    minPlayers: 2,
+  },
 ];

@@ -162,4 +162,11 @@ export const TEAM_PLAY_CHALLENGES: Challenge[] = [
 
     teamDraw: [{ role: 'équipe corner' }],
   },
+  {
+    id: 'team-le-mur',
+    name: 'Le Mur en Équipe',
+    description:
+      'Tous les joueurs des deux équipes jouent au mur en une seule touche, chacun leur tour. Le dernier joueur encore en vie fait gagner sa manche à son équipe !',
+    minPlayers: 4,
+  },
 ];
